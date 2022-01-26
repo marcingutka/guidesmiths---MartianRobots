@@ -4,6 +4,8 @@ using MartianRobots.ConsoleIO.Mappers;
 using MartianRobots.ConsoleIO.DI;
 using MartianRobots.Logic.Manager;
 using MartianRobots.ConsoleIO.FileHandler;
+using MartianRobots.Data.Repositories;
+using MartianRobots.Data.Entities;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile(@"F:\guidesmiths\MartianRobots.ConsoleIO\appsettings.json")
@@ -14,12 +16,14 @@ var services = new ServiceCollection();
 DependencyInjection.CreateDependencies(services, config);
 
 var provider = services.BuildServiceProvider();
+var repository = provider.GetService<IDataNameWriteRepository>();
 
 //provide input for file path/console input
-var fileName = @"F:\guidesmiths\sampleInputs\SampleAll.txt";
+var fileName = "SampleAll.txt";
+var filePath = @"F:\guidesmiths\sampleInputs\" + fileName;
 
 var fileHandler = provider.GetService<IFileHandler>();
-var fileContent = fileHandler.ReadFile(fileName);
+var fileContent = fileHandler.ReadFile(filePath);
 
 var (Grid, Robots, Commands) = provider.GetService<IInputMapper>().Map(fileContent);
 
@@ -36,7 +40,9 @@ var (Grid, Robots, Commands) = provider.GetService<IInputMapper>().Map(fileConte
 var manager = provider.GetService<IRobotManager>();
 manager.AssignRobots(Grid, Robots.ToList(), Commands.ToList());
 
-await manager.ExecuteTasksAsync();
+var runId = await manager.ExecuteTasksAsync();
+
+await repository.SaveNameAsync(new DataName { RunId = runId, Name = fileName});
 
 Console.WriteLine("*********** OUTPUT ***************");
 

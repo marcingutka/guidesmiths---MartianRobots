@@ -44,7 +44,7 @@ namespace MartianRobots.Logic.Manager
             RobotCommands = robotCommands;
         }
 
-        public async Task ExecuteTasksAsync()
+        public async Task<Guid> ExecuteTasksAsync()
         {
             if (Grid is null || Robots is null || RobotCommands is null) throw new Exception("The data was not provided");
 
@@ -56,6 +56,8 @@ namespace MartianRobots.Logic.Manager
                 var commands = RobotCommands.FirstOrDefault(c => c.Id == robot.Id).Commands;
                 await ExecuteRobotTasks(robot, commands, runId);
             }
+
+            return runId;
         }
 
         private async Task ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands, Guid runId)

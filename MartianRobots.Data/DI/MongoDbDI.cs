@@ -23,6 +23,7 @@ namespace MartianRobots.Data.DI
             services.Configure<DatabaseConfig>(c => c.MongoDB = config.GetSection("Databases").GetSection("MongoDB").Value);
             services.AddSingleton<IDatabaseProvider<RobotStep>, DatabaseProvider<RobotStep>>();
             services.AddSingleton<IDatabaseProvider<SavedGrid>, DatabaseProvider<SavedGrid>>();
+            services.AddSingleton<IDatabaseProvider<DataName>, DatabaseProvider<DataName>>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
@@ -31,6 +32,7 @@ namespace MartianRobots.Data.DI
             services.AddScoped<IRobotStepWriteRepository, RobotStepWriteRepository>();
             //services.AddScoped<ISavedGridReadRepository, SavedGridReadRepository>();
             services.AddScoped<ISavedGridWriteRepository, SavedGridWriteRepository>();
+            services.AddScoped<IDataNameWriteRepository, DataNameWriteRepository>();
         }
     }
 }

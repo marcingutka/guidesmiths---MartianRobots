@@ -21,9 +21,9 @@ var filePath = @"F:\guidesmiths\sampleInputs\" + fileName;
 
 var fileContent = FileHandler.ReadFile(filePath);
 
-var (Grid, Robots, Commands) = InputMapper.Map(fileContent);
+var (grid, robots, commands) = InputMapper.Map(fileContent);
 
-RobotManager.AssignGridAndRobots(Grid, Robots.ToList(), Commands.ToList());
+RobotManager.AssignGridAndRobots(grid, robots.ToList(), commands.ToList());
 
 var runId = await RobotManager.ExecuteTasksAsync();
 
@@ -31,9 +31,9 @@ await DataNameWriteRepository.SaveNameAsync(new DataName { RunId = runId, Name =
 
 Console.WriteLine("*********** OUTPUT ***************");
 
-foreach (var robot in Robots)
+foreach (var robot in robots)
 {
     Console.WriteLine(robot.ToString());
 }
 
-FileHandler.WriteFile(Robots.Select(x => x.ToString()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));
+FileHandler.WriteFile(robots.Select(x => x.ToString()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));

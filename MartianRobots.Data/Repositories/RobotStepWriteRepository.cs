@@ -17,5 +17,10 @@ namespace MartianRobots.Data.Repositories
         {
             await martianRepository.InsertOneAsync(step);
         }
+
+        public async Task SaveRobotMovement(List<RobotStep> robotPositions)
+        {
+            await martianRepository.InsertManyAsync(robotPositions);
+        }
     }
 }

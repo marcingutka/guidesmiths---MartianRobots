@@ -11,7 +11,7 @@ namespace MartianRobots.Data.Entities
         [BsonRepresentation(BsonType.String)]
         public Guid RunId { get; set; }
         public int RobotId { get; set; }
-
+        public int StepNumber { get; set; }
         public GridPosition Position { get; set; }
         public string Command { get; set; }
         public bool IsLost { get; set; }

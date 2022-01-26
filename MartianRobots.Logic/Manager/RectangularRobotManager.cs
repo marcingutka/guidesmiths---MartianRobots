@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MartianRobots.Models;
+﻿using MartianRobots.Models;
 using MartianRobots.Logic.Services;
 using MartianRobots.Models.Constants;
 using MartianRobots.Logic.Validators;
@@ -37,7 +32,7 @@ namespace MartianRobots.Logic.Manager
             this.writeGridRepository = writeGridRepository;
         }
 
-        public void AssignRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands)
+        public void AssignGridAndRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands)
         {
             Grid = grid;
             Robots = robots;
@@ -53,20 +48,24 @@ namespace MartianRobots.Logic.Manager
 
             foreach (Robot robot in Robots)
             {
+                var metrics = new List<RobotStep>();
                 var commands = RobotCommands.FirstOrDefault(c => c.Id == robot.Id).Commands;
-                await ExecuteRobotTasks(robot, commands, runId);
+                ExecuteRobotTasks(robot, commands, runId, metrics);
+                await SaveRobotDataAsync(metrics);
             }
 
             return runId;
         }
 
-        private async Task ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands, Guid runId)
+        private void ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands, Guid runId, List<RobotStep> metrics)
         {
             GridPosition robotPosition = robot.Position;
+            int stepNo = 0;
 
             foreach (var command in commands)
             {
-                await SaveRobotDataAsync(runId, robot.Id, robotPosition, command);
+                stepNo++;
+                metrics.Add(CollectMetricData(runId, robot.Id, stepNo, robotPosition, command));
                 var nextPosition = cmdExecuter.Execute(robotPosition, command);
                 
                 if (IsMoveCommand(command) && positionValidator.IsRobotOffGrid(nextPosition, Grid))
@@ -74,22 +73,22 @@ namespace MartianRobots.Logic.Manager
                     if (positionValidator.IsRobotLost(robotPosition, EdgePositions))
                     {
                         robot.IsLost = true;
-                        robot.Position = robotPosition;
 
                         EdgePositions.Add(robotPosition);
 
-                        await SaveRobotDataAsync(runId, robot.Id, robotPosition, command, true);
+                        metrics.Add(CollectMetricData(runId, robot.Id, stepNo, robotPosition, command, true));
                         return;
                     }
 
-                    await SaveRobotDataAsync(runId, robot.Id, robotPosition, command);
+                    metrics.Add(CollectMetricData(runId, robot.Id, stepNo, robotPosition, command));
                     continue;
                 }
 
                 robotPosition = nextPosition;
             }
             robot.Position = robotPosition;
-            await SaveRobotDataAsync(runId, robot.Id, robotPosition);
+
+            metrics.Add(CollectMetricData(runId, robot.Id, stepNo, robotPosition));            
         }
 
         private static bool IsMoveCommand(RectangularMoveCommand command)
@@ -97,21 +96,22 @@ namespace MartianRobots.Logic.Manager
             return command != RectangularMoveCommand.Left && command != RectangularMoveCommand.Right;
         }
 
-        private async Task SaveRobotDataAsync(Guid runId, int robotId, GridPosition position, RectangularMoveCommand? command = null, bool isLost = false)
-        {
-            await writeRobotRepository.SaveRobotStepAsync(CreateRobotStep(runId, robotId, position, isLost, command));
-        }
-
-        private static RobotStep CreateRobotStep(Guid runId, int robotId, GridPosition position, bool isLost, RectangularMoveCommand? command)
+        private static RobotStep CollectMetricData(Guid runId, int robotId, int stepNo, GridPosition position, RectangularMoveCommand? command = null, bool isLost = false)
         {
             return new RobotStep
             {
                 RunId = runId,
                 RobotId = robotId,
+                StepNumber = stepNo,
                 Position = position,
                 IsLost = isLost,
                 Command = command is not null ? command.ToString() : string.Empty,
             };
+        }
+
+        private async Task SaveRobotDataAsync(List<RobotStep> robotPositions)
+        {
+            await writeRobotRepository.SaveRobotMovement(robotPositions);
         }
 
         private async Task SaveGridAsync(Guid runId, Grid grid)

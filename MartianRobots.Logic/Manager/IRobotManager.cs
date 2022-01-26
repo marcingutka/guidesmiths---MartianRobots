@@ -4,7 +4,7 @@ namespace MartianRobots.Logic.Manager
 {
     public interface IRobotManager
     {
-        void AssignRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands);
+        void AssignGridAndRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands);
         Task<Guid> ExecuteTasksAsync();
     }
 }

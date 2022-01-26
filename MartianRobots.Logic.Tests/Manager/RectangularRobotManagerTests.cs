@@ -72,7 +72,7 @@ namespace MartianRobots.Logic.Tests
             cmdExecuter.Execute(default, default).ReturnsForAnyArgs(new GridPosition { X = 3, Y = 4, Orientation = OrientationState.North});
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(false);
 
-            manager.AssignRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands);
 
             //Act
             await manager.ExecuteTasksAsync();
@@ -126,7 +126,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(true);
             positionValidator.IsRobotLost(default, default).ReturnsForAnyArgs(true);
 
-            manager.AssignRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands);
 
             //Act
             await manager.ExecuteTasksAsync();
@@ -180,7 +180,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(true);
             positionValidator.IsRobotLost(default, default).ReturnsForAnyArgs(true);
 
-            manager.AssignRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands);
 
             //Act
             await manager.ExecuteTasksAsync();

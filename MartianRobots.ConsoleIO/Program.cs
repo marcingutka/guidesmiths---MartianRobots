@@ -1,11 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using MartianRobots.ConsoleIO;
-using MartianRobots.ConsoleIO.Mappers;
 using MartianRobots.ConsoleIO.DI;
-using MartianRobots.Logic.Manager;
-using MartianRobots.ConsoleIO.FileHandler;
-using MartianRobots.Data.Repositories;
 using MartianRobots.Data.Entities;
 
 var config = new ConfigurationBuilder()
@@ -27,7 +23,7 @@ var fileContent = FileHandler.ReadFile(filePath);
 
 var (Grid, Robots, Commands) = InputMapper.Map(fileContent);
 
-RobotManager.AssignRobots(Grid, Robots.ToList(), Commands.ToList());
+RobotManager.AssignGridAndRobots(Grid, Robots.ToList(), Commands.ToList());
 
 var runId = await RobotManager.ExecuteTasksAsync();
 

@@ -9,8 +9,6 @@ namespace MartianRobots.ConsoleIO.Mappers
 {
     interface IInputMapper
     {
-        public Grid MapGrid(List<string> data);
-
-        public List<Robot> MapRobots(List<string> data);
+        (Grid Grid, IEnumerable<Robot> Robots, IEnumerable<RobotCommands> Commands) Map(List<string> data);
     }
 }

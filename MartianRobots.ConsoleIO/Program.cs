@@ -21,14 +21,12 @@ var fileContent = fileHandler.ReadFile(fileName);
 
 var mapper = provider.GetService<IInputMapper>();
 
-var grid = mapper.MapGrid(fileContent);
+var mappedData = mapper.Map(fileContent);
 
-var robots = mapper.MapRobots(fileContent);
-
-foreach (var robot in robots)
+foreach (var robot in mappedData.Robots)
 {
     Console.Write($"Id: { robot.Id }, X: {robot.Position.X}, Y: {robot.Position.Y}, Orient: {robot.Position.Orientation} Commands: ");
-    foreach (var command in robot.Commands)
+    foreach (var command in mappedData.Commands)
     {
         Console.Write(command + " ");
     }
@@ -38,21 +36,18 @@ foreach (var robot in robots)
 //TODO: do some work
 
 var manager = provider.GetService<IRobotManager>();
-manager.UploadGrid(grid);
+manager.AssignRobots(mappedData.Grid, mappedData.Robots.ToList(), mappedData.Commands.ToList());
 
-foreach (var robot in robots)
-{
-    manager.ExecuteCommands(robot);
-}
+manager.ExecuteTasks();
 
 //TODO: write output
 
 Console.WriteLine("\n\n*********** OUTPUT ***************");
 
-foreach (var robot in robots)
+foreach (var robot in mappedData.Robots)
 {
     Console.WriteLine(robot.ToString());
 }
 
 //path to output in setting.json
-fileHandler.WriteFile(robots.Select(x => x.ToString()), @"F:\guidesmiths\sampleInputs\output.txt");
+fileHandler.WriteFile(mappedData.Robots.Select(x => x.ToString()), @"F:\guidesmiths\sampleInputs\output.txt");

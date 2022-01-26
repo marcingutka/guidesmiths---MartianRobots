@@ -15,6 +15,8 @@ namespace MartianRobots.Logic.Manager
         private readonly ICommandExecuter<RectangularMoveCommand> cmdExecuter;
         private readonly IPositionValidator positionValidator;
         private Grid Grid { get; set; }
+        private List<Robot> Robots { get; set; }
+        private List<RobotCommands> RobotCommands { get; set; }
         private List<Position> EdgePositions {get; set;} = new List<Position>();
 
         public RectangularRobotManager(
@@ -26,18 +28,29 @@ namespace MartianRobots.Logic.Manager
             this.positionValidator = positionValidator;
         }
 
-        public void UploadGrid(Grid grid)
+        public void AssignRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands)
         {
-            this.Grid = grid;
+            Grid = grid;
+            Robots = robots;
+            RobotCommands = robotCommands;
         }
 
-        public void ExecuteCommands(Robot robot)
+        public void ExecuteTasks()
+        {
+            foreach (Robot robot in Robots)
+            {
+                var commands = RobotCommands.FirstOrDefault(c => c.Id == robot.Id).Commands;
+                ExecuteRobotTasks(robot, commands);
+            }
+        }
+
+        private void ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands)
         {
             if (Grid is null) throw new Exception("The grid was not provided");
 
             GridPosition robotPosition = robot.Position;
 
-            foreach (var command in robot.Commands)
+            foreach (var command in commands)
             {
                 var nextPosition = cmdExecuter.Execute(robotPosition, command);
                 

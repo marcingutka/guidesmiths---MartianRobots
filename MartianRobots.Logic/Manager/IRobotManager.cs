@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MartianRobots.Models;
+﻿using MartianRobots.Models;
 
 namespace MartianRobots.Logic.Manager
 {
     public interface IRobotManager
     {
-        public void UploadGrid(Grid grid);
-        public void ExecuteCommands(Robot robot);
+        void AssignRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands);
+        void ExecuteTasks();
     }
 }

@@ -10,46 +10,73 @@ namespace MartianRobots.ConsoleIO.Mappers
 {
     public class InputMapper : IInputMapper
     {
-        public Grid MapGrid(List<string> data)
+        public (Grid Grid, IEnumerable<Robot> Robots, IEnumerable<RobotCommands> Commands) Map(List<string> data)
         {
-            var lineSplit = data[0].Split(" ");
+            var grid = MapGrid(data[0]);
+
+            var robots = MapRobots(data.Skip(1).ToList());
+
+            return (grid, robots.Item1, robots.Item2);
+        }
+
+        private Grid MapGrid(string data)
+        {
+            var lineSplit = data.Split(" ");
 
             return new Grid(int.Parse(lineSplit[0]), int.Parse(lineSplit[1]));
         }
 
-        public List<Robot> MapRobots(List<string> data)
+        private (IEnumerable<Robot>, IEnumerable<RobotCommands>) MapRobots(List<string> data)
         {
-            data.Remove(data[0]);
-
             var robotList = new List<Robot>();
+            var robotsCommands = new List<RobotCommands>();
 
             for (int i = 0; i < data.Count; i += 2)
             {
-                var lineSplit = data[i].Split(" ");
+                var robot = MapRobot(data[i], i);
 
-                var robot = new Robot()
+                var commandList = MapCommands(data[i + 1]);
+
+                var robotCommands = new RobotCommands
                 {
-                    Id = i / 2 + 1,
-                    Position = new GridPosition()
+                    Id = robot.Id,
+                    Commands = GetMoveEnums(commandList)
                 };
 
-                robot.Position.X = int.Parse(lineSplit[0]);
-                robot.Position.Y = int.Parse(lineSplit[1]);
-                robot.Position.Orientation = GetOrientationEnum(lineSplit[2]);
-
-                var commands = new List<char>();
-
-                foreach (var command in data[i+1])
-                {
-                    commands.Add(command);
-                }
-
-                robot.Commands = GetMoveEnums(commands);
-
                 robotList.Add(robot);
+                robotsCommands.Add(robotCommands);
             }
 
-            return robotList;
+            return (robotList, robotsCommands);
+        }
+
+        private Robot MapRobot(string robotPosition, int enumerator)
+        {
+            var lineSplit = robotPosition.Split(" ");
+
+            var robot = new Robot()
+            {
+                Id = enumerator / 2 + 1,
+                Position = new GridPosition()
+            };
+
+            robot.Position.X = int.Parse(lineSplit[0]);
+            robot.Position.Y = int.Parse(lineSplit[1]);
+            robot.Position.Orientation = GetOrientationEnum(lineSplit[2]);
+
+            return robot;
+        }
+
+        private List<char> MapCommands(string commands)
+        {
+            var commandList = new List<char>();
+
+            foreach (var command in commands)
+            {
+                commandList.Add(command);
+            }
+
+            return commandList;
         }
 
         private static List<RectangularMoveCommand> GetMoveEnums(List<char> commands)

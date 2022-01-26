@@ -5,8 +5,6 @@ using MartianRobots.ConsoleIO.DI;
 using MartianRobots.Logic.Manager;
 using MartianRobots.ConsoleIO.FileHandler;
 
-Console.WriteLine("Hello, World!");
-
 var config = new ConfigurationBuilder()
     .AddJsonFile(@"F:\guidesmiths\MartianRobots.ConsoleIO\appsettings.json")
     .Build();
@@ -23,9 +21,7 @@ var fileName = @"F:\guidesmiths\sampleInputs\SampleAll.txt";
 var fileHandler = provider.GetService<IFileHandler>();
 var fileContent = fileHandler.ReadFile(fileName);
 
-var mapper = provider.GetService<IInputMapper>();
-
-var mappedData = mapper.Map(fileContent);
+var (Grid, Robots, Commands) = provider.GetService<IInputMapper>().Map(fileContent);
 
 /*foreach (var robot in mappedData.Robots)
 {
@@ -38,15 +34,15 @@ var mappedData = mapper.Map(fileContent);
 }*/
 
 var manager = provider.GetService<IRobotManager>();
-manager.AssignRobots(mappedData.Grid, mappedData.Robots.ToList(), mappedData.Commands.ToList());
+manager.AssignRobots(Grid, Robots.ToList(), Commands.ToList());
 
 await manager.ExecuteTasksAsync();
 
-Console.WriteLine("\n\n*********** OUTPUT ***************");
+Console.WriteLine("*********** OUTPUT ***************");
 
-foreach (var robot in mappedData.Robots)
+foreach (var robot in Robots)
 {
     Console.WriteLine(robot.ToString());
 }
 
-fileHandler.WriteFile(mappedData.Robots.Select(x => x.ToString()), config.GetSection("OutputFile").GetSection("Path").Value);
+fileHandler.WriteFile(Robots.Select(x => x.ToString()), config.GetSection("OutputFile").GetSection("Path").Value);

@@ -11,8 +11,8 @@ namespace MartianRobots.Logic.DI
         public static void CreateDependencies(IServiceCollection services)
         {
             services.AddSingleton<IPositionValidator, RectangularValidator>();
-            services.AddSingleton<IRobotManager, RectangularRobotManager>();
             services.AddSingleton<ICommandExecuter<RectangularMoveCommand>, RectangularCommandExecuter>();
+            services.AddScoped<IRobotManager, RectangularRobotManager>();
         }
     }
 }

@@ -37,6 +37,8 @@ namespace MartianRobots.Logic.Manager
 
         public void ExecuteTasks()
         {
+            if (Grid is null || Robots is null || RobotCommands is null) throw new Exception("The data was not provided");
+
             foreach (Robot robot in Robots)
             {
                 var commands = RobotCommands.FirstOrDefault(c => c.Id == robot.Id).Commands;
@@ -46,8 +48,6 @@ namespace MartianRobots.Logic.Manager
 
         private void ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands)
         {
-            if (Grid is null) throw new Exception("The grid was not provided");
-
             GridPosition robotPosition = robot.Position;
 
             foreach (var command in commands)

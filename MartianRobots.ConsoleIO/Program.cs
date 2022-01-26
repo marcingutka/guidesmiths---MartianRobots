@@ -4,13 +4,13 @@ using MartianRobots.ConsoleIO;
 using MartianRobots.ConsoleIO.DI;
 using MartianRobots.Data.Entities;
 
-var config = new ConfigurationBuilder()
+var configuration = new ConfigurationBuilder()
     .AddJsonFile(@"F:\guidesmiths\MartianRobots.ConsoleIO\appsettings.json")
     .Build();
 
 var services = new ServiceCollection();
 
-DependencyInjection.CreateDependencies(services, config);
+DependencyInjection.CreateDependencies(services, configuration);
 
 var provider = services.BuildServiceProvider();
 var (DataNameWriteRepository, FileHandler, InputMapper, RobotManager) = StartUp.GetServices(provider);
@@ -27,7 +27,7 @@ RobotManager.AssignGridAndRobots(Grid, Robots.ToList(), Commands.ToList());
 
 var runId = await RobotManager.ExecuteTasksAsync();
 
-await DataNameWriteRepository.SaveNameAsync(new DataName { RunId = runId, Name = fileName});
+await DataNameWriteRepository.SaveNameAsync(new DataName { RunId = runId, Name = fileName });
 
 Console.WriteLine("*********** OUTPUT ***************");
 
@@ -36,4 +36,4 @@ foreach (var robot in Robots)
     Console.WriteLine(robot.ToString());
 }
 
-FileHandler.WriteFile(Robots.Select(x => x.ToString()), config.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));
+FileHandler.WriteFile(Robots.Select(x => x.ToString()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));

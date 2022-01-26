@@ -22,7 +22,7 @@ namespace MartianRobots.Logic.Services
 
                 case RectangularMoveCommand.Forward:                    
                     var newPosition = MoveForward(position);
-                    return new GridPosition { X = newPosition.Item1, Y = newPosition.Item2, Orientation = position.Orientation };
+                    return new GridPosition { X = newPosition.X, Y = newPosition.Y, Orientation = position.Orientation };
 
                 default:
                     return position;
@@ -47,7 +47,7 @@ namespace MartianRobots.Logic.Services
             }
         }
 
-        private static (int, int) MoveForward(GridPosition position)
+        private static (int X, int Y) MoveForward(GridPosition position)
         {
             return position.Orientation switch
             {

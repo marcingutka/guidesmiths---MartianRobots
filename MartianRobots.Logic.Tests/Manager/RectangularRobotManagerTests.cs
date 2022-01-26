@@ -3,10 +3,12 @@ using MartianRobots.Logic.Services;
 using MartianRobots.Logic.Validators;
 using MartianRobots.Models;
 using MartianRobots.Models.Constants;
+using MartianRobots.Data.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MartianRobots.Logic.Tests
 {
@@ -14,6 +16,8 @@ namespace MartianRobots.Logic.Tests
     {
         private ICommandExecuter<RectangularMoveCommand> cmdExecuter;
         private IPositionValidator positionValidator;
+        private IRobotStepWriteRepository stepWriteRepository;
+        private ISavedGridWriteRepository savedGridWriteRepository;
 
         private RectangularRobotManager manager;
 
@@ -22,12 +26,14 @@ namespace MartianRobots.Logic.Tests
         {
             cmdExecuter = Substitute.For<ICommandExecuter<RectangularMoveCommand>>();
             positionValidator = Substitute.For<IPositionValidator>();
+            stepWriteRepository = Substitute.For<IRobotStepWriteRepository>();
+            savedGridWriteRepository = Substitute.For<ISavedGridWriteRepository>();
 
-            manager = new RectangularRobotManager(cmdExecuter, positionValidator);
+            manager = new RectangularRobotManager(cmdExecuter, positionValidator, stepWriteRepository, savedGridWriteRepository);
         }
 
         [Test]
-        public void Check_If_ExecuteTasks_Assign_New_Position_When_Robot_Has_Not_Been_Lost()
+        public async Task Check_If_ExecuteTasks_Assign_New_Position_When_Robot_Has_Not_Been_Lost()
         {
             //Arrange
             var robotId = 1;
@@ -69,7 +75,7 @@ namespace MartianRobots.Logic.Tests
             manager.AssignRobots(grid, robots, robotCommands);
 
             //Act
-            manager.ExecuteTasks();
+            await manager.ExecuteTasksAsync();
 
             //Assert
             var currentPosition = robots.First(r => r.Id == robotId).Position;
@@ -80,7 +86,7 @@ namespace MartianRobots.Logic.Tests
         }
 
         [Test]
-        public void Check_If_ExecuteTasks_Do_Not_Assign_New_Position_When_Robot_Has_Been_Lost()
+        public async Task Check_If_ExecuteTasks_Do_Not_Assign_New_Position_When_Robot_Has_Been_Lost()
         {
             //Arrange
             var robotId = 1;
@@ -123,7 +129,7 @@ namespace MartianRobots.Logic.Tests
             manager.AssignRobots(grid, robots, robotCommands);
 
             //Act
-            manager.ExecuteTasks();
+            await manager.ExecuteTasksAsync();
 
             //Assert
             var currentPosition = robots.First(r => r.Id == robotId).Position;
@@ -134,7 +140,7 @@ namespace MartianRobots.Logic.Tests
         }
 
         [Test]
-        public void Check_If_ExecuteTasks_Set_IsLost_To_True_When_Robot_Has_Been_Lost()
+        public async Task Check_If_ExecuteTasks_Set_IsLost_To_True_When_Robot_Has_Been_Lost()
         {
             //Arrange
             var robotId = 1;
@@ -177,7 +183,7 @@ namespace MartianRobots.Logic.Tests
             manager.AssignRobots(grid, robots, robotCommands);
 
             //Act
-            manager.ExecuteTasks();
+            await manager.ExecuteTasksAsync();
 
             //Assert
             Assert.IsTrue(robots.First(r => r.Id == robotId).IsLost);

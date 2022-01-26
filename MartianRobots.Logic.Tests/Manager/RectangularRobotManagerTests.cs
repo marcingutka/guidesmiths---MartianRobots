@@ -33,7 +33,7 @@ namespace MartianRobots.Logic.Tests
         }
 
         [Test]
-        public async Task Check_If_ExecuteTasks_Assign_New_Position_When_Robot_Has_Not_Been_Lost()
+        public async Task Check_If_ExecuteTasksAsync_Assign_New_Position_When_Robot_Has_Not_Been_Lost()
         {
             //Arrange
             var robotId = 1;
@@ -86,7 +86,7 @@ namespace MartianRobots.Logic.Tests
         }
 
         [Test]
-        public async Task Check_If_ExecuteTasks_Do_Not_Assign_New_Position_When_Robot_Has_Been_Lost()
+        public async Task Check_If_ExecuteTasksAsync_Do_Not_Assign_New_Position_When_Robot_Has_Been_Lost()
         {
             //Arrange
             var robotId = 1;
@@ -140,7 +140,7 @@ namespace MartianRobots.Logic.Tests
         }
 
         [Test]
-        public async Task Check_If_ExecuteTasks_Set_IsLost_To_True_When_Robot_Has_Been_Lost()
+        public async Task Check_If_ExecuteTasksAsync_Set_IsLost_To_True_When_Robot_Has_Been_Lost()
         {
             //Arrange
             var robotId = 1;

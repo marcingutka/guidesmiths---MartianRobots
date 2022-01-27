@@ -7,12 +7,7 @@ namespace MartianRobots.Analitics.Mappers
     {
         public LostRobot Map(RobotStep entity)
         {
-            return new LostRobot
-            {
-                RobotId = entity.RobotId,
-                Position = entity.Position,
-                Orientation = entity.Orientation,
-            };
+            return new LostRobot(entity.RobotId, entity.Position, entity.Orientation);
         }
     }
 }

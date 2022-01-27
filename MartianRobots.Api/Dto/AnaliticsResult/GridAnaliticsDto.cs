@@ -2,10 +2,5 @@
 
 namespace MartianRobots.Api.Dto.AnaliticsResult
 {
-    public class GridAnaliticsDto
-    {
-        public List<LostRobot> LostRobots { get; set;}
-
-        public AreaAnalitics DiscoveredArea { get; set;}
-    }
+    public record GridAnaliticsDto(List<LostRobot> LostRobots, AreaAnalitics DiscoveredArea, List<GridPoint> GridPoints);
 }

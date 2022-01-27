@@ -23,17 +23,14 @@ namespace MartianRobots.Api.Controllers
         {
             var lostRobots = gridAnaliticsService.GetAllLostRobotsByRunId(runId).ToList();
             var discoveredArea = gridAnaliticsService.GetAreaCalculations(runId);
+            var noOfRobotsInGridPoints = gridAnaliticsService.GetGridPoints(runId).ToList();
 
-            return Ok(CreateAnaliticsData(lostRobots, discoveredArea));
+            return Ok(CreateAnaliticsData(lostRobots, discoveredArea, noOfRobotsInGridPoints));
         }
 
-        private static GridAnaliticsDto CreateAnaliticsData(List<LostRobot> lostRobots, AreaAnalitics area)
+        private static GridAnaliticsDto CreateAnaliticsData(List<LostRobot> lostRobots, AreaAnalitics area, List<GridPoint> gridPoints)
         {
-            return new GridAnaliticsDto
-            {
-                LostRobots = lostRobots,
-                DiscoveredArea = area,
-            };
+            return new GridAnaliticsDto(lostRobots, area, gridPoints);
         }
     }
 }

@@ -6,5 +6,6 @@ namespace MartianRobots.Analitics.Services
     {
         IEnumerable<LostRobot> GetAllLostRobotsByRunId(Guid runId);
         AreaAnalitics GetAreaCalculations(Guid runId);
+        IEnumerable<GridPoint> GetGridPoints(Guid runId);
     }
 }

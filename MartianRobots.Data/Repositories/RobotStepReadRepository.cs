@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MartianRobots.Data.Entities;
 using MartianRobots.Data.Providers;
 using MartianRobots.Models;
@@ -33,6 +32,13 @@ namespace MartianRobots.Data.Repositories
         public IEnumerable<Position> GetRobotsDistinctPositions(Guid runId)
         {
             var result = martianRepository.AsQueryable().Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
+            return result;
+        }
+
+        public IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId)
+        {
+            var result = martianRepository.Aggregate().Group(x => x.Position, z => new Tuple<Position, int>(z.Key, z.Count())).SortBy(x => x.Item1.X).ThenBy(x => x.Item1.Y).ToEnumerable();
+
             return result;
         }
     }

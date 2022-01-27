@@ -1,6 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq;
+using MongoDB.Driver;
 using MartianRobots.Data.Entities;
 using MartianRobots.Data.Providers;
+using MartianRobots.Models;
 
 namespace MartianRobots.Data.Repositories
 {
@@ -13,14 +15,25 @@ namespace MartianRobots.Data.Repositories
             martianRepository = provider.GetCollection();
         }
 
-        public long GetRobotsByRunId(Guid guid)
+        public long GetRobotCountByRunId(Guid runId)
         {
-            return martianRepository.AsQueryable().Where(x => x.RunId == guid && x.StepNumber == 1).Count();
+            return martianRepository.AsQueryable().Where(x => x.RunId == runId && x.StepNumber == 1).Count();
         }
 
-        public IEnumerable<RobotStep> GetRobotSteps(Guid guid, int robotId)
+        public IEnumerable<RobotStep> GetRobotSteps(Guid runId, int robotId)
         {
-            return martianRepository.AsQueryable().Where(x => x.RunId == guid && x.RobotId == robotId);
+            return martianRepository.AsQueryable().Where(x => x.RunId == runId && x.RobotId == robotId);
+        }
+
+        public IEnumerable<RobotStep> GetLostRobotsByRunId(Guid runId)
+        {
+            return martianRepository.AsQueryable().Where(x => x.RunId == runId && x.IsLost == true);
+        }
+
+        public IEnumerable<Position> GetRobotsDistinctPositions(Guid runId)
+        {
+            var result = martianRepository.AsQueryable().Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MartianRobots.Api.Dto;
+﻿using MartianRobots.Analitics.DI;
+using MartianRobots.Api.Dto;
 using MartianRobots.Api.Mappers;
 using MartianRobots.Data.DI;
 using MartianRobots.Data.Entities;
@@ -12,6 +13,7 @@ namespace MartianRobots.Api.DI
             ConfigureApiServices(services);
             ConfigureMappers(services);
 
+            AnaliticsDependencyInjection.ConfigureServices(services);
             MongoDbDI.ConfigureServices(services, config);
             services.AddControllers();
         }

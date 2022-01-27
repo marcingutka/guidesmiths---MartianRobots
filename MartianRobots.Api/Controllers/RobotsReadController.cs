@@ -6,7 +6,7 @@ using MartianRobots.Data.Repositories;
 
 namespace MartianRobots.Api.Controllers
 {
-    [Route("api/robots")]
+    [Route("api/robots/{runId}")]
     [ApiController]
     public class RobotsReadController : ControllerBase
     {
@@ -22,16 +22,16 @@ namespace MartianRobots.Api.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("{runId}")]
+        [HttpGet()]
         public ActionResult<long> GetRobotsByRunId(Guid runId)
         {
-            var robotsCount = robotsReadRepository.GetRobotsByRunId(runId);
+            var robotsCount = robotsReadRepository.GetRobotCountByRunId(runId);
 
             return Ok(robotsCount);
         }
 
-        [HttpGet("{runId}/{robotId}")]
-        public ActionResult<List<RobotStep>> GetRobotSteps(Guid runId, int robotId)
+        [HttpGet("{robotId}")]
+        public ActionResult<IEnumerable<RobotStep>> GetRobotSteps(Guid runId, int robotId)
         {
             return Ok(robotsReadRepository.GetRobotSteps(runId, robotId).Select(mapper.Map));
         }

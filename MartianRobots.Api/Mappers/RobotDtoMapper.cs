@@ -31,7 +31,7 @@ namespace MartianRobots.Api.Mappers
                 StepNumber = entity.StepNumber,
                 X = entity.Position.X,
                 Y = entity.Position.Y,
-                Orientation = entity.Position.Orientation,
+                Orientation = entity.Orientation,
                 Command = entity.Command,
                 IsLost= entity.IsLost,
             };

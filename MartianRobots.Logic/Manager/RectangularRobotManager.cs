@@ -103,7 +103,8 @@ namespace MartianRobots.Logic.Manager
                 RunId = runId,
                 RobotId = robotId,
                 StepNumber = stepNo,
-                Position = position,
+                Position = new Position { X = position.X, Y = position.Y },
+                Orientation = position.Orientation,
                 IsLost = isLost,
                 Command = command is not null ? command.ToString() : string.Empty,
             };

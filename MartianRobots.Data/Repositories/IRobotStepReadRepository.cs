@@ -4,6 +4,7 @@ namespace MartianRobots.Data.Repositories
 {
     public interface IRobotStepReadRepository
     {
-        IEnumerable<RobotStep> GetByRunId(Guid guid);
+        long GetRobotsByRunId(Guid guid);
+        IEnumerable<RobotStep> GetRobotSteps(Guid guid, int robotId);
     }
 }

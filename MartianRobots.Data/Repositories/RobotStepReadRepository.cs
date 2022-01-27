@@ -13,9 +13,14 @@ namespace MartianRobots.Data.Repositories
             martianRepository = provider.GetCollection();
         }
 
-        public IEnumerable<RobotStep> GetByRunId(Guid guid)
+        public long GetRobotsByRunId(Guid guid)
         {
-            return martianRepository.Find(x => x.RunId == guid).ToEnumerable();
+            return martianRepository.AsQueryable().Where(x => x.RunId == guid && x.StepNumber == 1).Count();
+        }
+
+        public IEnumerable<RobotStep> GetRobotSteps(Guid guid, int robotId)
+        {
+            return martianRepository.AsQueryable().Where(x => x.RunId == guid && x.RobotId == robotId);
         }
     }
 }

@@ -4,16 +4,16 @@ using MartianRobots.Data.Providers;
 
 namespace MartianRobots.Data.Repositories
 {
-    public class DataNameWriteRepository : IDataNameWriteRepository
+    public class DataSetWriteRepository : IDataSetWriteRepository
     {
-        private readonly IMongoCollection<DataName> martianRepository;
+        private readonly IMongoCollection<DataSet> martianRepository;
 
-        public DataNameWriteRepository(IDatabaseProvider<DataName> provider)
+        public DataSetWriteRepository(IDatabaseProvider<DataSet> provider)
         {
             martianRepository = provider.GetCollection();
         }
 
-        public async Task SaveNameAsync(DataName name)
+        public async Task SaveNameAsync(DataSet name)
         {
             await martianRepository.InsertOneAsync(name);
         }

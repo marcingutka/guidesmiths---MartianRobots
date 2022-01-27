@@ -2,8 +2,8 @@
 
 namespace MartianRobots.Data.Repositories
 {
-    public interface IDataNameWriteRepository
+    public interface IDataSetReadRepository
     {
-        Task SaveNameAsync(DataName name);
+        IEnumerable<DataSet> GetAllSets();
     }
 }

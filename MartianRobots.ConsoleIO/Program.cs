@@ -29,7 +29,7 @@ robotManager.AssignGridAndRobots(grid, robots, commands);
 
 var runId = await robotManager.ExecuteTasksAsync();
 
-await dataNameWriteRepository.SaveNameAsync(new DataName { RunId = runId, Name = fileName });
+await dataNameWriteRepository.SaveNameAsync(new DataSet { RunId = runId, Name = fileName, GenerationDate = DateTime.UtcNow });
 
 Console.WriteLine("*********** OUTPUT ***************");
 

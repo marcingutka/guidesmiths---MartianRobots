@@ -8,9 +8,9 @@ namespace MartianRobots.ConsoleIO
 {
     internal static class StartUp
     {
-        internal static (IDataNameWriteRepository DataNameWriteRepository, IFileHandler FileHandler, IInputMapper InputMapper, IRobotManager RobotManager) GetServices(ServiceProvider provider)
+        internal static (IDataSetWriteRepository DataNameWriteRepository, IFileHandler FileHandler, IInputMapper InputMapper, IRobotManager RobotManager) GetServices(ServiceProvider provider)
         {
-            var repository = provider.GetService<IDataNameWriteRepository>();
+            var repository = provider.GetService<IDataSetWriteRepository>();
             var fileHandler = provider.GetService<IFileHandler>();
             var inputMapper = provider.GetService<IInputMapper>();
             var manager = provider.GetService<IRobotManager>();

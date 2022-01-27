@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Models", "Mar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.ConsoleIO", "MartianRobots.ConsoleIO\MartianRobots.ConsoleIO.csproj", "{044094C3-9B91-4A11-89DC-AD26B21D21AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Data", "MartianRobots.Data\MartianRobots.Data.csproj", "{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Data", "MartianRobots.Data\MartianRobots.Data.csproj", "{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Api", "MartianRobots.Api\MartianRobots.Api.csproj", "{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Analitics", "MartianRobots.Analitics\MartianRobots.Analitics.csproj", "{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

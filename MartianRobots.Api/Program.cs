@@ -8,6 +8,11 @@ DependencyInjection.ConfigureServices(builder.Services, builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opt => opt.AddPolicy(name: "FrontClient", builder =>
+{
+    builder.WithOrigins("http://localhost:3000");
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +23,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("FrontClient");
 
 app.UseAuthorization();
 

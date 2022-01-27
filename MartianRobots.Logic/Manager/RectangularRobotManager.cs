@@ -15,8 +15,8 @@ namespace MartianRobots.Logic.Manager
         private readonly ISavedGridWriteRepository writeGridRepository;
 
         private Grid Grid { get; set; }
-        private List<Robot> Robots { get; set; }
-        private List<RobotCommands> RobotCommands { get; set; }
+        private IEnumerable<Robot> Robots { get; set; }
+        private IEnumerable<RobotCommands> RobotCommands { get; set; }
         private List<Position> EdgePositions {get; set;} = new List<Position>();
 
         public RectangularRobotManager(
@@ -32,7 +32,7 @@ namespace MartianRobots.Logic.Manager
             this.writeGridRepository = writeGridRepository;
         }
 
-        public void AssignGridAndRobots(Grid grid, List<Robot> robots, List<RobotCommands> robotCommands)
+        public void AssignGridAndRobots(Grid grid, IEnumerable<Robot> robots, IEnumerable<RobotCommands> robotCommands)
         {
             Grid = grid;
             Robots = robots;

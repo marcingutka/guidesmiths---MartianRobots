@@ -15,6 +15,8 @@ DependencyInjection.CreateDependencies(services, configuration);
 var provider = services.BuildServiceProvider();
 var (dataNameWriteRepository, fileHandler, inputMapper, robotManager) = StartUp.GetServices(provider);
 
+//check db connection -> https://stackoverflow.com/questions/28835833/how-to-check-connection-to-mongodb
+
 //provide input for file path/console input
 var fileName = "SampleAll.txt";
 var filePath = @"F:\guidesmiths\sampleInputs\" + fileName;
@@ -23,7 +25,7 @@ var fileContent = fileHandler.ReadFile(filePath);
 
 var (grid, robots, commands) = inputMapper.Map(fileContent);
 
-robotManager.AssignGridAndRobots(grid, robots.ToList(), commands.ToList());
+robotManager.AssignGridAndRobots(grid, robots, commands);
 
 var runId = await robotManager.ExecuteTasksAsync();
 

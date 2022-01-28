@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.ConsoleIO", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Data", "MartianRobots.Data\MartianRobots.Data.csproj", "{35CB9304-CA73-4CC9-91FF-A0F5BE5BFCC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Api", "MartianRobots.Api\MartianRobots.Api.csproj", "{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Api", "MartianRobots.Api\MartianRobots.Api.csproj", "{A7BC99A2-91B9-46FE-BBA0-4A0798790F96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.Analitics", "MartianRobots.Analitics\MartianRobots.Analitics.csproj", "{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Analitics", "MartianRobots.Analitics\MartianRobots.Analitics.csproj", "{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.FileHandler", "MartianRobots.FileHandler\MartianRobots.FileHandler.csproj", "{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7F1FE2-F541-40CA-B0E7-C84FBEC59026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

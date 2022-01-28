@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MartianRobots.Models;
+﻿using MartianRobots.Models;
 using MartianRobots.Models.Constants;
 
-namespace MartianRobots.ConsoleIO.Mappers
+namespace MartianRobots.FileHandler.Mappers
 {
     public class InputMapper : IInputMapper
     {

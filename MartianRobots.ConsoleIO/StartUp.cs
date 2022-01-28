@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MartianRobots.ConsoleIO.Mappers;
+using MartianRobots.FileHandler.Mappers;
 using MartianRobots.Logic.Manager;
-using MartianRobots.ConsoleIO.FileHandler;
+using MartianRobots.FileHandler;
 using MartianRobots.Data.Repositories;
 
 namespace MartianRobots.ConsoleIO

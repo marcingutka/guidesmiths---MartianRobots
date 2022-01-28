@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MartianRobots.FileHandler\MartianRobots.FileHandler.csproj" />
     <ProjectReference Include="..\MartianRobots.Logic\MartianRobots.Logic.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MartianRobots.ConsoleIO.FileHandler
+namespace MartianRobots.FileHandler
 {
     public class TxtFileHandler : IFileHandler
     {

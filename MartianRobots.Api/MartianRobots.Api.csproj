@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MartianRobots.Analitics\MartianRobots.Analitics.csproj" />
     <ProjectReference Include="..\MartianRobots.Data\MartianRobots.Data.csproj" />
+    <ProjectReference Include="..\MartianRobots.FileHandler\MartianRobots.FileHandler.csproj" />
     <ProjectReference Include="..\MartianRobots.Logic\MartianRobots.Logic.csproj" />
   </ItemGroup>
 

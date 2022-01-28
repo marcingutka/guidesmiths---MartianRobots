@@ -1,8 +1,10 @@
 ﻿using MartianRobots.Analitics.DI;
 using MartianRobots.Api.Dto;
 using MartianRobots.Api.Mappers;
+using MartianRobots.Api.Services;
 using MartianRobots.Data.DI;
 using MartianRobots.Data.Entities;
+using MartianRobots.FileHandler.DI;
 
 namespace MartianRobots.Api.DI
 {
@@ -15,12 +17,14 @@ namespace MartianRobots.Api.DI
 
             AnaliticsDependencyInjection.ConfigureServices(services);
             MongoDbDI.ConfigureServices(services, config);
+            FileHandlerDI.ConfigureServices(services);
+            Logic.DI.DependencyInjection.CreateDependencies(services, config);
+
             services.AddControllers();
         }
         private static void ConfigureApiServices(IServiceCollection services)
         {
-            //services.AddScoped<ICurrentGameReadService, CurrentGameReadService>();
-            //services.AddScoped<ICurrentGameWriteService, CurrentGameWriteService>();
+            services.AddScoped<IUploadFileRunner, UploadFileRunner>();
         }
 
         private static void ConfigureMappers(IServiceCollection services)

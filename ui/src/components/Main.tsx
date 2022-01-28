@@ -14,12 +14,13 @@ export const Main = () =>
   const [pages, setPages] = React.useState(1);
   const [data, setData] = React.useState<IDataSet[]>([]);
   const [selectedFile, setSelectedFile] = React.useState<File>();
+  const [selectedName, setSelectedName] = React.useState<string>("");
+
+  const fetchData = async () => {
+    const response = await GetDataSets();
+    setData(response.data)};
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await GetDataSets();
-      setData(response.data)
-    }
       fetchData();
   }, []);
 
@@ -27,18 +28,29 @@ export const Main = () =>
     setPages(Math.ceil(data.length/displayedItem));
   }, [data, displayedItem])
 
+  async function onFileUploadHandler(selectedFile: File | undefined, runName: string): Promise<void> {
+    if(selectedFile)
+    {
+      await UploadFile(selectedFile, runName)     
+      fetchData();
+    };
+  }
+
   const isPaginated: boolean = data.length > displayedItem;  
 
   var paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
+
+  console.log('naem', selectedName);
 
 
    return (
     <React.Fragment>
       <Container fluid="sm">
         <Row className="align-items-center">
-          <Col className="mb-3">
+          <Col className="mb-3 mycolumn">
             <input className="form-control" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
-            <button type="button" className="m-2 btn btn-success" onClick={() => onFileUploadHandler(selectedFile)} >Upload file</button>
+            <input className="form-control" onChange={(event) => setSelectedName(event.target.value)} />
+            <button type="button" className="m-2 btn btn-success" onClick={() => onFileUploadHandler(selectedFile, selectedName)} >Upload file</button>
           </Col>
           <Col><div className="d-flex justify-content-center">OR choose already finished run</div></Col>
           <Col>
@@ -85,7 +97,3 @@ function GenerateDataSetList(navigate: NavigateFunction, paginatedData: IDataSet
     </React.Fragment>
 }
 
-function onFileUploadHandler(selectedFile: File | undefined): void {
-  console.log(selectedFile);
-  if(selectedFile) UploadFile(selectedFile);
-}

@@ -10,7 +10,7 @@ namespace MartianRobots.ConsoleIO.DI
         public static void CreateDependencies(IServiceCollection services, IConfiguration config)
         {
             LogicDI.DependencyInjection.CreateDependencies(services, config);
-            FileHandlerDI.CreateDependencies(services);
+            FileHandlerDI.ConfigureServices(services);
         }
     }
 }

@@ -8,10 +8,12 @@ export async function GetDataSets(): Promise<AxiosPromise<IDataSet[]>> {
     return res;
 }
 
-export async function UploadFile(file: File): Promise<AxiosPromise<any>> {
+export async function UploadFile(file: File, runName: string): Promise<AxiosPromise<any>> {
+    var name = runName.length === 0? file.name : runName;
+    console.log(runName);
     var formData = new FormData();
     formData.append('file', file);
-    return axios.post(dataSetApiUrl + "/upload", formData, {headers: {'Conetnt-Type': 'multipart/form-data'}});
+    return await axios.post(dataSetApiUrl + "/upload/" + name, formData, {headers: {'Conetnt-Type': 'multipart/form-data'}});
 }
 
 

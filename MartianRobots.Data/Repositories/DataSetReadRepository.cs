@@ -15,7 +15,7 @@ namespace MartianRobots.Data.Repositories
 
         public IEnumerable<DataSet> GetAllSets()
         {
-            return martianRepository.AsQueryable();
+            return martianRepository.AsQueryable().OrderByDescending(s => s.GenerationDate);
         }
     }
 }

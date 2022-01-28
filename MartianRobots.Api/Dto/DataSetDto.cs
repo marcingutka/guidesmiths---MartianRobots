@@ -4,6 +4,6 @@
     {
         public Guid RunId { get; set; }
         public string Name { get; set; }
-        public DateTime GenerationDate { get; set; }
+        public string GenerationDate { get; set; }
     }
 }

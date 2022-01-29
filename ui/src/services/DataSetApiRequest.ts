@@ -13,7 +13,7 @@ export async function UploadFile(file: File, runName: string): Promise<AxiosProm
     console.log(runName);
     var formData = new FormData();
     formData.append('file', file);
-    return await axios.post(dataSetApiUrl + "/upload/" + name, formData, {headers: {'Conetnt-Type': 'multipart/form-data'}});
+    return await axios.post(dataSetApiUrl + "/upload/" + name, formData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
 
 export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {    

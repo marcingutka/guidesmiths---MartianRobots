@@ -16,5 +16,9 @@ export async function UploadFile(file: File, runName: string): Promise<AxiosProm
     return await axios.post(dataSetApiUrl + "/upload/" + name, formData, {headers: {'Conetnt-Type': 'multipart/form-data'}});
 }
 
+export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
+    return await axios.delete(dataSetApiUrl + "/" + runId, {headers: {'Access-Control-Allow-Origin': '*'}});
+}
+
 
 

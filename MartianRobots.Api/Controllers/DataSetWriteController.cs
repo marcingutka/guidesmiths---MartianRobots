@@ -1,6 +1,6 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MartianRobots.Api.Services;
+using MartianRobots.Data.Repositories;
 
 namespace MartianRobots.Api.Controllers
 {
@@ -9,10 +9,15 @@ namespace MartianRobots.Api.Controllers
     public class DataSetWriteController : ControllerBase
     {
         private readonly IUploadFileRunner fileRunner;
+        private readonly IDataSetWriteRepository dataSetWriteRepository;
 
-        public DataSetWriteController(IUploadFileRunner fileRunner)
+        public DataSetWriteController(
+            IUploadFileRunner fileRunner,
+            IDataSetWriteRepository dataSetWriteRepository
+            )
         {
             this.fileRunner = fileRunner;
+            this.dataSetWriteRepository = dataSetWriteRepository;
         }
 
         [HttpPost("upload/{name}")]
@@ -36,6 +41,14 @@ namespace MartianRobots.Api.Controllers
             }
 
             await fileRunner.RunFile(fullPath, string.IsNullOrEmpty(name)? fileName : name);
+
+            return Ok();
+        }
+
+        [HttpDelete("{runId}")]
+        public async Task<ActionResult> DeleteDataSet(Guid runId)
+        {
+            await dataSetWriteRepository.DeleteDataSetAsync(runId);
 
             return Ok();
         }

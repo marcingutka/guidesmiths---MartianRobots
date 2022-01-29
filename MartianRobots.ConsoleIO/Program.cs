@@ -18,7 +18,7 @@ var (dataNameWriteRepository, fileHandler, inputMapper, robotManager) = StartUp.
 //check db connection -> https://stackoverflow.com/questions/28835833/how-to-check-connection-to-mongodb
 
 //provide input for file path/console input
-var fileName = "Sample.txt";
+var fileName = "Sample2LOST.txt";
 var filePath = @"F:\guidesmiths\sampleInputs\" + fileName;
 
 var fileContent = fileHandler.ReadFile(filePath);

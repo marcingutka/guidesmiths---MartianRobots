@@ -73,6 +73,7 @@ namespace MartianRobots.Logic.Manager
                     if (positionValidator.IsRobotLost(robotPosition, EdgePositions))
                     {
                         robot.IsLost = true;
+                        robot.Position = robotPosition;
 
                         EdgePositions.Add(robotPosition);
 

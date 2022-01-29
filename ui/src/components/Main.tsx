@@ -65,12 +65,12 @@ export const Main = () =>
           <label className="d-flex justify-content-center bold-text">choose already finished run</label>
           </Col>
         </Row>
-        <Row className="justify-content-md-center listHeader">          
+        <Row className="justify-content-md-center listHeader row-cols-2">          
           <Col>
             <Row className="center-row listHeader">
-              <Col className="d-flex justify-content-center">Run name / File Name</Col>
-              <Col className="d-flex justify-content-center">Date (UTC)</Col>
-              <Col className="d-flex justify-content-center"></Col>
+              <Col className="d-flex justify-content-center col-5">Run name / File Name</Col>
+              <Col className="d-flex justify-content-center col-2">Date (UTC)</Col>
+              <Col className="d-flex justify-content-center col-2"></Col>
             </Row>
             {GenerateDataSetList(navigate, deleteHandler, paginatedData)}
             {<Row>
@@ -96,10 +96,10 @@ function GenerateDataSetList(navigate: NavigateFunction, deleteHandler: (n: stri
   return <React.Fragment>
   {paginatedData.map((x) => { return (
     <Row className="m-2 justify-content-center">
-      <Col className="d-flex justify-content-center">
+      <Col className="d-flex justify-content-center col-4">
         <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name}</button>
       </Col>
-      <Col className="d-flex justify-content-center">
+      <Col className="d-flex justify-content-center col-4">
         {x.generationDate}
       </Col>
       <Col className="d-flex justify-content-center">

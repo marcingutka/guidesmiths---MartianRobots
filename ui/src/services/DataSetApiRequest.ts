@@ -1,5 +1,5 @@
 import axios, { Axios, AxiosPromise, AxiosResponse } from 'axios';
-import {IDataSet} from '../components/Model/IDataSet'
+import { IDataSet } from '../components/Model/IDataSet'
 
 const dataSetApiUrl = "https://localhost:7236/api/dataSet";
 
@@ -19,6 +19,3 @@ export async function UploadFile(file: File, runName: string): Promise<AxiosProm
 export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
     return await axios.delete(dataSetApiUrl + "/" + runId, {headers: {'Access-Control-Allow-Origin': '*'}});
 }
-
-
-

@@ -57,7 +57,7 @@ namespace MartianRobots.Logic.Services
             await writeDataSetRepository.SaveNameAsync(dataSet);
         }
 
-        public void CollectMetricData(int robotId, int stepNo, GridPosition position, RectangularMoveCommand? command = null, bool isLost = false)
+        public void CollectMetricData(int robotId, int stepNo, GridPosition position, RectangularMoveCommand? command = null, bool isLastStep = false, bool isLost = false)
         {
             if (RunId == Guid.Empty) throw new Exception("Run Id is not assigned.");
 
@@ -69,6 +69,7 @@ namespace MartianRobots.Logic.Services
                 Position = new Position { X = position.X, Y = position.Y },
                 Orientation = position.Orientation,
                 IsLost = isLost,
+                IsLastStep = isLastStep,
                 Command = command is not null ? command.ToString() : string.Empty,
             };
 

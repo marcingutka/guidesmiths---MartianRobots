@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using MartianRobots.Api.Dto;
 using MartianRobots.Api.Mappers;
+using MartianRobots.Api.Services;
 using MartianRobots.Data.Entities;
 using MartianRobots.Data.Repositories;
 
@@ -12,14 +14,16 @@ namespace MartianRobots.Api.Controllers
     {
         private readonly IRobotStepReadRepository robotsReadRepository;
         private readonly IMapper<RobotStep, RobotStepDto> mapper;
-
+        private readonly IDownloadResults downloadService;
         public RobotsReadController(
             IRobotStepReadRepository robotsReadRepository,
-            IMapper<RobotStep, RobotStepDto> mapper
+            IMapper<RobotStep, RobotStepDto> mapper,
+            IDownloadResults downloadService
             )
         {
             this.robotsReadRepository = robotsReadRepository;
             this.mapper = mapper;
+            this.downloadService = downloadService;
         }
 
         [HttpGet()]
@@ -39,18 +43,18 @@ namespace MartianRobots.Api.Controllers
         [HttpGet("download")]
         public ActionResult Download(Guid runId)
         {
-            var list = new List<string> { "TEST FILE" };
-            byte[] bytes = null;
-            using (var ms = new MemoryStream())
-            {
-                TextWriter tw = new StreamWriter(ms);
-                tw.Write(list[0]);
-                tw.Flush();
-                ms.Position = 0;
-                bytes = ms.ToArray();
-            }
+            var content = downloadService.GetResults(runId);
 
-            return Ok(bytes);
+            var stream = new MemoryStream(content);
+
+            var fileStream = new FileStreamResult(stream, "text/plain")
+            {
+                FileDownloadName = "testFDile.txt"
+            };
+
+
+
+            return fileStream;
         }
     }
 }

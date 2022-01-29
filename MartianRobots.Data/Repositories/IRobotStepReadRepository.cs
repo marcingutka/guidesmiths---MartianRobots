@@ -10,5 +10,6 @@ namespace MartianRobots.Data.Repositories
         IEnumerable<RobotStep> GetLostRobotsByRunId(Guid runId);
         IEnumerable<Position> GetRobotsDistinctPositions(Guid runId);
         IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId);
+        IEnumerable<RobotStep> GetRobotResults(Guid runId);
     }
 }

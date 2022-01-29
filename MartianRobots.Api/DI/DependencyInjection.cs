@@ -25,6 +25,7 @@ namespace MartianRobots.Api.DI
         private static void ConfigureApiServices(IServiceCollection services)
         {
             services.AddScoped<IUploadFileRunner, UploadFileRunner>();
+            services.AddScoped<IDownloadResults, DownloadResults>();
         }
 
         private static void ConfigureMappers(IServiceCollection services)

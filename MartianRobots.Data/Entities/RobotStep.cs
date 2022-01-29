@@ -17,6 +17,6 @@ namespace MartianRobots.Data.Entities
         public OrientationState Orientation { get; set; }
         public string Command { get; set; }
         public bool IsLost { get; set; }
-
+        public bool IsLastStep { get; set; }
     }
 }

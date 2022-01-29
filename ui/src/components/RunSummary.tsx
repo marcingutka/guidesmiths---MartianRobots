@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { IDataSet } from "./Model/IDataSet";
-import { GetDataSets } from '../services/DataSetApiRequest';
+import { GetRobotsResults } from "../services/RobotsApiRequest";
 
 import { Pagination } from './utils/Pagination';
 
@@ -14,17 +14,17 @@ export const RunSummary = () =>
   const [data, setData] = React.useState<IDataSet[]>([]);
   const {id} = useParams();
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await GetDataSets();
-      setData(response.data)
-    }
-      fetchData();
-  }, []);
+  const FileDownload = require('js-file-download');
 
   React.useEffect(() => {
     setPages(Math.ceil(data.length/displayedItem));
   }, [data, displayedItem])
+
+  const downloadHandler = async (runId: string) => {
+    const file = await GetRobotsResults(runId);
+    console.log("file: ", file.data);
+    FileDownload(file.data, 'TestName.txt');
+  }
 
   const isPaginated: boolean = data.length > displayedItem;
   
@@ -40,6 +40,9 @@ export const RunSummary = () =>
           <Col>Upload File</Col>
           <Col>
             {id}
+          </Col>
+          <Col>
+            {id && <button type="button" className="btn btn-info" onClick={() => downloadHandler(id)}>DOWNLOAD</button>}
           </Col>
         </Row>
       </Container>

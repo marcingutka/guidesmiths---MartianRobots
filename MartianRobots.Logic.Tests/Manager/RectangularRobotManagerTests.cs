@@ -3,8 +3,6 @@ using MartianRobots.Logic.Services;
 using MartianRobots.Logic.Validators;
 using MartianRobots.Models;
 using MartianRobots.Models.Constants;
-using MartianRobots.Data.Repositories;
-using MartianRobots.Logic.Services;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;

@@ -6,7 +6,7 @@ namespace MartianRobots.Api.Mappers
 {
     public class DataSetMapper : IMapper<DataSet, DataSetDto>
     {
-        private const string DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
+        private const string DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
         public DataSet Map(DataSetDto dto)
         {
             return new DataSet

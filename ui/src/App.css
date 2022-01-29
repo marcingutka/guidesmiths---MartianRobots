@@ -28,7 +28,20 @@
   color: #61dafb;
 }
 
-.mycolumn {
+.upload-form {
+  width: 500px;
+}
+
+.pageMargins {
+  margin-top: 15px;
+}
+
+.listHeader {
+  margin-top: 15px;
+}
+
+.bold-text {
+  font-weight: bold;
 }
 
 @keyframes App-logo-spin {

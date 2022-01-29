@@ -45,17 +45,26 @@ export const Main = () =>
 
    return (
     <React.Fragment>
-      <Container fluid="sm">
-        <Row className="align-items-center">
-          <Col className="mb-3 mycolumn">
-            <input className="form-control" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
-            <input className="form-control" onChange={(event) => setSelectedName(event.target.value)} />
-            <button type="button" className="m-2 btn btn-success" onClick={() => onFileUploadHandler(selectedFile, selectedName)} >Upload file</button>
-          </Col>
-          <Col><div className="d-flex justify-content-center">OR choose already finished run</div></Col>
+      <Container className="pageMargins" fluid="sm">
+        <Row className="justify-content-md-center">          
+          <input className="form-control upload-form" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
+        </Row>
+        <Row className="justify-content-md-center">
+          <input className="form-control upload-form" placeholder="Assign custom name for the new run..." onChange={(event) => setSelectedName(event.target.value)} />
+        </Row>
+        <Row className="justify-content-md-center">
+          <button type="button" className="m-2 btn btn-success upload-form" onClick={() => onFileUploadHandler(selectedFile, selectedName)} >Upload file</button>
+        </Row>
+        <Row className="align-items-center ">
           <Col>
-            <Row className="center-row">
-              <Col className="d-flex justify-content-center" style={{width: "600px"}}>Run name / File Name</Col>
+          <label className="d-flex justify-content-center">OR</label>
+          <label className="d-flex justify-content-center">choose already finished run</label>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center listHeader">          
+          <Col>
+            <Row className="center-row listHeader">
+              <Col className="d-flex justify-content-center">Run name / File Name</Col>
               <Col className="d-flex justify-content-center">Date (UTC)</Col>
               <Col className="d-flex justify-content-center"></Col>
             </Row>

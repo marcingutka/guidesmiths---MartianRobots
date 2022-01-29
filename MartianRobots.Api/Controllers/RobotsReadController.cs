@@ -35,5 +35,22 @@ namespace MartianRobots.Api.Controllers
         {
             return Ok(robotsReadRepository.GetRobotSteps(runId, robotId).Select(mapper.Map));
         }
+
+        [HttpGet("download")]
+        public ActionResult Download(Guid runId)
+        {
+            var list = new List<string> { "TEST FILE" };
+            byte[] bytes = null;
+            using (var ms = new MemoryStream())
+            {
+                TextWriter tw = new StreamWriter(ms);
+                tw.Write(list[0]);
+                tw.Flush();
+                ms.Position = 0;
+                bytes = ms.ToArray();
+            }
+
+            return Ok(bytes);
+        }
     }
 }

@@ -36,13 +36,12 @@ export const Main = () =>
   }
 
   const deleteHandler = async (runId: string) => {
-    console.log("DELTE", runId);
     await DeleteDataSet(runId);
     var newData = data.filter(x => x.runId != runId);
     setData(newData);
   }
 
-  const isPaginated: boolean = data.length > displayedItem;  
+  const isPaginated: boolean = data.length > displayedItem;
 
   var paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
 
@@ -64,17 +63,17 @@ export const Main = () =>
           <label className="d-flex justify-content-center bold-text">choose already finished run</label>
           </Col>
         </Row>
-        <Row className="justify-content-md-center listHeader row-cols-2">          
+        <Row className="justify-content-md-center listHeader row-cols-2" style={{position: "relative"}}>          
           <Col>
-            <Row className="center-row listHeader">
+            <Row className=" listHeader data-set-rows">
               <Col className="d-flex justify-content-center col-5">Run name / File Name</Col>
               <Col className="d-flex justify-content-center col-2">Date (UTC)</Col>
               <Col className="d-flex justify-content-center col-2"></Col>
             </Row>
             {GenerateDataSetList(navigate, deleteHandler, paginatedData)}
-            {<Row>
-              <Col>
-                {isPaginated && <Pagination page={page} pages={pages} onClick={setPage} />}
+            {isPaginated && <Row className="justify-content-md-center">
+              <Col className="d-flex justify-content-center col-4 pagination-wrapper">
+                <Pagination page={page} pages={pages} onClick={setPage} />
               </Col>
             </Row>}
           </Col>
@@ -94,7 +93,7 @@ function GenerateDataSetList(navigate: NavigateFunction, deleteHandler: (n: stri
 {
   return <React.Fragment>
   {paginatedData.map((x) => { return (
-    <Row className="m-2 justify-content-center">
+    <Row className="m-2 justify-content-center data-set-rows">
       <Col className="d-flex justify-content-center col-4">
         <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name}</button>
       </Col>

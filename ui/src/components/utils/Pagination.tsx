@@ -4,8 +4,6 @@ export const Pagination = (props: IPaginationProps) =>
 {
   const {page, pages, onClick} = props;
 
-  var displayedPages: number[];
-
   var buttons:JSX.Element;
   
   if (pages === 1) return null;

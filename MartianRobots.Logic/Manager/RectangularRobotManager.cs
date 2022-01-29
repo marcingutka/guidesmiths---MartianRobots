@@ -13,30 +13,35 @@ namespace MartianRobots.Logic.Manager
         private readonly IPositionValidator positionValidator;
         private readonly IRobotStepWriteRepository writeRobotRepository;
         private readonly ISavedGridWriteRepository writeGridRepository;
+        private readonly IDataSetWriteRepository writeDataSetRepository;
 
         private Grid Grid { get; set; }
         private IEnumerable<Robot> Robots { get; set; }
         private IEnumerable<RobotCommands> RobotCommands { get; set; }
+        private string RunName { get; set; }
         private List<Position> EdgePositions {get; set;} = new List<Position>();
 
         public RectangularRobotManager(
             ICommandExecuter<RectangularMoveCommand> cmdExecuter,
             IPositionValidator positionValidator,
             IRobotStepWriteRepository writeRobotRepository,
-            ISavedGridWriteRepository writeGridRepository
+            ISavedGridWriteRepository writeGridRepository,
+            IDataSetWriteRepository writeDataSetRepository
             )
         {
             this.cmdExecuter = cmdExecuter;
             this.positionValidator = positionValidator;
             this.writeRobotRepository = writeRobotRepository;
             this.writeGridRepository = writeGridRepository;
+            this.writeDataSetRepository = writeDataSetRepository;
         }
 
-        public void AssignGridAndRobots(Grid grid, IEnumerable<Robot> robots, IEnumerable<RobotCommands> robotCommands)
+        public void AssignGridAndRobots(Grid grid, IEnumerable<Robot> robots, IEnumerable<RobotCommands> robotCommands, string runName)
         {
             Grid = grid;
             Robots = robots;
             RobotCommands = robotCommands;
+            RunName = runName;
         }
 
         public async Task<Guid> ExecuteTasksAsync()
@@ -54,6 +59,7 @@ namespace MartianRobots.Logic.Manager
                 await SaveRobotDataAsync(metrics);
             }
 
+            await writeDataSetRepository.SaveNameAsync(new DataSet { RunId = runId, Name = RunName, GenerationDate = DateTime.UtcNow });
             return runId;
         }
 

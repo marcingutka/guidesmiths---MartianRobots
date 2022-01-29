@@ -1,24 +1,35 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Bson;
 using Microsoft.Extensions.Options;
 
 namespace MartianRobots.Data.Providers
 {
     public class DatabaseProvider<T> : IDatabaseProvider<T>
     {
-        private readonly IMongoClient client;
-        private readonly IOptions<DatabaseConfig> config;
-
+        IMongoDatabase database;
 
         public DatabaseProvider(IMongoClient client, IOptions<DatabaseConfig> config)
         {
-            this.client = client;
-            this.config = config;
+            database = client.GetDatabase(config.Value.MongoDB);
+            CheckConnection();
         }
 
         public IMongoCollection<T> GetCollection()
         {
-            var database = client.GetDatabase(config.Value.MongoDB);
             return database.GetCollection<T>(typeof(T).Name);
+        }
+
+        private void CheckConnection()
+        {
+            var command = new BsonDocumentCommand<BsonDocument>(new BsonDocument { { "ping", 1 } });
+            try
+            {
+                database.RunCommand(command);
+            }
+            catch (TimeoutException)
+            {
+                throw new TimeoutException("Connection to MongoDB is not established. Check if server is running.");
+            }
         }
     }
 }

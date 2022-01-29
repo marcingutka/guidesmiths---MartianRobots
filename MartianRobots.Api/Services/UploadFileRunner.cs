@@ -11,7 +11,6 @@ namespace MartianRobots.Api.Services
         private readonly IFileHandler fileHandler;
         private readonly IInputMapper mapper;
         private readonly IRobotManager manager;
-        private readonly IDataSetWriteRepository repository;
 
         public UploadFileRunner(
             IFileHandler fileHandler,
@@ -23,18 +22,15 @@ namespace MartianRobots.Api.Services
             this.fileHandler = fileHandler;
             this.mapper = mapper;
             this.manager = manager;
-            this.repository = repository;
         }
 
         public async Task RunFile(string path, string runName)
         {
             var fileContent = fileHandler.ReadFile(path);
             var (grid, robots, command) = mapper.Map(fileContent);
-            manager.AssignGridAndRobots(grid, robots, command);
+            manager.AssignGridAndRobots(grid, robots, command, runName);
 
             var runId = await manager.ExecuteTasksAsync();
-
-            await repository.SaveNameAsync(new DataSet { RunId = runId, Name = runName, GenerationDate = DateTime.UtcNow });
         }
     }
 }

@@ -18,6 +18,7 @@ namespace MartianRobots.Logic.Tests
         private IPositionValidator positionValidator;
         private IRobotStepWriteRepository stepWriteRepository;
         private ISavedGridWriteRepository savedGridWriteRepository;
+        private IDataSetWriteRepository dataSetWriteRepository;
 
         private RectangularRobotManager manager;
 
@@ -28,8 +29,9 @@ namespace MartianRobots.Logic.Tests
             positionValidator = Substitute.For<IPositionValidator>();
             stepWriteRepository = Substitute.For<IRobotStepWriteRepository>();
             savedGridWriteRepository = Substitute.For<ISavedGridWriteRepository>();
+            dataSetWriteRepository = Substitute.For<IDataSetWriteRepository>();
 
-            manager = new RectangularRobotManager(cmdExecuter, positionValidator, stepWriteRepository, savedGridWriteRepository);
+            manager = new RectangularRobotManager(cmdExecuter, positionValidator, stepWriteRepository, savedGridWriteRepository, dataSetWriteRepository);
         }
 
         [Test]
@@ -37,7 +39,7 @@ namespace MartianRobots.Logic.Tests
         {
             //Arrange
             var robotId = 1;
-
+            var runName = "TestRun";
             var grid = new Grid(6, 6);
             var initialRobotPosition = new GridPosition()
             {
@@ -72,7 +74,7 @@ namespace MartianRobots.Logic.Tests
             cmdExecuter.Execute(default, default).ReturnsForAnyArgs(new GridPosition { X = 3, Y = 4, Orientation = OrientationState.North});
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(false);
 
-            manager.AssignGridAndRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands, runName);
 
             //Act
             await manager.ExecuteTasksAsync();
@@ -90,7 +92,7 @@ namespace MartianRobots.Logic.Tests
         {
             //Arrange
             var robotId = 1;
-
+            var runName = "TestRun";
             var grid = new Grid(6, 6);
             var initialRobotPosition = new GridPosition()
             {
@@ -126,7 +128,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(true);
             positionValidator.IsRobotLost(default, default).ReturnsForAnyArgs(true);
 
-            manager.AssignGridAndRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands, runName);
 
             //Act
             await manager.ExecuteTasksAsync();
@@ -144,7 +146,7 @@ namespace MartianRobots.Logic.Tests
         {
             //Arrange
             var robotId = 1;
-
+            var runName = "TestRun";
             var grid = new Grid(6, 6);
             var initialRobotPosition = new GridPosition()
             {
@@ -180,7 +182,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(default, default).ReturnsForAnyArgs(true);
             positionValidator.IsRobotLost(default, default).ReturnsForAnyArgs(true);
 
-            manager.AssignGridAndRobots(grid, robots, robotCommands);
+            manager.AssignGridAndRobots(grid, robots, robotCommands, runName);
 
             //Act
             await manager.ExecuteTasksAsync();

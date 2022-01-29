@@ -1,5 +1,4 @@
-﻿using MartianRobots.Data.Entities;
-using MartianRobots.Data.Repositories;
+﻿using MartianRobots.Data.Repositories;
 using MartianRobots.FileHandler;
 using MartianRobots.FileHandler.Mappers;
 using MartianRobots.Logic.Manager;
@@ -29,8 +28,7 @@ namespace MartianRobots.Api.Services
             var fileContent = fileHandler.ReadFile(path);
             var (grid, robots, command) = mapper.Map(fileContent);
             manager.AssignGridAndRobots(grid, robots, command, runName);
-
-            var runId = await manager.ExecuteTasksAsync();
+            await manager.ExecuteTasksAsync();
         }
     }
 }

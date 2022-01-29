@@ -13,6 +13,11 @@ namespace MartianRobots.Data.Repositories
             martianRepository = provider.GetCollection();
         }
 
+        public bool CheckRunId(Guid runId)
+        {
+            return !martianRepository.AsQueryable().Any(x => x.RunId == runId);
+        }
+
         public async Task SaveGridAsync(SavedGrid grid)
         {
             await martianRepository.InsertOneAsync(grid);

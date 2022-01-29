@@ -25,7 +25,7 @@ var (grid, robots, commands) = inputMapper.Map(fileContent);
 
 robotManager.AssignGridAndRobots(grid, robots, commands, fileName);
 
-var runId = await robotManager.ExecuteTasksAsync();
+await robotManager.ExecuteTasksAsync();
 
 Console.WriteLine("*********** OUTPUT ***************");
 

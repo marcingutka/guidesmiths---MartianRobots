@@ -16,6 +16,7 @@ namespace MartianRobots.Logic.DI
 
             services.AddSingleton<IPositionValidator, RectangularValidator>();
             services.AddSingleton<ICommandExecuter<RectangularMoveCommand>, RectangularCommandExecuter>();
+            services.AddScoped<IDataTracker, DataTracker>();
             services.AddScoped<IRobotManager, RectangularRobotManager>();
         }
     }

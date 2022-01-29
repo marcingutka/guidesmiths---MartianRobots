@@ -4,6 +4,7 @@ using MartianRobots.Logic.Validators;
 using MartianRobots.Models;
 using MartianRobots.Models.Constants;
 using MartianRobots.Data.Repositories;
+using MartianRobots.Logic.Services;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -16,9 +17,7 @@ namespace MartianRobots.Logic.Tests
     {
         private ICommandExecuter<RectangularMoveCommand> cmdExecuter;
         private IPositionValidator positionValidator;
-        private IRobotStepWriteRepository stepWriteRepository;
-        private ISavedGridWriteRepository savedGridWriteRepository;
-        private IDataSetWriteRepository dataSetWriteRepository;
+        private IDataTracker dataTracker;
 
         private RectangularRobotManager manager;
 
@@ -27,11 +26,9 @@ namespace MartianRobots.Logic.Tests
         {
             cmdExecuter = Substitute.For<ICommandExecuter<RectangularMoveCommand>>();
             positionValidator = Substitute.For<IPositionValidator>();
-            stepWriteRepository = Substitute.For<IRobotStepWriteRepository>();
-            savedGridWriteRepository = Substitute.For<ISavedGridWriteRepository>();
-            dataSetWriteRepository = Substitute.For<IDataSetWriteRepository>();
+            dataTracker = Substitute.For<IDataTracker>();
 
-            manager = new RectangularRobotManager(cmdExecuter, positionValidator, stepWriteRepository, savedGridWriteRepository, dataSetWriteRepository);
+             manager = new RectangularRobotManager(cmdExecuter, positionValidator, dataTracker);
         }
 
         [Test]

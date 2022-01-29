@@ -13,7 +13,7 @@ var services = new ServiceCollection();
 DependencyInjection.CreateDependencies(services, configuration);
 
 var provider = services.BuildServiceProvider();
-var (fileHandler, inputMapper, robotManager) = StartUp.GetServices(provider);
+var (fileHandler, inputMapper, outputMapper, robotManager) = StartUp.GetServices(provider);
 
 //provide input for file path/console input
 var fileName = "SampleAll.txt";
@@ -34,4 +34,4 @@ foreach (var robot in robots)
     Console.WriteLine(robot.ToString());
 }
 
-fileHandler.WriteFile(robots.Select(x => x.ToString()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));
+fileHandler.WriteFile(outputMapper.GenerateOutput(grid, robots.ToList()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));

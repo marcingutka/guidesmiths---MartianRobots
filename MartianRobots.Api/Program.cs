@@ -10,7 +10,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(opt => opt.AddPolicy(name: "FrontClient", builder =>
 {
-    builder.WithOrigins("http://localhost:3000").WithMethods("GET", "POST", "DELETE").WithHeaders("Access-Control-Allow-Origin").WithExposedHeaders("Content-Disposition");
+    builder
+    .WithOrigins("http://localhost:3000")
+    .WithMethods("GET", "POST", "DELETE")
+    .WithHeaders("Access-Control-Allow-Origin")
+    .WithExposedHeaders("Content-Disposition");
 }));
 
 var app = builder.Build();

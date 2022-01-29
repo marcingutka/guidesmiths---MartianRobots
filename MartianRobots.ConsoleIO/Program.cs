@@ -34,4 +34,4 @@ foreach (var robot in robots)
     Console.WriteLine(robot.ToString());
 }
 
-fileHandler.WriteFile(outputMapper.GenerateOutput(grid, robots.ToList()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));
+fileHandler.WriteFile(outputMapper.GenerateOutput(robots.ToList()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));

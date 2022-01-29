@@ -16,13 +16,14 @@ export const Main = () =>
   const [data, setData] = React.useState<IDataSet[]>([]);
   const [selectedFile, setSelectedFile] = React.useState<File>();
   const [selectedName, setSelectedName] = React.useState<string>("");
+  const isData = data.length > 0;
 
-  const fetchData = async () => {
+  const fetchDataAsync = async () => {
     const response = await GetDataSets();
     setData(response.data)};
 
   React.useEffect(() => {
-      fetchData();
+      fetchDataAsync();
   }, []);
 
   React.useEffect(() => {
@@ -33,7 +34,7 @@ export const Main = () =>
     if(selectedFile)
     {
       await UploadFile(selectedFile, runName)     
-      fetchData();
+      await fetchDataAsync();
     };
   }
 
@@ -46,7 +47,6 @@ export const Main = () =>
   const downloadHandler = async (runId: string) => {
     const response = await GetRobotsResults(runId);
     const fileName = response.headers['content-disposition'].split('filename=')[1].split(';')[0];
-
     FileDownload(response.data, fileName? fileName : {runId} + "Test.txt");
   }
 
@@ -66,13 +66,16 @@ export const Main = () =>
         <Row className="justify-content-md-center">
           <button type="button" className="m-2 btn btn-success upload-form" onClick={() => onFileUploadHandler(selectedFile, selectedName)} >Upload file</button>
         </Row>
-        <Row className="align-items-center ">
+        <Row className="justify-content-md-center">
+          <button type="button" className="btn btn-warning upload-form" onClick={async () => await fetchDataAsync()} >Refresh</button>
+        </Row>
+        {isData && <Row className="m-3 align-items-center">
           <Col>
           <label className="d-flex justify-content-center bold-text">OR</label>
           <label className="d-flex justify-content-center bold-text">choose already finished run</label>
           </Col>
-        </Row>
-        <Row className="justify-content-md-center listHeader row-cols-2" style={{position: "relative"}}>          
+        </Row>}
+        {isData && <Row className="justify-content-md-center listHeader row-cols-2" style={{position: "relative"}}>          
           <Col>
             <Row className=" listHeader data-set-rows">
               <Col className="d-flex justify-content-center col-4">Run name / File Name</Col>
@@ -86,7 +89,7 @@ export const Main = () =>
               </Col>
             </Row>}
           </Col>
-        </Row>
+        </Row>}
       </Container>
     </React.Fragment>
   )

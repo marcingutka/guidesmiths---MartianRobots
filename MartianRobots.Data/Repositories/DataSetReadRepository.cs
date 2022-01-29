@@ -17,5 +17,10 @@ namespace MartianRobots.Data.Repositories
         {
             return martianRepository.AsQueryable().OrderByDescending(s => s.GenerationDate);
         }
+
+        public string GetSetNameByRunId(Guid ruinId)
+        {
+            return martianRepository.AsQueryable().FirstOrDefault(x => x.RunId == ruinId).Name;
+        }
     }
 }

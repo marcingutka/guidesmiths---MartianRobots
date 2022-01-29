@@ -2,7 +2,9 @@ import React from "react";
 import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { IDataSet } from "./Model/IDataSet";
+import FileDownload  from "js-file-download";
 import { GetDataSets, UploadFile, DeleteDataSet } from '../services/DataSetApiRequest';
+import { GetRobotsResults } from "../services/RobotsApiRequest";
 import { Pagination } from './utils/Pagination';
 
 export const Main = () =>
@@ -41,13 +43,20 @@ export const Main = () =>
     setData(newData);
   }
 
+  const downloadHandler = async (runId: string) => {
+    const response = await GetRobotsResults(runId);
+    const fileName = response.headers['content-disposition'].split('filename=')[1].split(';')[0];
+
+    FileDownload(response.data, fileName? fileName : {runId} + "Test.txt");
+  }
+
   const isPaginated: boolean = data.length > displayedItem;
 
   var paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
 
   return (
     <React.Fragment>
-      <Container className="pageMargins" fluid="sm">
+      <Container className="pageMargins lg" fluid="lg">
         <Row className="justify-content-md-center">          
           <input className="form-control upload-form" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
         </Row>
@@ -66,11 +75,11 @@ export const Main = () =>
         <Row className="justify-content-md-center listHeader row-cols-2" style={{position: "relative"}}>          
           <Col>
             <Row className=" listHeader data-set-rows">
-              <Col className="d-flex justify-content-center col-5">Run name / File Name</Col>
+              <Col className="d-flex justify-content-center col-4">Run name / File Name</Col>
               <Col className="d-flex justify-content-center col-2">Date (UTC)</Col>
               <Col className="d-flex justify-content-center col-2"></Col>
             </Row>
-            {GenerateDataSetList(navigate, deleteHandler, paginatedData)}
+            {GenerateDataSetList(navigate, downloadHandler, deleteHandler, paginatedData)}
             {isPaginated && <Row className="justify-content-md-center">
               <Col className="d-flex justify-content-center col-4 pagination-wrapper">
                 <Pagination page={page} pages={pages} onClick={setPage} />
@@ -89,19 +98,22 @@ function Paginate(data: IDataSet[], page: number, elementNumber: number): IDataS
   return data.slice(startIndex, endIndex);
 }
 
-function GenerateDataSetList(navigate: NavigateFunction, deleteHandler: (n: string) => void, paginatedData: IDataSet[]): JSX.Element
+function GenerateDataSetList(navigate: NavigateFunction, downloadHandler: (runId: string) => void, deleteHandler: (runId: string) => void, paginatedData: IDataSet[]): JSX.Element
 {
   return <React.Fragment>
   {paginatedData.map((x) => { return (
     <Row className="m-2 justify-content-center data-set-rows">
-      <Col className="d-flex justify-content-center col-4">
+      <Col className="d-flex justify-content-center col-3">
         <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name}</button>
       </Col>
       <Col className="d-flex justify-content-center col-4">
         {x.generationDate}
       </Col>
+      <Col className="d-flex justify-content-center col-3">
+        {x.runId && <button type="button" className="btn btn-warning" onClick={() => downloadHandler(x.runId)}>Get Result File</button>}
+      </Col>
       <Col className="d-flex justify-content-center">
-        <button type="button" className="btn btn-warning" onClick={() => deleteHandler(x.runId)}>DELETE</button>
+        <button type="button" className="btn btn-secondary" onClick={() => deleteHandler(x.runId)}>DELETE</button>
       </Col>
     </Row>
     )})}

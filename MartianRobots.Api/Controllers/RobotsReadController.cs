@@ -13,15 +13,21 @@ namespace MartianRobots.Api.Controllers
     public class RobotsReadController : ControllerBase
     {
         private readonly IRobotStepReadRepository robotsReadRepository;
+        private readonly IDataSetReadRepository dataSetReadRepository;
         private readonly IMapper<RobotStep, RobotStepDto> mapper;
         private readonly IDownloadResults downloadService;
+
+        const string txtExtension = ".txt";
+
         public RobotsReadController(
             IRobotStepReadRepository robotsReadRepository,
+            IDataSetReadRepository dataSetReadRepository,
             IMapper<RobotStep, RobotStepDto> mapper,
             IDownloadResults downloadService
             )
         {
             this.robotsReadRepository = robotsReadRepository;
+            this.dataSetReadRepository = dataSetReadRepository;
             this.mapper = mapper;
             this.downloadService = downloadService;
         }
@@ -43,16 +49,17 @@ namespace MartianRobots.Api.Controllers
         [HttpGet("download")]
         public ActionResult Download(Guid runId)
         {
+            var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
+            if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
+            
             var content = downloadService.GetResults(runId);
 
             var stream = new MemoryStream(content);
 
-            var fileStream = new FileStreamResult(stream, "text/plain")
+            var fileStream = new FileStreamResult(stream, "application/octet-stream")
             {
-                FileDownloadName = "testFDile.txt"
+                FileDownloadName = fileName,
             };
-
-
 
             return fileStream;
         }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
+import FileDownload  from "js-file-download";
 import { IDataSet } from "./Model/IDataSet";
 import { GetRobotsResults } from "../services/RobotsApiRequest";
 
@@ -13,8 +14,6 @@ export const RunSummary = () =>
   const [pages, setPages] = React.useState(1);
   const [data, setData] = React.useState<IDataSet[]>([]);
   const {id} = useParams();
-
-  const FileDownload = require('js-file-download');
 
   React.useEffect(() => {
     setPages(Math.ceil(data.length/displayedItem));
@@ -42,7 +41,7 @@ export const RunSummary = () =>
             {id}
           </Col>
           <Col>
-            {id && <button type="button" className="btn btn-info" onClick={() => downloadHandler(id)}>DOWNLOAD</button>}
+            {id && <button type="button" className="btn btn-success" onClick={() => downloadHandler(id)}>DOWNLOAD</button>}
           </Col>
         </Row>
       </Container>

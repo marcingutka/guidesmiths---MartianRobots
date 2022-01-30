@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosPromise, AxiosResponse } from 'axios';
+import axios, {  AxiosPromise } from 'axios';
 import { IDataSet } from '../components/Model/IDataSet'
 
 const dataSetApiUrl = "https://localhost:7236/api/dataSet";

@@ -37,7 +37,7 @@ namespace MartianRobots.Data.Repositories
 
         public IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId)
         {
-            var result = martianRepository.Aggregate().Group(x => x.Position, z => new Tuple<Position, int>(z.Key, z.Count())).SortBy(x => x.Item1.X).ThenBy(x => x.Item1.Y).ToEnumerable();
+            var result = martianRepository.Aggregate().Match(x => x.RunId == runId).Group(x => x.Position, z => new Tuple<Position, int>(z.Key, z.Count())).SortBy(x => x.Item1.X).ThenBy(x => x.Item1.Y).ToEnumerable();
 
             return result;
         }

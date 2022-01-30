@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { IGridAnalitics } from "./Model/IGridAnalitics";
+import { GridPoint, IGridAnalitics } from "./Model/IGridAnalitics";
 import { downloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 
@@ -34,9 +34,6 @@ export const RunSummary = () =>
     <React.Fragment>
       <Container className="pageMargins" fluid="lg">
         <Row>
-          <Col>
-            {id}
-          </Col>
           <Col>
             {id && <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>}
           </Col>
@@ -80,8 +77,15 @@ function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Eleme
   columns.push(<span className="grid-y-padding">{rowNo}</span>);
   for (var i = 0; i <= gridData.gridSize.x; i++)
   {
+    var gridPoint: GridPoint[] = gridData.gridPoints.filter(gp => gp.coordinates.x == i && gp.coordinates.y == rowNo);
+    var noOfRobots: number = gridPoint.length > 0? gridPoint[0].robotsNumber : 0;
+    var isLost: boolean = noOfRobots > 0? gridData.lostRobots.some(lr => lr.position.x == i && lr.position.y == rowNo) : false;
+    
+    console.log("gridPoint", gridPoint);
+    console.log("fdsfs", i, rowNo, noOfRobots, isLost);
+
     columns.push(<span className="grid-point-size-column">
-      <button className=" grid-point-size-column">{i} {rowNo}</button>
+      <GridPointElement x={i} y={rowNo} isLost={isLost} noOfRobots={noOfRobots}/>
     </span>)
   }
   return columns;
@@ -98,4 +102,27 @@ function GenerateXAxis(gridX: number): JSX.Element[]
   }
   return columns;
 }
+
+export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps) =>
+{
+  const { x, y, isLost, noOfRobots } = props;
+
+  const baseClassName: string = "grid-point-size-column ";
+
+  const customClassName: string = "lost-grid-point"
+
+  const finalClassName: string = baseClassName + (isLost ? customClassName : "");
+
+
+  return (
+    <button className={finalClassName}></button>
+  )
+}
+
+interface GridPointProps {
+  x: number,
+  y: number,
+  isLost: boolean,
+  noOfRobots: number
+} 
 

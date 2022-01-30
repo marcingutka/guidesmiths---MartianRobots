@@ -7,7 +7,7 @@ export interface IGridAnalitics {
 
 export interface GridPoint {
     coordinates: Position,
-    numberOfRobots: number
+    robotsNumber: number
 }
 
 export interface AreaAnalitics {

@@ -63,7 +63,26 @@
 }
 
 .grid-point-size-column {
-  width: 30px;
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+}
+
+.grid-x-axis-position {
+  position: relative;
+  left: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 40px;
+}
+
+.grid-x-axis-position-placeholder {
+  display: inline-block;
+  width: 10px;
+}
+
+.grid-y-padding {
+  padding-right: 6px;
 }
 
 @keyframes App-logo-spin {

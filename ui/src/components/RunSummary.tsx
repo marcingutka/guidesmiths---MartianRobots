@@ -66,21 +66,35 @@ function GenerateGridRows(gridData: IGridAnalitics): JSX.Element[]
   var rows: JSX.Element[] = [];
   for (var i = gridData.gridSize.y; i >= 0; i--)
   {
-    rows.push(<div className="grid-point-size-row">
+    rows.push(<div >
       {GenerateGridColumns(gridData, i)}
     </div>)
   }
+  rows.push(<div >{GenerateXAxis(gridData.gridSize.x)}</div>)
   return rows;
 }
 
 function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Element[]
 {
   var columns: JSX.Element[] = [];
+  columns.push(<span className="grid-y-padding">{rowNo}</span>);
   for (var i = 0; i <= gridData.gridSize.x; i++)
   {
-    columns.push(<span className="grid-basic-color grid-point-size-column">
-      <button className="grid-basic-color">{i} {rowNo}</button>
+    columns.push(<span className="grid-point-size-column">
+      <button className=" grid-point-size-column">{i} {rowNo}</button>
     </span>)
+  }
+  return columns;
+}
+
+function GenerateXAxis(gridX: number): JSX.Element[]
+{
+  var columns: JSX.Element[] = [];
+  
+  columns.push(<span className="grid-x-axis-position-placeholder"></span>);
+  for (var i = 0; i <= gridX; i++)
+  {
+    columns.push(<span className="grid-x-axis-position ">{i}</span>)
   }
   return columns;
 }

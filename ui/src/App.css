@@ -53,6 +53,19 @@
   top: 810px;
 }
 
+.grid-basic-color {
+  background-color: brown;
+}
+
+.grid-point-size-row {
+  height: 30px;
+  display: table;
+}
+
+.grid-point-size-column {
+  width: 30px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

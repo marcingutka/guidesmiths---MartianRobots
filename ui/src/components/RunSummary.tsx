@@ -32,7 +32,7 @@ export const RunSummary = () =>
 
    return (
     <React.Fragment>
-      <Container className="pageMargins lg" fluid="lg">
+      <Container className="pageMargins" fluid="lg">
         <Row>
           <Col>
             {id}
@@ -41,17 +41,14 @@ export const RunSummary = () =>
             {id && <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>}
           </Col>
         </Row>
-        <Row>
-        {data && GenerateDataSetList(data)}
+        <Row className="align-items-center justify-content-md-center m-5">
+          <Col className="justify-content-center col-4">
+            {data && GenerateDataSetList(data)}
+          </Col>
         </Row>
       </Container>
     </React.Fragment>
   )
-}
-
-function onClickDataNameHandler(runId: string)
-{
-  console.log("runId", runId);
 }
 
 function GenerateDataSetList(gridData: IGridAnalitics): JSX.Element
@@ -67,11 +64,11 @@ function GenerateDataSetList(gridData: IGridAnalitics): JSX.Element
 function GenerateGridRows(gridData: IGridAnalitics): JSX.Element[]
 {
   var rows: JSX.Element[] = [];
-  for (var i = gridData.gridSize.x; i >= 0; i--)
+  for (var i = gridData.gridSize.y; i >= 0; i--)
   {
-    rows.push(<Row>
+    rows.push(<div className="grid-point-size-row">
       {GenerateGridColumns(gridData, i)}
-    </Row>)
+    </div>)
   }
   return rows;
 }
@@ -79,17 +76,12 @@ function GenerateGridRows(gridData: IGridAnalitics): JSX.Element[]
 function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Element[]
 {
   var columns: JSX.Element[] = [];
-  for (var i = 0; i <= gridData.gridSize.y; i++)
+  for (var i = 0; i <= gridData.gridSize.x; i++)
   {
-    columns.push(<Col>
-      <label>{i} {rowNo}</label>
-    </Col>)
+    columns.push(<span className="grid-basic-color grid-point-size-column">
+      <button className="grid-basic-color">{i} {rowNo}</button>
+    </span>)
   }
   return columns;
-}
-
-
-const deleteHandler = async (runId: string) => {
-
 }
 

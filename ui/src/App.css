@@ -85,8 +85,17 @@
   padding-right: 6px;
 }
 
+.axis-y-margin-small {
+  padding-right: 14px;
+}
+
 .lost-grid-point {
   background-color: red;
+}
+
+.menu-scroll {
+  overflow-y: scroll;
+  max-height: 180px;
 }
 
 @keyframes App-logo-spin {

@@ -2,9 +2,7 @@ import React from "react";
 import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { IDataSet } from "./Model/IDataSet";
-import FileDownload  from "js-file-download";
 import { GetDataSets, UploadFile, DeleteDataSet } from '../services/DataSetApiRequest';
-import { GetRobotsResults } from "../services/RobotsApiRequest";
 import { downloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';
 

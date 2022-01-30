@@ -46,8 +46,8 @@ namespace MartianRobots.Api.Controllers
             return Ok(robotsReadRepository.GetRobotSteps(runId, robotId).Select(mapper.Map));
         }
 
-        [HttpGet("download")]
-        public ActionResult Download(Guid runId)
+        [HttpGet("results/download")]
+        public ActionResult DownloadResults(Guid runId)
         {
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
             if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;

@@ -5,6 +5,7 @@ import { IDataSet } from "./Model/IDataSet";
 import FileDownload  from "js-file-download";
 import { GetDataSets, UploadFile, DeleteDataSet } from '../services/DataSetApiRequest';
 import { GetRobotsResults } from "../services/RobotsApiRequest";
+import { downloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';
 
 export const Main = () =>
@@ -44,12 +45,6 @@ export const Main = () =>
     setData(newData);
   }
 
-  const downloadHandler = async (runId: string) => {
-    const response = await GetRobotsResults(runId);
-    const fileName = response.headers['content-disposition'].split('filename=')[1].split(';')[0];
-    FileDownload(response.data, fileName? fileName : {runId} + "Test.txt");
-  }
-
   const isPaginated: boolean = data.length > displayedItem;
 
   var paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
@@ -64,10 +59,10 @@ export const Main = () =>
           <input className="form-control upload-form" placeholder="Assign custom name for the new run..." onChange={(event) => setSelectedName(event.target.value)} />
         </Row>
         <Row className="justify-content-md-center">
-          <button type="button" className="m-2 btn btn-success upload-form" onClick={() => onFileUploadHandler(selectedFile, selectedName)} >Upload file</button>
+          <button type="button" className="m-2 btn btn-success upload-form" onClick={() => onFileUploadHandler(selectedFile, selectedName)}>Upload file</button>
         </Row>
         <Row className="justify-content-md-center">
-          <button type="button" className="btn btn-warning upload-form" onClick={async () => await fetchDataAsync()} >Refresh</button>
+          <button type="button" className="btn btn-warning upload-form" onClick={async () => await fetchDataAsync()}>Refresh</button>
         </Row>
         {isData && <Row className="m-3 align-items-center">
           <Col>

@@ -1,9 +1,8 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import FileDownload  from "js-file-download";
 import { IDataSet } from "./Model/IDataSet";
-import { GetRobotsResults } from "../services/RobotsApiRequest";
+import { downloadHandler } from "../common/downloadHandler";
 
 import { Pagination } from './utils/Pagination';
 
@@ -19,11 +18,7 @@ export const RunSummary = () =>
     setPages(Math.ceil(data.length/displayedItem));
   }, [data, displayedItem])
 
-  const downloadHandler = async (runId: string) => {
-    const file = await GetRobotsResults(runId);
-    console.log("file: ", file.data);
-    FileDownload(file.data, 'TestName.txt');
-  }
+  
 
   const isPaginated: boolean = data.length > displayedItem;
   
@@ -34,14 +29,13 @@ export const RunSummary = () =>
 
    return (
     <React.Fragment>
-      <Container>
+      <Container className="pageMargins lg" fluid="lg">
         <Row>
-          <Col>Upload File</Col>
           <Col>
             {id}
           </Col>
           <Col>
-            {id && <button type="button" className="btn btn-success" onClick={() => downloadHandler(id)}>DOWNLOAD</button>}
+            {id && <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>}
           </Col>
         </Row>
       </Container>

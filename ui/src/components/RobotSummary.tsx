@@ -4,11 +4,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { generateGrid } from "../common/generateGrid";
 import { StatisticRow } from "../common/StatisticRow";
 import { IRobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
-import { Position } from "./Model/IPosition";
 import { GetGridByRunId } from "../services/DataSetApiRequest";
 import { GetRobotByRunIdRobotId } from "../services/RobotsApiRequest";
 import { GridPoint } from "./Model/IGridAnalitics";
-import { GridPointElement } from "../common/GridPointElement";
+import { Position } from "./Model/IPosition";
+import { DisplayPoint } from "./Model/DisplayPoint";
 
 export const RobotSummary = () =>
 {
@@ -59,12 +59,14 @@ export const RobotSummary = () =>
     const isNextDisabled: boolean = stepNo >= steps.length;
 
 
-    //const stepsTo = generateGridPoints();
+    const stepsToDisplay: IRobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
+    const displayPoints: DisplayPoint[] = mapDataForDisplay(gridSize, stepsToDisplay);
 
     return (
         <React.Fragment>
             <label>StepNo: {stepNo}</label>
             <label>CurrentStep: {currentStep?.stepNumber}</label>
+            <label>stepsToDisplay: {stepsToDisplay.length}</label>
             {currentStep && <Container className="pageMargins" fluid="lg">
                 <Row className="align-items-center justify-content-md-center">
                     <Col className="col-md-auto">
@@ -84,8 +86,33 @@ export const RobotSummary = () =>
                 </Row>
             </Container>}
             <div>
+                {generateGrid(gridSize, displayPoints)}
             </div>
             
         </React.Fragment>
     )
 }
+
+function mapDataForDisplay(gridSize: Position, robotSteps: IRobotStep[]) : DisplayPoint[] {
+    var displayPoints: DisplayPoint[]=[];
+
+    var currentStep: IRobotStep = robotSteps[robotSteps.length-1];
+
+    console.log("currentStep", currentStep);
+  
+    for (var i = 0; i <= gridSize.y; i++)
+    {
+      for(var j = 0; j <= gridSize.x; j++)
+      {
+        var robotStep = robotSteps.filter(rs => rs.position.x === j && rs.position.y === i).sort(x => x.stepNumber)[0];
+        var isLostRobot = robotStep? robotStep.isLost : false;
+        var orientation = !!robotStep && robotStep.position.x === currentStep.position.x && robotStep.position.y === currentStep.position.y ? robotStep.orientation : undefined;
+        var displayPoint = new DisplayPoint({x: j, y: i}, !!robotStep, isLostRobot, undefined, orientation);
+        displayPoints.push(displayPoint);
+      }
+    }
+
+    console.log("displayPoints", displayPoints);
+  
+    return displayPoints;
+  }

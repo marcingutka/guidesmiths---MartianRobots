@@ -73,7 +73,7 @@ namespace MartianRobots.Logic.Manager
 
                         EdgePositions.Add(robotPosition);
 
-                        dataTracker.CollectMetricData(robot.Id, stepNo, robotPosition, command, true, true);
+                        dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, command, true, true);
                         return;
                     }
                     continue;

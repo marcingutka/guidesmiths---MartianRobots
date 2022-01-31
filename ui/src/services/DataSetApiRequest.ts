@@ -11,7 +11,7 @@ export async function GetDataSets(): Promise<AxiosPromise<IDataSet[]>> {
 }
 
 export async function GetGridByRunId(runId: string): Promise<AxiosPromise<Position>> {
-    const res = await axios.get(dataSetApiUrl + "/grid" + runId); 
+    const res = await axios.get(dataSetApiUrl + "/grid/" + runId); 
     return res;
 }
 

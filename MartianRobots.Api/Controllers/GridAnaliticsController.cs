@@ -26,10 +26,10 @@ namespace MartianRobots.Api.Controllers
         [HttpGet]
         public ActionResult<GridAnaliticsDto> GetGridAnaliticsByRunId(Guid runId)
         {
-            var lostRobots = gridAnaliticsService.GetAllLostRobotsByRunId(runId).ToList();
-            var discoveredArea = gridAnaliticsService.GetAreaCalculations(runId);
-            var noOfRobotsInGridPoints = gridAnaliticsService.GetGridPoints(runId).ToList();
             var gridSize = gridReadService.GetGridByRunId(runId);
+            var lostRobots = gridAnaliticsService.GetAllLostRobotsByRunId(runId).ToList();
+            var discoveredArea = gridAnaliticsService.GetAreaCalculations(runId, gridSize);
+            var noOfRobotsInGridPoints = gridAnaliticsService.GetGridPoints(runId).ToList();
 
             return Ok(CreateAnaliticsData(lostRobots, discoveredArea, noOfRobotsInGridPoints, new Position { X = gridSize.X, Y = gridSize.Y }));
         }

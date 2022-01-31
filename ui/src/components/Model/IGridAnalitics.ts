@@ -11,8 +11,9 @@ export interface GridPoint {
 }
 
 export interface AreaAnalitics {
-    discoveredPoints: Position[],
-    discoveredAreaAbsolute: number
+    discoveredAreaAbsolute: number,
+    discoveredAreaPercent: number,
+    totalArea: number,
 }
 
 export interface LostRobot {

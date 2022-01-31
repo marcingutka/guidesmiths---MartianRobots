@@ -30,11 +30,14 @@ namespace MartianRobots.Analitics.Services
             return lostRobots;
         }
 
-        public AreaAnalitics GetAreaCalculations(Guid runId)
+        public AreaAnalitics GetAreaCalculations(Guid runId, SavedGrid gridArea)
         {
-            var robotSteps = robotStepReadRepository.GetRobotsDistinctPositions(runId).ToList();
+            var totalArea = (gridArea.X + 1) * (gridArea.Y + 1);
+            var discoveredArea = robotStepReadRepository.GetRobotsDistinctPositions(runId).Count();
 
-            return new AreaAnalitics(robotSteps, robotSteps.Count);
+            double areaPercent = Math.Round(discoveredArea / (double)totalArea, 2) * 100;
+
+            return new AreaAnalitics(discoveredArea, areaPercent, totalArea);
         }
 
         public IEnumerable<GridPoint> GetGridPoints(Guid runId)

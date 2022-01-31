@@ -106,6 +106,7 @@
   display: grid;
   justify-content: center;
   width: 2080px;
+  margin-left: -100px;
 }
 
 @keyframes App-logo-spin {

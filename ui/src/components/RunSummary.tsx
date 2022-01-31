@@ -6,6 +6,7 @@ import { downloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 import { GetRobotsByRunId } from "../services/RobotsApiRequest";
 import { GridPointElement} from "../common/GridPointElement";
+import { StatisticRow } from "../common/StatisticRow";
 
 import { Pagination } from './utils/Pagination';
 
@@ -35,7 +36,7 @@ export const RunSummary = () =>
    return (
       <React.Fragment>
         {id && <Container className="pageMargins" fluid="lg">
-          <Row>
+          <Row className="align-items-center justify-content-md-center" >
             <Col className="col-md-auto">
               <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>
             </Col>
@@ -43,9 +44,9 @@ export const RunSummary = () =>
               {GenerateRobotDropDownList(robots, id)}
             </Col>
           </Row>
-          <Row className="align-items-center justify-content-md-center m-5">
-            <Col className="justify-content-center col-md-auto">
-              Statistics
+          <Row className="align-items-center justify-content-md-center m-2">
+            <Col className="justify-content-center col-md-3">
+              {data && GenerateStatistics(data)}
             </Col>
           </Row>
         </Container>}
@@ -54,6 +55,16 @@ export const RunSummary = () =>
         </div>}
       </React.Fragment>
     )
+}
+
+function GenerateStatistics(gridData: IGridAnalitics): JSX.Element
+{
+  return (
+    <React.Fragment>
+      <StatisticRow name="Lost Robots: " value={gridData.lostRobots.length} />
+      <StatisticRow name="Discovered Area (abs): " value={gridData.discoveredArea.discoveredAreaAbsolute} />
+    </React.Fragment>
+  )
 }
 
 

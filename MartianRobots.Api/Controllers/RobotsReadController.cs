@@ -42,7 +42,7 @@ namespace MartianRobots.Api.Controllers
         [HttpGet("robot/{robotId}")]
         public ActionResult<IEnumerable<RobotStep>> GetRobotSteps(Guid runId, int robotId)
         {
-            return Ok(robotsReadRepository.GetRobotSteps(runId, robotId).Select(mapper.Map));
+            return Ok(robotsReadRepository.GetRobotSteps(runId, robotId));
         }
 
         [HttpGet("results/download")]

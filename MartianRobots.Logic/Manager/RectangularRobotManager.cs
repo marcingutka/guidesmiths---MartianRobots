@@ -76,8 +76,6 @@ namespace MartianRobots.Logic.Manager
                         dataTracker.CollectMetricData(robot.Id, stepNo, robotPosition, command, true, true);
                         return;
                     }
-
-                    dataTracker.CollectMetricData(robot.Id, stepNo, robotPosition, command);
                     continue;
                 }
 
@@ -85,7 +83,7 @@ namespace MartianRobots.Logic.Manager
             }
             robot.Position = robotPosition;
 
-            dataTracker.CollectMetricData(robot.Id, stepNo, robotPosition, null, true);            
+            dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, null, true);            
         }
 
         private static bool IsMoveCommand(RectangularMoveCommand command)

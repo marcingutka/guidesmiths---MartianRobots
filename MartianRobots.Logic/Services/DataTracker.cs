@@ -70,7 +70,7 @@ namespace MartianRobots.Logic.Services
                 Orientation = position.Orientation,
                 IsLost = isLost,
                 IsLastStep = isLastStep,
-                Command = command is not null ? command.ToString() : string.Empty,
+                Command = command.HasValue ? command : null,
             };
 
             trackedRobots.Add(step);

@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter,  Routes, Route } from "react-router-dom";
 import { Main } from './components/Main'
 import { RunSummary } from './components/RunSummary';
+import { RobotSummary } from './components/RobotSummary';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}/>
+          <Route path="/run/:id/robot/:robotId" element={<RobotSummary />}/>
           <Route path="/run/:id" element={<RunSummary />}/>
         </Routes>
         </BrowserRouter>

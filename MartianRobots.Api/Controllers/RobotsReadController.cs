@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using MartianRobots.Api.Dto;
 using MartianRobots.Api.Mappers;
 using MartianRobots.Api.Services;
@@ -40,7 +39,7 @@ namespace MartianRobots.Api.Controllers
             return Ok(robotsCount);
         }
 
-        [HttpGet("{robotId}")]
+        [HttpGet("robot/{robotId}")]
         public ActionResult<IEnumerable<RobotStep>> GetRobotSteps(Guid runId, int robotId)
         {
             return Ok(robotsReadRepository.GetRobotSteps(runId, robotId).Select(mapper.Map));

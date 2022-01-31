@@ -15,7 +15,7 @@ namespace MartianRobots.Data.Entities
         public int StepNumber { get; set; }
         public Position Position { get; set; }
         public OrientationState Orientation { get; set; }
-        public string Command { get; set; }
+        public RectangularMoveCommand? Command { get; set; }
         public bool IsLost { get; set; }
         public bool IsLastStep { get; set; }
     }

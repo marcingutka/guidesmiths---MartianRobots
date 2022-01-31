@@ -9,7 +9,7 @@ namespace MartianRobots.Api.Dto
         public int X { get; set; }
         public int Y { get; set; }
         public OrientationState Orientation { get; set; }
-        public string Command { get; set; }
+        public RectangularMoveCommand? Command { get; set; }
         public bool IsLost { get; set; }
     }
 }

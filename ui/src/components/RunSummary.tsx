@@ -1,20 +1,19 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { GridPoint, IGridAnalitics, OrientationState } from "./Model/IGridAnalitics";
+import { GridPoint, IGridAnalitics, LostRobot } from "./Model/IGridAnalitics";
+import { Position } from "./Model/IPosition";
 import { downloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 import { GetRobotsByRunId } from "../services/RobotsApiRequest";
 import { GridPointElement} from "../common/GridPointElement";
 import { StatisticRow } from "../common/StatisticRow";
 
-import { Pagination } from './utils/Pagination';
-
 export const RunSummary = () =>
 {
   const [robots, setRobots] = React.useState(0);
   const [data, setData] = React.useState<IGridAnalitics>();
-  const {id} = useParams();
+  const { id } = useParams();
 
   const gridWidth: number = data? data.gridSize.x * 40 : 0;
 
@@ -46,21 +45,22 @@ export const RunSummary = () =>
           </Row>
           <Row className="align-items-center justify-content-md-center m-2">
             <Col className="justify-content-center col-md-3">
-              {data && GenerateStatistics(data)}
+              {data && GenerateStatistics(data, robots)}
             </Col>
           </Row>
         </Container>}
         {data && <div className="grid-position ">
-          {GenerateDataSetList(data)}
+          {GenerateGridRows(data.gridSize, data.gridPoints, data.lostRobots)}
         </div>}
       </React.Fragment>
     )
 }
 
-function GenerateStatistics(gridData: IGridAnalitics): JSX.Element
+function GenerateStatistics(gridData: IGridAnalitics, noOfRobots: number): JSX.Element
 {
   return (
     <React.Fragment>
+      <StatisticRow name="Number of Robots: " value={noOfRobots} />
       <StatisticRow name="Lost Robots: " value={gridData.lostRobots.length} />
       <StatisticRow name="Total Grid Area (abs): " value={gridData.discoveredArea.totalArea} />
       <StatisticRow name="Discovered Area (abs): " value={gridData.discoveredArea.discoveredAreaAbsolute} />
@@ -69,31 +69,20 @@ function GenerateStatistics(gridData: IGridAnalitics): JSX.Element
   )
 }
 
-
-function GenerateDataSetList(gridData: IGridAnalitics): JSX.Element
-{  
-  {console.log("tre", gridData)}
-  return (
-    <React.Fragment>
-      {GenerateGridRows(gridData)}
-    </React.Fragment>
-  )
-}
-
-function GenerateGridRows(gridData: IGridAnalitics): JSX.Element[]
+function GenerateGridRows(gridSize: Position, gridPoints: GridPoint[], lostRobots: LostRobot[]): JSX.Element[]
 {
   var rows: JSX.Element[] = [];
-  for (var i = gridData.gridSize.y; i >= 0; i--)
+  for (var i = gridSize.y; i >= 0; i--)
   {
     rows.push(<div >
-      {GenerateGridColumns(gridData, i)}
+      {GenerateGridColumns(gridSize, gridPoints, lostRobots, i)}
     </div>)
   }
-  rows.push(<div >{GenerateXAxis(gridData.gridSize.x)}</div>)
+  rows.push(<div >{GenerateXAxis(gridSize.x)}</div>)
   return rows;
 }
 
-function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Element[]
+function GenerateGridColumns(gridSize: Position, gridPoints: GridPoint[], lostRobots: LostRobot[], rowNo: number): JSX.Element[]
 {
   var columns: JSX.Element[] = [];
 
@@ -106,18 +95,16 @@ function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Eleme
 
 
   columns.push(<span className={axisYBStyle}>{rowNo}</span>);
-  for (var i = 0; i <= gridData.gridSize.x; i++)
+  for (var i = 0; i <= gridSize.x; i++)
   {
-    var gridPoint: GridPoint[] = gridData.gridPoints.filter(gp => gp.coordinates.x == i && gp.coordinates.y == rowNo);
+    var gridPoint: GridPoint[] = gridPoints.filter(gp => gp.coordinates.x == i && gp.coordinates.y == rowNo);
     var isDiscovered: boolean = gridPoint.length > 0;
     var noOfRobots: number = isDiscovered? gridPoint[0].robotsNumber : 0;
-    var isLost: boolean = noOfRobots > 0? gridData.lostRobots.some(lr => lr.position.x == i && lr.position.y == rowNo) : false;
+    var isLost: boolean = noOfRobots > 0? lostRobots.some(lr => lr.position.x == i && lr.position.y == rowNo) : false;
 
     console.log(isDiscovered, i, rowNo);
 
-    columns.push(<span className="grid-point-size-column">
-      <GridPointElement x={i} y={rowNo} isDiscovered={isDiscovered} isLost={isLost} noOfRobots={noOfRobots}/>
-    </span>)
+    columns.push(<GridPointElement x={i} y={rowNo} isDiscovered={isDiscovered} isLost={isLost} noOfRobots={noOfRobots}/>)
   }
   return columns;
 }

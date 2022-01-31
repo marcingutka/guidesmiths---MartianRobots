@@ -1,5 +1,5 @@
 import React from "react";
-import { OrientationState } from "../components/Model/IGridAnalitics";
+import { OrientationState } from "../components/Model/IPosition";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps) =>
@@ -12,13 +12,14 @@ export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps
   const robotImgUrl: string = robotOrientation? ApplyRobotImg(isLost, robotOrientation) : "";
 
   return (
-    <OverlayTrigger key="top" placement={"top"} overlay={
-      <Tooltip id={'tooltip-top'}>
-        Number of robots: {noOfRobots}
-      </Tooltip>
-    }>
-      <button className={finalClassName} style={{backgroundImage: 'url(/' + robotImgUrl + ")"}}/>
-    </OverlayTrigger>
+    <span className="grid-point-size-column">
+      <OverlayTrigger key="top" placement={"top"} overlay={
+        <Tooltip id={'tooltip-top'}>
+          Number of robots: {noOfRobots}
+        </Tooltip>}>
+        <button className={finalClassName} style={{backgroundImage: 'url(/' + robotImgUrl + ")"}}/>
+      </OverlayTrigger>
+    </span>
   )
 }
 

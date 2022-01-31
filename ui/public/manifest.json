@@ -16,6 +16,26 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "lostRobotNorth.png",
+      "type": "image/png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "lostRobotEast.png",
+      "type": "image/png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "lostRobotSouth.png",
+      "type": "image/png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "lostRobotWest.png",
+      "type": "image/png",
+      "sizes": "40x40"
     }
   ],
   "start_url": ".",

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { GridPoint, IGridAnalitics } from "./Model/IGridAnalitics";
+import { GridPoint, IGridAnalitics, OrientationState } from "./Model/IGridAnalitics";
 import { downloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 import { GetRobotsByRunId } from "../services/RobotsApiRequest";

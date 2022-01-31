@@ -11,7 +11,7 @@ function App() {
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}/>
-          <Route path="/run/:id/robot/:robotId" element={<RobotSummary />}/>
+          <Route path="/run/:runId/robot/:robotId" element={<RobotSummary />}/>
           <Route path="/run/:id" element={<RunSummary />}/>
         </Routes>
         </BrowserRouter>

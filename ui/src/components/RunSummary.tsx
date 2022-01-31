@@ -1,7 +1,9 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { IGridAnalitics} from "./Model/IGridAnalitics";
+import { IGridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
+import { Position } from "./Model/IPosition";
+import { DisplayPoint } from "./Model/DisplayPoint";
 import { downloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 import { GetRobotsByRunId } from "../services/RobotsApiRequest";
@@ -13,8 +15,6 @@ export const RunSummary = () =>
   const [robots, setRobots] = React.useState(0);
   const [data, setData] = React.useState<IGridAnalitics>();
   const { id } = useParams();
-
-  const gridWidth: number = data? data.gridSize.x * 40 : 0;
 
   const fetchDataAsync = async () => {
     if (id)
@@ -49,7 +49,7 @@ export const RunSummary = () =>
           </Row>
         </Container>}
         {data && <div className="grid-position ">
-          {generateGrid(data.gridSize, data.gridPoints, data.lostRobots)}
+          {generateGrid(data.gridSize, mapDataForDisplay(data.gridSize, data.gridPoints, data.lostRobots))}
         </div>}
       </React.Fragment>
     )
@@ -92,4 +92,24 @@ function generateRobotList(numberOfRobots: number, runId:string): JSX.Element[]
   }
 
   return robots;
+}
+
+function mapDataForDisplay(gridSize: Position, gridPoints: GridPoint[], lostRobots: LostRobot[]) : DisplayPoint[] {
+  var displayPoints: DisplayPoint[]=[];
+
+  for (var i = 0; i <= gridSize.y; i++)
+  {
+    for(var j = 0; j <= gridSize.x; j++)
+    {
+      console.log("gridPoints", gridPoints);
+      var gridPoint = gridPoints.filter(gp => gp.coordinates.x === j && gp.coordinates.y === i)[0];
+      var isLostRobot = lostRobots.some(lr => lr.position.x === j && lr.position.y === i);
+      var displayPoint = new DisplayPoint({x: j, y: i}, !!gridPoint, isLostRobot, gridPoint?.robotsNumber);
+      displayPoints.push(displayPoint);
+    }
+  }
+
+  console.log("dispaly{pro", displayPoints);
+
+  return displayPoints;
 }

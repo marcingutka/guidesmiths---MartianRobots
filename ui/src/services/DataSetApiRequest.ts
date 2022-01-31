@@ -1,10 +1,17 @@
+import { IPosition } from '@fluentui/react';
 import axios, {  AxiosPromise } from 'axios';
 import { IDataSet } from '../components/Model/IDataSet'
+import { Position } from '../components/Model/IPosition'
 
 const dataSetApiUrl = "https://localhost:7236/api/dataSet";
 
 export async function GetDataSets(): Promise<AxiosPromise<IDataSet[]>> {
     const res = await axios.get(dataSetApiUrl); 
+    return res;
+}
+
+export async function GetGridByRunId(runId: string): Promise<AxiosPromise<Position>> {
+    const res = await axios.get(dataSetApiUrl + "/grid" + runId); 
     return res;
 }
 

@@ -13,12 +13,12 @@ export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps
 
   return (
     <span className="grid-point-size-column">
-      <OverlayTrigger key="top" placement={"top"} overlay={
+      { noOfRobots && noOfRobots > 0 ? <OverlayTrigger key="top" placement={"top"} overlay={
         <Tooltip id={'tooltip-top'}>
           Number of robots: {noOfRobots}
         </Tooltip>}>
         <button className={finalClassName} style={{backgroundImage: 'url(/' + robotImgUrl + ")"}}/>
-      </OverlayTrigger>
+      </OverlayTrigger> : <button className={finalClassName} style={{backgroundImage: 'url(/' + robotImgUrl + ")"}}/>}
     </span>
   )
 }
@@ -45,13 +45,13 @@ function ApplyRobotImg(isLost: boolean, robotOrientation: OrientationState): str
       orientation = "North";
       break;
     case OrientationState.East:
-      orientation = "east";
+      orientation = "East";
       break;
     case OrientationState.South:
-      orientation = "south";
+      orientation = "South";
       break;
     case OrientationState.West:
-      orientation = "west";
+      orientation = "West";
       break;
       default:
         orientation = "";

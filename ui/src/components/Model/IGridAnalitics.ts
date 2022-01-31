@@ -9,6 +9,7 @@ export interface IGridAnalitics {
 
 export interface GridPoint {
     coordinates: Position,
+    orientation?: OrientationState
     robotsNumber: number
 }
 

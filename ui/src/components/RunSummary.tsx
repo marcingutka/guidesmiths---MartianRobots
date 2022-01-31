@@ -11,10 +11,11 @@ import { Pagination } from './utils/Pagination';
 
 export const RunSummary = () =>
 {
-  const displayedItem: number = 10;
   const [robots, setRobots] = React.useState(0);
   const [data, setData] = React.useState<IGridAnalitics>();
   const {id} = useParams();
+
+  const gridWidth: number = data? data.gridSize.x * 40 : 0;
 
   const fetchDataAsync = async () => {
     if (id)
@@ -35,21 +36,22 @@ export const RunSummary = () =>
       <React.Fragment>
         {id && <Container className="pageMargins" fluid="lg">
           <Row>
-            <Col>
+            <Col className="col-md-auto">
               <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>
             </Col>
-            <Col>
+            <Col className="col-md-auto">
               {GenerateRobotDropDownList(robots, id)}
             </Col>
           </Row>
           <Row className="align-items-center justify-content-md-center m-5">
             <Col className="justify-content-center col-md-auto">
+              Statistics
             </Col>
           </Row>
         </Container>}
-        <div style={{width: 2080, marginLeft: 15}}>
-          {data && GenerateDataSetList(data)}
-        </div>
+        {data && <div className="grid-position ">
+          {GenerateDataSetList(data)}
+        </div>}
       </React.Fragment>
     )
 }
@@ -68,7 +70,7 @@ function GenerateDataSetList(gridData: IGridAnalitics): JSX.Element
 function GenerateGridRows(gridData: IGridAnalitics): JSX.Element[]
 {
   var rows: JSX.Element[] = [];
-  for (var i = gridData.gridSize.y + 47; i >= 0; i--)
+  for (var i = gridData.gridSize.y; i >= 0; i--)
   {
     rows.push(<div >
       {GenerateGridColumns(gridData, i)}
@@ -91,14 +93,17 @@ function GenerateGridColumns(gridData: IGridAnalitics, rowNo: number): JSX.Eleme
 
 
   columns.push(<span className={axisYBStyle}>{rowNo}</span>);
-  for (var i = 0; i <= gridData.gridSize.x + 45; i++)
+  for (var i = 0; i <= gridData.gridSize.x; i++)
   {
     var gridPoint: GridPoint[] = gridData.gridPoints.filter(gp => gp.coordinates.x == i && gp.coordinates.y == rowNo);
-    var noOfRobots: number = gridPoint.length > 0? gridPoint[0].robotsNumber : 0;
+    var isDiscovered: boolean = gridPoint.length > 0;
+    var noOfRobots: number = isDiscovered? gridPoint[0].robotsNumber : 0;
     var isLost: boolean = noOfRobots > 0? gridData.lostRobots.some(lr => lr.position.x == i && lr.position.y == rowNo) : false;
 
+    console.log(isDiscovered, i, rowNo);
+
     columns.push(<span className="grid-point-size-column">
-      <GridPointElement x={i} y={rowNo} isLost={isLost} noOfRobots={noOfRobots}/>
+      <GridPointElement x={i} y={rowNo} isDiscovered={isDiscovered} isLost={isLost} noOfRobots={noOfRobots}/>
     </span>)
   }
   return columns;
@@ -109,7 +114,7 @@ function GenerateXAxis(gridX: number): JSX.Element[]
   var columns: JSX.Element[] = [];
     
   columns.push(<span className="grid-x-axis-position-placeholder"></span>);
-  for (var i = 0; i <= gridX + 45; i++)
+  for (var i = 0; i <= gridX; i++)
   {
     columns.push(<span className="grid-x-axis-position ">{i}</span>)
   }

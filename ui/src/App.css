@@ -93,9 +93,19 @@
   background-color: red;
 }
 
+.discovered-grid-point {
+  background-color: green;
+}
+
 .menu-scroll {
   overflow-y: scroll;
   max-height: 180px;
+}
+
+.grid-position {
+  display: grid;
+  justify-content: center;
+  width: 2080px;
 }
 
 @keyframes App-logo-spin {

@@ -16,7 +16,6 @@ namespace MartianRobots.Api.Controllers
         private readonly IMapper<RobotStep, RobotStepDto> mapper;
         private readonly IDownloadResults downloadService;
 
-        const string txtExtension = ".txt";
 
         public RobotsReadController(
             IRobotStepReadRepository robotsReadRepository,
@@ -43,24 +42,6 @@ namespace MartianRobots.Api.Controllers
         public ActionResult<IEnumerable<RobotStep>> GetRobotSteps(Guid runId, int robotId)
         {
             return Ok(robotsReadRepository.GetRobotSteps(runId, robotId));
-        }
-
-        [HttpGet("results/download")]
-        public ActionResult DownloadResults(Guid runId)
-        {
-            var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
-            if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
-            
-            var content = downloadService.GetResults(runId);
-
-            var stream = new MemoryStream(content);
-
-            var fileStream = new FileStreamResult(stream, "application/octet-stream")
-            {
-                FileDownloadName = fileName,
-            };
-
-            return fileStream;
         }
     }
 }

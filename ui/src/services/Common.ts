@@ -1,0 +1,1 @@
+export const basicUrl: string = "https://localhost:7236/api/"

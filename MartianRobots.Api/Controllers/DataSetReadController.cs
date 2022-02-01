@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MartianRobots.Api.Dto;
 using MartianRobots.Api.Mappers;
+using MartianRobots.Api.Services;
 using MartianRobots.Data.Entities;
 using MartianRobots.Data.Repositories;
 
@@ -13,16 +14,21 @@ namespace MartianRobots.Api.Controllers
         private readonly IDataSetReadRepository dataSetReadRepository;
         private readonly ISavedGridReadRepository gridReadRepository;
         private readonly IMapper<DataSet, DataSetDto> mapper;
+        private readonly IDownloadResults downloadService;
+
+        const string txtExtension = ".txt";
 
         public DataSetReadController(
             IDataSetReadRepository dataSetReadRepository,
             ISavedGridReadRepository gridReadRepository,
-            IMapper<DataSet, DataSetDto> mapper
+            IMapper<DataSet, DataSetDto> mapper,
+            IDownloadResults downloadService
             )
         {
             this.dataSetReadRepository = dataSetReadRepository;
             this.gridReadRepository = gridReadRepository;
             this.mapper = mapper;
+            this.downloadService = downloadService;
         }
 
         [HttpGet]
@@ -39,6 +45,24 @@ namespace MartianRobots.Api.Controllers
             var grid = gridReadRepository.GetGridByRunId(runId);
 
             return Ok(new GridDto { X = grid.X, Y = grid.Y});
+        }
+
+        [HttpGet("results/{runId}/download")]
+        public ActionResult DownloadResults(Guid runId)
+        {
+            var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
+            if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
+
+            var content = downloadService.GetResults(runId);
+
+            var stream = new MemoryStream(content);
+
+            var fileStream = new FileStreamResult(stream, "application/octet-stream")
+            {
+                FileDownloadName = fileName,
+            };
+
+            return fileStream;
         }
     }
 }

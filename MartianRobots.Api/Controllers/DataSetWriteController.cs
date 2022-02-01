@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MartianRobots.Api.Services;
-using MartianRobots.Data.Repositories;
 
 namespace MartianRobots.Api.Controllers
 {

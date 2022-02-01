@@ -1,5 +1,5 @@
 import FileDownload  from "js-file-download";
-import { GetRobotsResults } from "../services/RobotsApiRequest";
+import { GetRobotsResults } from "../services/DataSetApiRequest";
 
 export const downloadHandler = async (runId: string) => {
     const response = await GetRobotsResults(runId);

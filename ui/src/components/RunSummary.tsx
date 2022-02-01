@@ -63,7 +63,7 @@ function generateStatistics(gridData: IGridAnalitics, noOfRobots: number): JSX.E
       <StatisticRow name="Lost Robots: " value={gridData.lostRobots.length} />
       <StatisticRow name="Total Grid Area (abs): " value={gridData.discoveredArea.totalArea} />
       <StatisticRow name="Discovered Area (abs): " value={gridData.discoveredArea.discoveredAreaAbsolute} />
-      <StatisticRow name="Discovered Area (%): " value={gridData.discoveredArea.discoveredAreaPercent} />
+      <StatisticRow name="Discovered Area (%): " value={gridData.discoveredArea.discoveredAreaAbsolute > 1 && gridData.discoveredArea.discoveredAreaPercent === 0? "<1" : gridData.discoveredArea.discoveredAreaPercent} />
     </React.Fragment>
   )
 }

@@ -9,15 +9,15 @@ namespace MartianRobots.Api.Controllers
     public class DataSetWriteController : ControllerBase
     {
         private readonly IUploadFileRunner fileRunner;
-        private readonly IDataSetWriteRepository dataSetWriteRepository;
+        private readonly IDeleteService deleteService;
 
         public DataSetWriteController(
             IUploadFileRunner fileRunner,
-            IDataSetWriteRepository dataSetWriteRepository
+            IDeleteService deleteService
             )
         {
             this.fileRunner = fileRunner;
-            this.dataSetWriteRepository = dataSetWriteRepository;
+            this.deleteService = deleteService;
         }
 
         [HttpPost("upload/{name}")]
@@ -48,7 +48,7 @@ namespace MartianRobots.Api.Controllers
         [HttpDelete("{runId}")]
         public async Task<ActionResult> DeleteDataSet(Guid runId)
         {
-            await dataSetWriteRepository.DeleteDataSetAsync(runId);
+            await deleteService.DeleteRunAsync(runId);
 
             return Ok();
         }

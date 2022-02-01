@@ -6,5 +6,6 @@ namespace MartianRobots.Data.Repositories
     {
         Task SaveRobotStepAsync(RobotStep step);
         Task SaveRobotMovement(List<RobotStep> robotPositions);
+        Task DeleteRobotStepsAsync(Guid runId);
     }
 }

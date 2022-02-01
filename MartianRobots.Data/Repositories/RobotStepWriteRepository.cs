@@ -22,5 +22,10 @@ namespace MartianRobots.Data.Repositories
         {
             await martianRepository.InsertManyAsync(robotPositions);
         }
+
+        public async Task DeleteRobotStepsAsync(Guid runId)
+        {
+            await martianRepository.DeleteManyAsync(x => x.RunId == runId);
+        }
     }
 }

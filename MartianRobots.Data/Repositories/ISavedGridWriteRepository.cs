@@ -6,5 +6,6 @@ namespace MartianRobots.Data.Repositories
     {
         bool CheckRunId(Guid runId);
         Task SaveGridAsync(SavedGrid grid);
+        Task DeleteRunAsync(Guid runId);
     }
 }

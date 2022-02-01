@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MartianRobots.Models;
-using MartianRobots.Models.Constants;
 
 namespace MartianRobots.Data.Entities
 {

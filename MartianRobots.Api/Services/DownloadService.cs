@@ -7,25 +7,25 @@ namespace MartianRobots.Api.Services
     public class DownloadService : IDownloadService
     {
         private readonly IRobotStepReadRepository robotReadRepository;
-        private readonly ISavedGridReadRepository gridReadRepository;
-        private readonly IOutputMapper outputMapper;
+        private readonly IInputDataReadRepository inputReadRepository;
+        private readonly IOutputFileMapper outputMapper;
 
         public DownloadService(
             IRobotStepReadRepository robotReadRepository,
-            ISavedGridReadRepository gridReadRepository,
-            IOutputMapper outputMapper
+            IInputDataReadRepository inputReadRepository,
+            IOutputFileMapper outputMapper
             )
         {
             this.robotReadRepository = robotReadRepository;
             this.outputMapper = outputMapper;
-            this.gridReadRepository = gridReadRepository;
+            this.inputReadRepository = inputReadRepository;
         }
 
         public byte[] GetResults(Guid runId)
         {
             var robots = robotReadRepository.GetRobotResults(runId).ToList();
 
-            var content = outputMapper.GenerateOutput(robots);
+            var content = outputMapper.GenerateResults(robots);
 
             var bytes = Encoding.ASCII.GetBytes(BuildOutputString(content));
 
@@ -34,7 +34,7 @@ namespace MartianRobots.Api.Services
 
         public byte[] GetInput(Guid runId)
         {
-            var grid = gridReadRepository.GetGridByRunId(runId);
+            var inputData = inputReadRepository.GetInputByRunId(runId);
 
             return new byte[0];
         }

@@ -36,7 +36,7 @@ namespace MartianRobots.Api.Services
             var runId = await manager.ExecuteTasksAsync();
 
             var inputData = GenerateInputData(runId, grid, robots, command, runName);
-            await repository.SaveInput(inputData);
+            await repository.SaveInputAsync(inputData);
         }
 
         private InputData GenerateInputData(Guid runId, Grid grid, IEnumerable<Robot> robots, IEnumerable<RobotCommands> commands, string runName)

@@ -9,7 +9,7 @@ namespace MartianRobots.FileHandler.DI
         {
             services.AddSingleton<IFileHandler, TxtFileHandler>();
             services.AddSingleton<IInputMapper, InputMapper>();
-            services.AddSingleton<IOutputMapper, OutputMapper>();
+            services.AddSingleton<IOutputFileMapper, OutputFileMapper>();
         }
     }
 }

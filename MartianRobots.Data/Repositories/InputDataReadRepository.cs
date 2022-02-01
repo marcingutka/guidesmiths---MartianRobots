@@ -4,18 +4,18 @@ using MartianRobots.Data.Providers;
 
 namespace MartianRobots.Data.Repositories
 {
-    public class InputDataWriteRepository : IInputDataWriteRepository
+    public class InputDataReadRepository : IInputDataReadRepository
     {
         private readonly IMongoCollection<InputData> martianRepository;
 
-        public InputDataWriteRepository(IDatabaseProvider<InputData> provider)
+        public InputDataReadRepository(IDatabaseProvider<InputData> provider)
         {
             martianRepository = provider.GetCollection();
         }
 
-        public async Task SaveInputAsync(InputData data)
+        public InputData GetInputByRunId(Guid runId)
         {
-            await martianRepository.InsertOneAsync(data);
+            return martianRepository.AsQueryable().FirstOrDefault(x => x.RunId == runId);
         }
     }
 }

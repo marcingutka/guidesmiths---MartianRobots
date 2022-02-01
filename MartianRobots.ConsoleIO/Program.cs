@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using MartianRobots.ConsoleIO;
 using MartianRobots.ConsoleIO.DI;
-using MartianRobots.Data.Entities;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile(@"F:\guidesmiths\MartianRobots.ConsoleIO\appsettings.json")
@@ -34,4 +33,4 @@ foreach (var robot in robots)
     Console.WriteLine(robot.ToString());
 }
 
-fileHandler.WriteFile(outputMapper.GenerateOutput(robots.ToList()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));
+fileHandler.WriteFile(outputMapper.GenerateResults(robots.ToList()), configuration.GetSection("OutputFile").GetSection("Path").Value + fileName.Replace(".txt", "- Results.txt"));

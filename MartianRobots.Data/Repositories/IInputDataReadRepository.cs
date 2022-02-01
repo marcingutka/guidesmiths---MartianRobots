@@ -2,8 +2,8 @@
 
 namespace MartianRobots.Data.Repositories
 {
-    public interface IInputDataWriteRepository
+    public interface IInputDataReadRepository
     {
-        Task SaveInputAsync(InputData data);
+        InputData GetInputByRunId(Guid runId);
     }
 }

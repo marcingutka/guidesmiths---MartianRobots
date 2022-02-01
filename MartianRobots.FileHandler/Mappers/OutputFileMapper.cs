@@ -3,9 +3,9 @@ using MartianRobots.Data.Entities;
 
 namespace MartianRobots.FileHandler.Mappers
 {
-    public class OutputMapper : IOutputMapper
+    public class OutputFileMapper : IOutputFileMapper
     {
-        public List<string> GenerateOutput(List<Robot> robots)
+        public List<string> GenerateResults(List<Robot> robots)
         {
             var output = new List<string>();
 
@@ -17,7 +17,7 @@ namespace MartianRobots.FileHandler.Mappers
             return output;
         }
 
-        public List<string> GenerateOutput(List<RobotStep> robots)
+        public List<string> GenerateResults(List<RobotStep> robots)
         {
             var modelRobots = robots.Select(x => new Robot
             {
@@ -25,7 +25,7 @@ namespace MartianRobots.FileHandler.Mappers
                 IsLost = x.IsLost
             }).ToList();
 
-            return GenerateOutput(modelRobots);
+            return GenerateResults(modelRobots);
         }
     }
 }

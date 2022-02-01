@@ -35,6 +35,7 @@ namespace MartianRobots.Data.DI
             services.AddScoped<ISavedGridWriteRepository, SavedGridWriteRepository>();
             services.AddScoped<IDataSetReadRepository, DataSetReadRepository>();
             services.AddScoped<IDataSetWriteRepository, DataSetWriteRepository>();
+            services.AddScoped<IInputDataReadRepository, InputDataReadRepository>();
             services.AddScoped<IInputDataWriteRepository, InputDataWriteRepository>();
         }
     }

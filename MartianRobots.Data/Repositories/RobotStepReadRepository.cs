@@ -48,5 +48,10 @@ namespace MartianRobots.Data.Repositories
         {
             return martianRepository.AsQueryable().Where(x => x.RunId == runId && x.IsLastStep == true).OrderBy(x => x.RobotId);
         }
+
+        public IEnumerable<RobotStep> GetRobotInput(Guid runId)
+        {
+            return martianRepository.AsQueryable().Where(x => x.RunId == runId && x.StepNumber == 1).OrderBy(x => x.RobotId);
+        }
     }
 }

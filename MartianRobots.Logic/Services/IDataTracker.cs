@@ -5,7 +5,7 @@ namespace MartianRobots.Logic.Services
 {
     public interface IDataTracker
     {
-        Task SaveGridAsync(Grid grid);
+        Task<Guid> SaveGridAsync(Grid grid);
         Task SaveRobotDataAsync();
         Task SaveRunNameAsync(string name, DateTime date);
         void CollectMetricData(int robotId, int stepNo, GridPosition position, RectangularMoveCommand? command = null, bool isLastStep = false, bool isLost = false);

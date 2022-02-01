@@ -24,6 +24,7 @@ namespace MartianRobots.Data.DI
             services.AddSingleton<IDatabaseProvider<RobotStep>, DatabaseProvider<RobotStep>>();
             services.AddSingleton<IDatabaseProvider<SavedGrid>, DatabaseProvider<SavedGrid>>();
             services.AddSingleton<IDatabaseProvider<DataSet>, DatabaseProvider<DataSet>>();
+            services.AddSingleton<IDatabaseProvider<InputData>, DatabaseProvider<InputData>>();
         }
 
         private static void ConfigureRepositories(IServiceCollection services)
@@ -34,6 +35,7 @@ namespace MartianRobots.Data.DI
             services.AddScoped<ISavedGridWriteRepository, SavedGridWriteRepository>();
             services.AddScoped<IDataSetReadRepository, DataSetReadRepository>();
             services.AddScoped<IDataSetWriteRepository, DataSetWriteRepository>();
+            services.AddScoped<IInputDataWriteRepository, InputDataWriteRepository>();
         }
     }
 }

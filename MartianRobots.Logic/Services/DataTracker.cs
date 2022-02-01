@@ -25,7 +25,7 @@ namespace MartianRobots.Logic.Services
             this.writeDataSetRepository = writeDataSetRepository;
         }
 
-        public async Task SaveGridAsync(Grid grid)
+        public async Task<Guid> SaveGridAsync(Grid grid)
         {
             var runId = Guid.NewGuid();
 
@@ -37,6 +37,8 @@ namespace MartianRobots.Logic.Services
             RunId = runId;
 
             await writeGridRepository.SaveGridAsync(CreateSavedGrid(grid));
+
+            return runId;
         }
 
         public async Task SaveRobotDataAsync()

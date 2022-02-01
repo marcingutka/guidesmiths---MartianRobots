@@ -1,6 +1,6 @@
 ﻿namespace MartianRobots.Api.Services
 {
-    public interface IDownloadResults
+    public interface IDownloadService
     {
         byte[] GetResults(Guid runId);
     }

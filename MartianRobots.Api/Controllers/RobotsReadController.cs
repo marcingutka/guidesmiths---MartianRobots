@@ -14,14 +14,14 @@ namespace MartianRobots.Api.Controllers
         private readonly IRobotStepReadRepository robotsReadRepository;
         private readonly IDataSetReadRepository dataSetReadRepository;
         private readonly IMapper<RobotStep, RobotStepDto> mapper;
-        private readonly IDownloadResults downloadService;
+        private readonly IDownloadService downloadService;
 
 
         public RobotsReadController(
             IRobotStepReadRepository robotsReadRepository,
             IDataSetReadRepository dataSetReadRepository,
             IMapper<RobotStep, RobotStepDto> mapper,
-            IDownloadResults downloadService
+            IDownloadService downloadService
             )
         {
             this.robotsReadRepository = robotsReadRepository;

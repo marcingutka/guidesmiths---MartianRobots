@@ -37,11 +37,11 @@ namespace MartianRobots.Logic.Manager
             RunName = runName;
         }
 
-        public async Task ExecuteTasksAsync()
+        public async Task<Guid> ExecuteTasksAsync()
         {
             if (Grid is null || Robots is null || RobotCommands is null) throw new Exception("The data was not provided");
 
-            await dataTracker.SaveGridAsync(Grid);
+            var runId = await dataTracker.SaveGridAsync(Grid);
 
             foreach (Robot robot in Robots)
             {
@@ -51,6 +51,8 @@ namespace MartianRobots.Logic.Manager
             }
 
             await dataTracker.SaveRunNameAsync(RunName, DateTime.UtcNow);
+
+            return runId;
         }
 
         private void ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands)

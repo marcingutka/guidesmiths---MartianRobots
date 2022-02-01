@@ -2,17 +2,20 @@ import { Position } from "../components/Model/IPosition";
 import { GridPointElement} from "../common/GridPointElement";
 import { DisplayPoint } from "../components/Model/DisplayPoint";
 
-export function generateGrid(gridSize: Position, displayPoints: DisplayPoint[]): JSX.Element[]
+export function generateGrid(gridSize: Position, displayPoints: DisplayPoint[]): JSX.Element
 {
   var rows: JSX.Element[] = [];
+  
+  const positionX: number = -gridSize.x - 800;
+
   for (var i = gridSize.y; i >= 0; i--)
   {
-    rows.push(<div >
+    rows.push(<div>
       {GenerateGridColumns(gridSize, displayPoints, i)}
     </div>)
   }
   rows.push(<div >{GenerateXAxis(gridSize.x)}</div>)
-  return rows;
+  return <div className="grid-position " style={{marginLeft: positionX}}>{rows}</div>;
 }
 
 function GenerateGridColumns(gridSize: Position, displayPoints: DisplayPoint[], rowNo: number): JSX.Element[]
@@ -26,9 +29,7 @@ function GenerateGridColumns(gridSize: Position, displayPoints: DisplayPoint[], 
     axisYBStyle += "axis-y-margin-small ";
   }
 
-
   columns.push(<span className={axisYBStyle}>{rowNo}</span>);
-  console.log("Display [] in generate", displayPoints);
   for (var i = 0; i <= gridSize.x; i++)
   {
     var displayPoint: DisplayPoint = displayPoints.filter(dp => dp.coordinates.x === i && dp.coordinates.y === rowNo)[0]

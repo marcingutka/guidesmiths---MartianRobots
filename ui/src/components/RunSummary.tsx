@@ -47,10 +47,10 @@ export const RunSummary = () =>
               {data && generateStatistics(data, robots)}
             </Col>
           </Row>
-        </Container>}
         {data && <div className="grid-position ">
           {generateGrid(data.gridSize, mapDataForDisplay(data.gridSize, data.gridPoints, data.lostRobots))}
         </div>}
+        </Container>}
       </React.Fragment>
     )
 }

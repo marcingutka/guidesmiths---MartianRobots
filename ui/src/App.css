@@ -70,7 +70,7 @@
 
 .grid-x-axis-position {
   position: relative;
-  left: 5px;
+  left: 10px;
   display: inline-block;
   text-align: center;
   width: 40px;
@@ -106,7 +106,6 @@
   display: grid;
   justify-content: center;
   width: 2080px;
-  margin-left: -100px;
 }
 
 .robot-input-step {

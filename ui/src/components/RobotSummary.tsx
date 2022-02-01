@@ -84,10 +84,8 @@ export const RobotSummary = () =>
                         {currentStep.command ? <StatisticRow name={"Command: "} value={getRectangularMoveCommandName(currentStep.command)}/> : <StatisticRow name={"Lost: "} value={currentStep.isLost? "Yes" : "No"}/>}                        
                     </Col>
                 </Row>
-            </Container>}
-            <div>
                 {generateGrid(gridSize, displayPoints)}
-            </div>
+            </Container>}
             
         </React.Fragment>
     )

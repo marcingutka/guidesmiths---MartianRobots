@@ -32,7 +32,7 @@ namespace MartianRobots.Data.Repositories
 
         public IEnumerable<Position> GetRobotsDistinctPositions(Guid runId)
         {
-            var result = martianRepository.AsQueryable().Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
+            var result = martianRepository.AsQueryable().Where(x => x.RunId == runId).Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
             return result;
         }
 

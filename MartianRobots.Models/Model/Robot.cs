@@ -10,7 +10,7 @@ namespace MartianRobots.Models
 
         public override string ToString()
         {
-            return $"{Position.X} {Position.Y} {Position.Orientation.ToString()[0]} {(IsLost == true ? "LOST" : string.Empty)}";
+            return $"{Position.X} {Position.Y} {Position.Orientation.ToShortString()} {(IsLost == true ? "LOST" : string.Empty)}";
         }
     }
 }

@@ -7,5 +7,6 @@ namespace MartianRobots.FileHandler.Mappers
     {
         List<string> GenerateResults(List<Robot> robots);
         List<string> GenerateResults(List<RobotStep> robots);
+        List<string> GenerateInputFile(InputData input);
     }
 }

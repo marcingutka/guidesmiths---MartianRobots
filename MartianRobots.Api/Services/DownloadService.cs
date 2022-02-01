@@ -8,7 +8,7 @@ namespace MartianRobots.Api.Services
     {
         private readonly IRobotStepReadRepository robotReadRepository;
         private readonly IInputDataReadRepository inputReadRepository;
-        private readonly IOutputFileMapper outputMapper;
+        private readonly IOutputFileMapper outputFileMapper;
 
         public DownloadService(
             IRobotStepReadRepository robotReadRepository,
@@ -17,7 +17,7 @@ namespace MartianRobots.Api.Services
             )
         {
             this.robotReadRepository = robotReadRepository;
-            this.outputMapper = outputMapper;
+            this.outputFileMapper = outputMapper;
             this.inputReadRepository = inputReadRepository;
         }
 
@@ -25,21 +25,21 @@ namespace MartianRobots.Api.Services
         {
             var robots = robotReadRepository.GetRobotResults(runId).ToList();
 
-            var content = outputMapper.GenerateResults(robots);
+            var content = outputFileMapper.GenerateResults(robots);
 
-            var bytes = Encoding.ASCII.GetBytes(BuildOutputString(content));
-
-            return bytes;
+            return Encoding.ASCII.GetBytes(BuildOutputString(content));
         }
 
         public byte[] GetInput(Guid runId)
         {
             var inputData = inputReadRepository.GetInputByRunId(runId);
 
-            return new byte[0];
+            var content = outputFileMapper.GenerateInputFile(inputData);
+
+            return Encoding.ASCII.GetBytes(BuildOutputString(content));
         }
 
-        private string BuildOutputString(List<string> content)
+        private static string BuildOutputString(List<string> content)
         {
             var sb = new StringBuilder();
 

@@ -32,22 +32,39 @@ namespace MartianRobots.Api.Services
             var fileContent = fileHandler.ReadFile(path);
             var (grid, robots, command) = mapper.Map(fileContent);
 
+            var initialRobots = SaveInitialRobots(robots.ToList());            
+
             manager.AssignGridAndRobots(grid, robots, command, runName);
             var runId = await manager.ExecuteTasksAsync();
 
-            var inputData = GenerateInputData(runId, grid, robots, command, runName);
+            var inputData = GenerateInputData(runId, grid, initialRobots, command);
             await repository.SaveInputAsync(inputData);
         }
 
-        private InputData GenerateInputData(Guid runId, Grid grid, IEnumerable<Robot> robots, IEnumerable<RobotCommands> commands, string runName)
+        private static List<Robot> SaveInitialRobots(List<Robot> robots)
+        {
+            var initialRobots = new List<Robot>();
+
+            foreach (var robot in robots)
+            {
+                initialRobots.Add(new Robot
+                {
+                    Id = robot.Id,
+                    Position = new GridPosition { X = robot.Position.X, Y = robot.Position.Y, Orientation = robot.Position.Orientation }
+                });
+            }
+
+            return initialRobots;
+        }
+
+        private static InputData GenerateInputData(Guid runId, Grid grid, List<Robot> robots, IEnumerable<RobotCommands> commands)
         {
             return new InputData
             {
                 RunId = runId,
                 Grid = grid,
                 Robots = robots,
-                Commands = commands,
-                Name = runName
+                Commands = commands.ToList()
             };
         }
     }

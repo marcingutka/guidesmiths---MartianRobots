@@ -1,5 +1,7 @@
 ﻿using MartianRobots.Models;
+using MartianRobots.Models.Constants;
 using MartianRobots.Data.Entities;
+using System.Text;
 
 namespace MartianRobots.FileHandler.Mappers
 {
@@ -27,5 +29,34 @@ namespace MartianRobots.FileHandler.Mappers
 
             return GenerateResults(modelRobots);
         }
+
+        public List<string> GenerateInputFile(InputData input)
+        {
+            var content = new List<string>();
+
+            content.Add($"{input.Grid.X} {input.Grid.Y}");
+
+            for (var i = 0; i < input.Robots.Count; i++)
+            {
+                content.Add($"{input.Robots[i]}");
+                content.Add($"{GetCommandLine(input.Commands[i].Commands)}");
+            }
+
+            return content;
+        }
+
+        private string GetCommandLine(List<RectangularMoveCommand> commands)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var command in commands)
+            {
+                sb.Append($"{command.ToShortString()}");
+            }
+
+            return sb.ToString();
+        }
+
+
     }
 }

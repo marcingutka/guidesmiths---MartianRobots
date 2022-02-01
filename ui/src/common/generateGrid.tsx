@@ -6,7 +6,7 @@ export function generateGrid(gridSize: Position, displayPoints: DisplayPoint[]):
 {
   var rows: JSX.Element[] = [];
   
-  const width: number = gridSize.x * 50;
+  const width: number = gridSize.x * 60;
   const marginLeft: number = gridSize.x * 4;
 
   for (var i = gridSize.y; i >= 0; i--)

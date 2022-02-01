@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace MartianRobots.Models.Constants
 {
     public enum OrientationState
@@ -12,5 +7,20 @@ namespace MartianRobots.Models.Constants
         East = 2,
         South = 3,
         West = 4,
+    }
+
+    public static class OrientationStateExtensions
+    {
+        public static string ToShortString(this OrientationState state)
+        {
+            return state switch
+            {
+                OrientationState.North => "N",
+                OrientationState.East => "E",
+                OrientationState.South => "S",
+                OrientationState.West => "W",
+                _ => string.Empty,
+            };
+        }
     }
 }

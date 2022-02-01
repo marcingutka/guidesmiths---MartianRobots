@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { IGridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
 import { Position } from "./Model/IPosition";
 import { DisplayPoint } from "./Model/DisplayPoint";
-import { downloadHandler } from "../common/downloadHandler";
+import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
 import { GetRobotsByRunId } from "../services/RobotsApiRequest";
 import { StatisticRow } from "../common/StatisticRow";
@@ -36,7 +36,10 @@ export const RunSummary = () =>
         {id && <Container className="pageMargins" fluid="lg">
           <Row className="align-items-center justify-content-md-center" >
             <Col className="col-md-auto">
-              <button type="button" className="btn btn-warning" onClick={() => downloadHandler(id)}>Get Result File</button>
+              <button type="button" className="btn btn-light download-button" onClick={() => inputDownloadHandler(id)}>Get Input File</button>
+            </Col>
+            <Col className="col-md-auto">
+              <button type="button" className="btn btn-warning download-button" onClick={() => resultsDownloadHandler(id)}>Get Result File</button>
             </Col>
             <Col className="col-md-auto">
               {generateRobotDropDownList(robots, id)}

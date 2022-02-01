@@ -3,7 +3,7 @@ import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { IDataSet } from "./Model/IDataSet";
 import { GetDataSets, UploadFile, DeleteDataSet } from '../services/DataSetApiRequest';
-import { downloadHandler } from "../common/downloadHandler";
+import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';
 
 export const Main = () =>
@@ -49,7 +49,7 @@ export const Main = () =>
 
   return (
     <React.Fragment>
-      <Container className="pageMargins lg" fluid="lg">
+      <Container className="pageMargins ">
         <Row className="justify-content-md-center">          
           <input className="form-control upload-form" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
         </Row>
@@ -69,13 +69,15 @@ export const Main = () =>
           </Col>
         </Row>}
         {isData && <Row className="justify-content-md-center listHeader row-cols-2" style={{position: "relative"}}>          
-          <Col>
+          <Col className="justify-content-center col-8">
             <Row className=" listHeader data-set-rows">
-              <Col className="d-flex justify-content-center col-4">Run name / File Name</Col>
+              <Col className="d-flex justify-content-center col-3">Run name / File Name</Col>
               <Col className="d-flex justify-content-center col-2">Date (UTC)</Col>
-              <Col className="d-flex justify-content-center col-2"></Col>
+              <Col className="d-flex justify-content-center col-2"/>
+              <Col className="d-flex justify-content-center col-2"/>
+              <Col className="d-flex justify-content-center col-2"/>
             </Row>
-            {GenerateDataSetList(navigate, downloadHandler, deleteHandler, paginatedData)}
+            {GenerateDataSetList(navigate, resultsDownloadHandler, inputDownloadHandler, deleteHandler, paginatedData)}
             {isPaginated && <Row className="justify-content-md-center">
               <Col className="d-flex justify-content-center col-4 pagination-wrapper">
                 <Pagination page={page} pages={pages} onClick={setPage} />
@@ -94,22 +96,25 @@ function Paginate(data: IDataSet[], page: number, elementNumber: number): IDataS
   return data.slice(startIndex, endIndex);
 }
 
-function GenerateDataSetList(navigate: NavigateFunction, downloadHandler: (runId: string) => void, deleteHandler: (runId: string) => void, paginatedData: IDataSet[]): JSX.Element
+function GenerateDataSetList(navigate: NavigateFunction, resultsDownloadHandler: (runId: string) => void, inputDownloadHandler: (runId: string) => void, deleteHandler: (runId: string) => void, paginatedData: IDataSet[]): JSX.Element
 {
   return <React.Fragment>
   {paginatedData.map((x) => { return (
     <Row className="m-2 justify-content-center data-set-rows">
-      <Col className="d-flex justify-content-center col-3">
-        <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name}</button>
+      <Col className=" justify-content-center ">
+        <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name.length > 15 ? x.name.substring(0, 12) + "..." : x.name}</button>
       </Col>
-      <Col className="d-flex justify-content-center col-4">
+      <Col className="d-flex justify-content-center col-3">
         {x.generationDate}
       </Col>
-      <Col className="d-flex justify-content-center col-3">
-        {x.runId && <button type="button" className="btn btn-warning" onClick={() => downloadHandler(x.runId)}>Get Result File</button>}
+      <Col className=" justify-content-center col-2">
+        {x.runId && <button type="button"  className="btn btn-warning download-button" onClick={() => resultsDownloadHandler(x.runId)}>Get Result File</button>}
       </Col>
-      <Col className="d-flex justify-content-center">
-        <button type="button" className="btn btn-secondary" onClick={() => deleteHandler(x.runId)}>DELETE</button>
+      <Col className=" justify-content-center col-2 " >
+        {x.runId && <button type="button"  className="btn btn-light download-button" onClick={() => inputDownloadHandler(x.runId)}>Get Input File</button>}
+      </Col>
+      <Col className=" justify-content-center">
+        <button type="button" className="btn btn-secondary" style={{width: 80}} onClick={() => deleteHandler(x.runId)}>DELETE</button>
       </Col>
     </Row>
     )})}

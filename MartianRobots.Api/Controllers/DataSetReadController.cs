@@ -65,12 +65,13 @@ namespace MartianRobots.Api.Controllers
             return fileStream;
         }
 
+        [HttpGet("input/{runId}/download")]
         public ActionResult DownloadInput(Guid runId)
         {
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
             if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
 
-            var content = downloadService.GetResults(runId);
+            var content = downloadService.GetInput(runId);
 
             var stream = new MemoryStream(content);
 

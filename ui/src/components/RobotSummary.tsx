@@ -66,19 +66,16 @@ export const RobotSummary = () =>
 
     return (
         <React.Fragment>
-            <label>StepNo: {stepNo}</label>
-            <label>CurrentStep: {currentStep?.stepNumber}</label>
-            <label>stepsToDisplay: {stepsToDisplay.length}</label>
-            {currentStep && <Container className="pageMargins" fluid="lg">
-                <Row className="justify-content-md-start">
-                    <Col className="col-md-2" >
+            {currentStep && <Container className="pageMargins">
+                <Row className="justify-content-center">
+                    <Col className="col-3" >
                         <button type="button" className={"btn btn-outline-primary"} onClick={() => setStepNo(stepNo - 1)} disabled={isPreviousDisabled}>Previous</button>
                         <input className="robot-input-step " type="number" min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
                         <button type="button" className="btn btn-outline-primary" onClick={() => setStepNo(stepNo + 1)} disabled={isNextDisabled}>Next</button>
                     </Col>
                 </Row>
-                <Row className="align-items-center justify-content-md-center">
-                    <Col className="justify-content-center col-sm-2">
+                <Row className=" justify-content-center">
+                    <Col className=" col-3">
                         <StatisticRow name={"Number of Steps: "} value={steps.length}/>
                         <StatisticRow name={"X: "} value={currentStep.position.x}/>
                         <StatisticRow name={"Y: "} value={currentStep.position.y}/>
@@ -86,9 +83,10 @@ export const RobotSummary = () =>
                         {currentStep.command ? <StatisticRow name={"Command: "} value={getRectangularMoveCommandName(currentStep.command)}/> : <StatisticRow name={"Lost: "} value={currentStep.isLost? "Yes" : "No"}/>}                        
                     </Col>
                 </Row>
-                {generateGrid(gridSize, displayPoints)}
-            </Container>}
-            
+                {<div className="grid-position ">
+                    {generateGrid(gridSize, displayPoints)}
+                    </div>}
+            </Container>}            
         </React.Fragment>
     )
 }

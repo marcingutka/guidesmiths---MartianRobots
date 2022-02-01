@@ -11,9 +11,8 @@ namespace MartianRobots.Data.Entities
         public ObjectId Id { get; set; }
         [BsonRepresentation(BsonType.String)]
         public Guid RunId { get; set; }
-        public string Name { get; set; }
         public Grid Grid { get; set; }
-        public IEnumerable<Robot> Robots { get; set; }
-        public IEnumerable<RobotCommands> Commands { get; set; }
+        public List<Robot> Robots { get; set; }
+        public List<RobotCommands> Commands { get; set; }
     }
 }

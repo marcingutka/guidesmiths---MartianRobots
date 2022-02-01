@@ -1,12 +1,29 @@
-﻿using MartianRobots.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using MartianRobots.Models;
 using MartianRobots.Models.Constants;
+using MartianRobots.FileHandler.Validator;
 
 namespace MartianRobots.FileHandler.Mappers
 {
     public class InputMapper : IInputMapper
     {
+        private readonly IInputValidator validator;
+        public InputMapper(IInputValidator validator)
+        {
+            this.validator = validator;
+        }
+
         public (Grid Grid, IEnumerable<Robot> Robots, IEnumerable<RobotCommands> Commands) Map(List<string> data)
         {
+            try
+            {
+                validator.Validate(data);
+            }
+            catch (ValidationException ex)
+            {
+                throw ex;
+            }
+
             var grid = MapGrid(data[0]);
 
             var robots = MapRobots(data.Skip(1).ToList());

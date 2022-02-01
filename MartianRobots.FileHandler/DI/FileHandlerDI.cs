@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MartianRobots.FileHandler.Mappers;
+using MartianRobots.FileHandler.Validator;
 
 namespace MartianRobots.FileHandler.DI
 {
@@ -10,6 +11,7 @@ namespace MartianRobots.FileHandler.DI
             services.AddSingleton<IFileHandler, TxtFileHandler>();
             services.AddSingleton<IInputMapper, InputMapper>();
             services.AddSingleton<IOutputFileMapper, OutputFileMapper>();
+            services.AddSingleton<IInputValidator, InputValidator>();
         }
     }
 }

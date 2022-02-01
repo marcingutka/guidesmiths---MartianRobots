@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using MartianRobots.Api.Services;
 
 namespace MartianRobots.Api.Controllers
@@ -39,7 +40,14 @@ namespace MartianRobots.Api.Controllers
                 await file.CopyToAsync(fs);
             }
 
-            await fileRunner.RunFile(fullPath, string.IsNullOrEmpty(name)? fileName : name);
+            try
+            {
+                await fileRunner.RunFile(fullPath, string.IsNullOrEmpty(name) ? fileName : name);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }

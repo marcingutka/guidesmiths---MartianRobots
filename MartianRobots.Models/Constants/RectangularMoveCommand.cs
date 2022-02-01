@@ -6,6 +6,7 @@
         Right = 2,
         Forward = 3
     }
+
     public static class RectangularMoveCommandExtensions
     {
         public static string ToShortString(this RectangularMoveCommand state)

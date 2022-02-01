@@ -62,14 +62,16 @@ export const RobotSummary = () =>
     const stepsToDisplay: IRobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
     const displayPoints: DisplayPoint[] = mapDataForDisplay(gridSize, stepsToDisplay);
 
+    const positionX: number = -gridSize.x + 800;
+
     return (
         <React.Fragment>
             <label>StepNo: {stepNo}</label>
             <label>CurrentStep: {currentStep?.stepNumber}</label>
             <label>stepsToDisplay: {stepsToDisplay.length}</label>
             {currentStep && <Container className="pageMargins" fluid="lg">
-                <Row className="align-items-center justify-content-md-center">
-                    <Col className="col-md-auto">
+                <Row className="justify-content-md-start">
+                    <Col className="col-md-2" >
                         <button type="button" className={"btn btn-outline-primary"} onClick={() => setStepNo(stepNo - 1)} disabled={isPreviousDisabled}>Previous</button>
                         <input className="robot-input-step " type="number" min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
                         <button type="button" className="btn btn-outline-primary" onClick={() => setStepNo(stepNo + 1)} disabled={isNextDisabled}>Next</button>

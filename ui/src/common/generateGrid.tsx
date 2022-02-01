@@ -6,7 +6,8 @@ export function generateGrid(gridSize: Position, displayPoints: DisplayPoint[]):
 {
   var rows: JSX.Element[] = [];
   
-  const positionX: number = -gridSize.x - 800;
+  const width: number = gridSize.x * 50;
+  const marginLeft: number = gridSize.x * 2;
 
   for (var i = gridSize.y; i >= 0; i--)
   {
@@ -15,7 +16,7 @@ export function generateGrid(gridSize: Position, displayPoints: DisplayPoint[]):
     </div>)
   }
   rows.push(<div >{GenerateXAxis(gridSize.x)}</div>)
-  return <div className="grid-position " style={{marginLeft: positionX}}>{rows}</div>;
+  return <div className="grid-position " style={{width: width, marginLeft: marginLeft}}>{rows}</div>;
 }
 
 function GenerateGridColumns(gridSize: Position, displayPoints: DisplayPoint[], rowNo: number): JSX.Element[]

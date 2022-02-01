@@ -33,8 +33,14 @@ export const RunSummary = () =>
 
    return (
       <React.Fragment>
-        {id && <Container className="pageMargins" fluid="lg">
-          <Row className="align-items-center justify-content-md-center" >
+         <Container className="pageMargins" fluid="lg">
+            <Row className=" justify-content-md-center navigate-row" >
+              <Col className="col-md-auto">
+                <a className="btn-link" href={"/"}>Home</a>
+              </Col>
+            </Row>
+         {id && <React.Fragment>
+           <Row className="align-items-center justify-content-md-center" >
             <Col className="col-md-auto">
               <button type="button" className="btn btn-light download-button" onClick={() => inputDownloadHandler(id)}>Get Input File</button>
             </Col>
@@ -53,7 +59,8 @@ export const RunSummary = () =>
         {data && <div className="grid-position ">
           {generateGrid(data.gridSize, mapDataForDisplay(data.gridSize, data.gridPoints, data.lostRobots))}
         </div>}
-        </Container>}
+        </React.Fragment>}
+        </Container>
       </React.Fragment>
     )
 }

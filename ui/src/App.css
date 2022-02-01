@@ -105,6 +105,7 @@
 .grid-position {
   display: grid;
   justify-content: center;
+  margin-top: 5px;
 }
 
 .robot-input-step {
@@ -113,6 +114,26 @@
 
 .download-button {
   width: 130px;
+}
+
+.navigate-row {
+  margin-bottom: 5px;
+}
+
+.step-change-button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.error {
+  color: #d8000c;
+  background-color: #ffbaba;
+  background-image: url("/public/error.png");
+  border: 1px solid;
+  margin: 10px 0px;
+  padding: 15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
 }
 
 @keyframes App-logo-spin {

@@ -66,12 +66,18 @@ export const RobotSummary = () =>
 
     return (
         <React.Fragment>
-            {currentStep && <Container className="pageMargins">
+            <Container className="pageMargins">
+            {runId && <Row className=" justify-content-md-center navigate-row" >
+              <Col className="col-md-auto">
+                <a className="btn-link" href={"/run/" + runId}>Back</a>
+              </Col>
+            </Row>}
+            {currentStep && <React.Fragment>
                 <Row className="justify-content-center">
                     <Col className="col-3" >
-                        <button type="button" className={"btn btn-outline-primary"} onClick={() => setStepNo(stepNo - 1)} disabled={isPreviousDisabled}>Previous</button>
-                        <input className="robot-input-step " type="number" min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
-                        <button type="button" className="btn btn-outline-primary" onClick={() => setStepNo(stepNo + 1)} disabled={isNextDisabled}>Next</button>
+                        <button type="button" className={"btn btn-outline-primary step-change-button"} onClick={() => setStepNo(stepNo - 1)} disabled={isPreviousDisabled}>Previous</button>
+                        <input className="robot-input-step"  min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
+                        <button type="button" className="btn btn-outline-primary step-change-button" onClick={() => setStepNo(stepNo + 1)} disabled={isNextDisabled}>Next</button>
                     </Col>
                 </Row>
                 <Row className=" justify-content-center">
@@ -86,7 +92,8 @@ export const RobotSummary = () =>
                 {<div className="grid-position ">
                     {generateGrid(gridSize, displayPoints)}
                     </div>}
-            </Container>}            
+                    </React.Fragment>}
+            </Container>           
         </React.Fragment>
     )
 }

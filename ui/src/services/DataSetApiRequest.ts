@@ -15,12 +15,12 @@ export async function GetGridByRunId(runId: string): Promise<AxiosPromise<Positi
     return res;
 }
 
-export async function UploadFile(file: File, runName: string): Promise<AxiosPromise<any>> {
+export function UploadFile(file: File, runName: string): AxiosPromise<any> {
     var name = runName.length === 0? file.name : runName;
     console.log(runName);
     var formData = new FormData();
     formData.append('file', file);
-    return await axios.post(baseApiUrl + "upload/" + name, formData, {headers: {'Content-Type': 'multipart/form-data'}});
+    return axios.post(baseApiUrl + "upload/" + name, formData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
 
 export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
@@ -28,7 +28,7 @@ export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {
 }
 
 export async function GetRunResults(runId: string): Promise<AxiosPromise<Blob>> {
-    const res = await axios.get(baseApiUrl + "results/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
+    const res = axios.get(baseApiUrl + "results/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
     return res;
 }
 

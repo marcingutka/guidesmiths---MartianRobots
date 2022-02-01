@@ -15,6 +15,7 @@ export const Main = () =>
   const [data, setData] = React.useState<IDataSet[]>([]);
   const [selectedFile, setSelectedFile] = React.useState<File>();
   const [selectedName, setSelectedName] = React.useState<string>("");
+  const [errorMsg, setErrorMsg] = React.useState<string | undefined>();
   const isData = data.length > 0;
 
   const fetchDataAsync = async () => {
@@ -29,11 +30,17 @@ export const Main = () =>
     setPages(Math.ceil(data.length/displayedItem));
   }, [data, displayedItem])
 
+  React.useEffect(() => {
+    setErrorMsg(undefined)
+  },[data])
+
   async function onFileUploadHandler(selectedFile: File | undefined, runName: string): Promise<void> {
+    
     if(selectedFile)
     {
-      await UploadFile(selectedFile, runName)     
-      await fetchDataAsync();
+      await UploadFile(selectedFile, runName)
+      .then(() => fetchDataAsync())
+      .catch( error => setErrorMsg(error.response.data))  
     };
   }
 
@@ -50,6 +57,7 @@ export const Main = () =>
   return (
     <React.Fragment>
       <Container className="pageMargins ">
+        {errorMsg && <p className="error">{errorMsg}</p>}
         <Row className="justify-content-md-center">          
           <input className="form-control upload-form" type="file" onChange={(event) => setSelectedFile(event.target.files? event.target.files[0] : undefined)} />
         </Row>

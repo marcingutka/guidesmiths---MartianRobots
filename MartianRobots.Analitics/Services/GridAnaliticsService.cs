@@ -25,9 +25,7 @@ namespace MartianRobots.Analitics.Services
 
         public IEnumerable<LostRobot> GetAllLostRobotsByRunId(Guid runId)
         {
-            var lostRobots = robotStepReadRepository.GetLostRobotsByRunId(runId).Select(lostRobotMapper.Map);
-
-            return lostRobots;
+            return robotStepReadRepository.GetLostRobotsByRunId(runId).Select(lostRobotMapper.Map);
         }
 
         public AreaAnalitics GetAreaCalculations(Guid runId, SavedGrid gridArea)
@@ -42,9 +40,7 @@ namespace MartianRobots.Analitics.Services
 
         public IEnumerable<GridPoint> GetGridPoints(Guid runId)
         {
-            var robotsForGridPoint = robotStepReadRepository.GetNumberOfRobotsForGrid(runId);
-
-            return robotsForGridPoint.Select(gridPointMapper.Map);
+            return robotStepReadRepository.GetNumberOfRobotsForGrid(runId).Select(gridPointMapper.Map);
         }
     }
 }

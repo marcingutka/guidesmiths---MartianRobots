@@ -21,11 +21,7 @@ namespace MartianRobots.FileHandler.Validator
             for (int i = 1; i < content.Count; i += 2)
             {
                 if (!robotPositionRgx.IsMatch(content[i])) throw new ValidationException($"Input robot position is in incorrect for robot No. {(i + 1) / 2}");
-                if (!robotCommandRgx.IsMatch(content[i + 1]))
-                {
-                    var a = "dsfas";
-                    throw new ValidationException($"Input robot commands is in incorrect for robot No. {(i + 1) / 2}");
-                }
+                if (!robotCommandRgx.IsMatch(content[i + 1])) throw new ValidationException($"Input robot commands is in incorrect for robot No. {(i + 1) / 2}");
             }
 
             return true;

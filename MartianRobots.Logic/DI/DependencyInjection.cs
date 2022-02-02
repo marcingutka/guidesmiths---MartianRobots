@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using MartianRobots.Logic.Validators;
+﻿using MartianRobots.Data.DI;
 using MartianRobots.Logic.Manager;
 using MartianRobots.Logic.Services;
+using MartianRobots.Logic.Validators;
 using MartianRobots.Models.Constants;
-using MartianRobots.Data.DI;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MartianRobots.Logic.DI
 {

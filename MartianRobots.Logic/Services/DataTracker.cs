@@ -1,7 +1,7 @@
-﻿using MartianRobots.Models;
-using MartianRobots.Models.Constants;
-using MartianRobots.Data.Entities;
+﻿using MartianRobots.Data.Entities;
 using MartianRobots.Data.Repositories;
+using MartianRobots.Models;
+using MartianRobots.Models.Constants;
 
 namespace MartianRobots.Logic.Services
 {

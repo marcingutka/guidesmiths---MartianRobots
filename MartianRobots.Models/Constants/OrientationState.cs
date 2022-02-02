@@ -1,5 +1,4 @@
-﻿
-namespace MartianRobots.Models.Constants
+﻿namespace MartianRobots.Models.Constants
 {
     public enum OrientationState
     {

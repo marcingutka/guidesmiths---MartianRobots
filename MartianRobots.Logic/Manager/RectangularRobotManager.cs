@@ -56,9 +56,10 @@ namespace MartianRobots.Logic.Manager
 
         private void ExecuteRobotTasks(Robot robot, List<RectangularMoveCommand> commands)
         {
-            GridPosition robotPosition = robot.Position;
             int stepNo = 0;
             RectangularMoveCommand? lastCommand = null;
+
+            GridPosition robotPosition = robot.Position;
 
             foreach (var command in commands)
             {
@@ -76,6 +77,7 @@ namespace MartianRobots.Logic.Manager
 
                         break;
                     }
+
                     continue;
                 }
 

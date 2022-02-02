@@ -9,9 +9,9 @@
 
     public static class RectangularMoveCommandExtensions
     {
-        public static string ToShortString(this RectangularMoveCommand state)
+        public static string ToShortString(this RectangularMoveCommand command)
         {
-            return state switch
+            return command switch
             {
                 RectangularMoveCommand.Left => "L",
                 RectangularMoveCommand.Right => "R",

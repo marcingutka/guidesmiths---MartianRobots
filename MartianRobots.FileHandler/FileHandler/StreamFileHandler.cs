@@ -18,10 +18,5 @@ namespace MartianRobots.FileHandler
 
             return fileContent;
         }
-
-        public void WriteFile(IEnumerable<string> robots, string filePath)
-        {
-            File.WriteAllLines(filePath, robots);
-        }
     }
 }

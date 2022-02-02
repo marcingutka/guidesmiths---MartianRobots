@@ -1,23 +1,12 @@
-﻿using MartianRobots.Models;
+﻿using MartianRobots.Data.Entities;
+using MartianRobots.Models;
 using MartianRobots.Models.Constants;
-using MartianRobots.Data.Entities;
 using System.Text;
 
 namespace MartianRobots.FileHandler.Mappers
 {
     public class OutputFileMapper : IOutputFileMapper
     {
-        public List<string> GenerateResults(List<Robot> robots)
-        {
-            var output = new List<string>();
-
-            foreach (var robot in robots)
-            {
-                output.Add($"{robot}");
-            }
-
-            return output;
-        }
 
         public List<string> GenerateResults(List<RobotStep> robots)
         {
@@ -45,6 +34,18 @@ namespace MartianRobots.FileHandler.Mappers
             return content;
         }
 
+        private List<string> GenerateResults(List<Robot> robots)
+        {
+            var output = new List<string>();
+
+            foreach (var robot in robots)
+            {
+                output.Add($"{robot}");
+            }
+
+            return output;
+        }
+
         private string GetCommandLine(List<RectangularMoveCommand> commands)
         {
             var sb = new StringBuilder();
@@ -56,7 +57,5 @@ namespace MartianRobots.FileHandler.Mappers
 
             return sb.ToString();
         }
-
-
     }
 }

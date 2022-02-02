@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MartianRobots.FileHandler.Validator;
 using MartianRobots.Models;
 using MartianRobots.Models.Constants;
-using MartianRobots.FileHandler.Validator;
+using System.ComponentModel.DataAnnotations;
 
 namespace MartianRobots.FileHandler.Mappers
 {
@@ -13,10 +13,10 @@ namespace MartianRobots.FileHandler.Mappers
             this.validator = validator;
         }
 
-        public (Grid Grid, IEnumerable<Robot> Robots, IEnumerable<RobotCommands> Commands) Map(List<string> data)
+        public (Grid Grid, List<Robot> Robots, List<RobotCommands> Commands) Map(List<string> data)
         {
             Grid grid;
-            (IEnumerable<Robot>, IEnumerable<RobotCommands>) robots;
+            (List<Robot>, List<RobotCommands>) robots;
 
             try
             {
@@ -26,7 +26,7 @@ namespace MartianRobots.FileHandler.Mappers
 
                 robots = MapRobots(data.Skip(1).ToList());
 
-                validator.CheckIfEachRobotStartsOnGrid(robots.Item1.ToList(), grid);
+                validator.CheckIfEachRobotStartsOnGrid(robots.Item1, grid);
             }
             catch (ValidationException ex)
             {
@@ -43,7 +43,7 @@ namespace MartianRobots.FileHandler.Mappers
             return new Grid(int.Parse(lineSplit[0]), int.Parse(lineSplit[1]));
         }
 
-        private static (IEnumerable<Robot>, IEnumerable<RobotCommands>) MapRobots(List<string> data)
+        private static (List<Robot>, List<RobotCommands>) MapRobots(List<string> data)
         {
             var robotList = new List<Robot>();
             var robotsCommands = new List<RobotCommands>();
@@ -99,6 +99,7 @@ namespace MartianRobots.FileHandler.Mappers
         private static List<RectangularMoveCommand> GetMoveEnums(List<char> commands)
         {
             var list = new List<RectangularMoveCommand>();
+
             foreach (var command in commands)
             {
                 switch (command)

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MartianRobots.Analitics.AnaliticsModel;
+﻿using MartianRobots.Analitics.AnaliticsModel;
 using MartianRobots.Analitics.Mappers;
 using MartianRobots.Analitics.Services;
 using MartianRobots.Data.Entities;
 using MartianRobots.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MartianRobots.Analitics.DI
 {

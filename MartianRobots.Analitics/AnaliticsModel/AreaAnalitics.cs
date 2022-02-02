@@ -1,6 +1,4 @@
-﻿using MartianRobots.Models;
-
-namespace MartianRobots.Analitics.AnaliticsModel
+﻿namespace MartianRobots.Analitics.AnaliticsModel
 {
     public record AreaAnalitics(int DiscoveredAreaAbsolute, double DiscoveredAreaPercent, int TotalArea);
 }

@@ -2,6 +2,7 @@ using MartianRobots.Logic.Validators;
 using MartianRobots.Models;
 using MartianRobots.Models.Constants;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace MartianRobots.Logic.Tests.Validators
 {
@@ -108,6 +109,50 @@ namespace MartianRobots.Logic.Tests.Validators
 
             //Assert
             Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void IsRobotLost_When_Position_Is_Not_In_The_List_Returns_True()
+        {
+            //Arrange
+            var positionList = new List<Position>()
+            {
+                new Position {X = 3, Y = 2},
+            };
+
+            var position = new Position
+            {
+                X = 3,
+                Y = 3
+            };
+
+            //Act
+            var result = validator.IsRobotLost(position, positionList);
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void IsRobotLost_When_Position_Is_In_The_List_Returns_False()
+        {
+            //Arrange
+            var positionList = new List<Position>()
+            {
+                new Position {X = 3, Y = 3},
+            };
+
+            var position = new Position
+            {
+                X = 3,
+                Y = 3
+            };
+
+            //Act
+            var result = validator.IsRobotLost(position, positionList);
+
+            //Assert
+            Assert.IsTrue(result);
         }
     }
 }

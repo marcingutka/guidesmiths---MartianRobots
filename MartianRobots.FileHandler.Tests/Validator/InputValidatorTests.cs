@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MartianRobots.FileHandler.Validator;
+using MartianRobots.Models;
 
 namespace MartianRobots.FileHandler.Tests.Validators
 {
@@ -16,7 +17,7 @@ namespace MartianRobots.FileHandler.Tests.Validators
         }
 
         [Test]
-        public void Validate_When_Grid_Input_Contains_Two_Numeric_Values_Separated_By_Space_And_Robot_Position_Input_Contains_Two_Numeric_Values_And_One_Orientation_Letter_Separated_By_Space_And_Robot_Commands_Input_Contains_Only_Commands_Letter_Do_Not_Throw_Exception()
+        public void Validate_When_Grid_Input_Contains_Two_Numeric_Values_Separated_By_Space_And_Robot_Position_Input_Contains_Two_Numeric_Values_And_One_Orientation_Letter_Separated_By_Space_And_Robot_Commands_Input_Contains_Only_Commands_Letter_Does_Not_Throw_Exception()
         {
             //Arrange
             var content = new List<string>();
@@ -50,6 +51,37 @@ namespace MartianRobots.FileHandler.Tests.Validators
             content.Add(gridInput);
             content.Add(robotInputPosition);
             content.Add(robotInputCommands);
+
+            //Act & Assert
+            Assert.Throws<ValidationException>(() => validator.Validate(content));
+        }
+
+        [Test]
+        public void Validate_When_There_Is_Any_Robots_Throws_Exception()
+        {
+            //Arrange
+            var content = new List<string>();
+
+            var gridInput = "1 A";
+
+            content.Add(gridInput);
+
+            //Act & Assert
+            Assert.Throws<ValidationException>(() => validator.Validate(content));
+        }
+
+        [Test]
+        public void Validate_When_Commands_Are_Missed_Throws_Exception()
+        {
+            //Arrange
+            var content = new List<string>();
+
+            var gridInput = "13";
+
+            var robotInputPosition = "1 2 E";
+
+            content.Add(gridInput);
+            content.Add(robotInputPosition);
 
             //Act & Assert
             Assert.Throws<ValidationException>(() => validator.Validate(content));
@@ -233,6 +265,38 @@ namespace MartianRobots.FileHandler.Tests.Validators
 
             //Act & Assert
             Assert.Throws<ValidationException>(() => validator.Validate(content));
+        }
+
+        [Test]
+        public void CheckIfEachRobotStartsOnGrid_When_All_Robots_Are_Within_The_Grid_Does_Not_Throw_Exception()
+        {
+            //Arrange
+            var grid = new Grid(3, 3);
+
+            var robots = new List<Robot>
+            {
+                new Robot {Position = new GridPosition {X = 1, Y = 1} },
+                new Robot {Position = new GridPosition {X = 2, Y = 1} }
+            };
+
+            //Act & Assert
+            Assert.DoesNotThrow(() => validator.CheckIfEachRobotStartsOnGrid(robots, grid));
+        }
+
+        [Test]
+        public void CheckIfEachRobotStartsOnGrid_When_One_Of_The_Robots_Is_Outside_The_Grid_Throws_Exception()
+        {
+            //Arrange
+            var grid = new Grid(3, 3);
+
+            var robots = new List<Robot>
+            {
+                new Robot {Position = new GridPosition {X = 1, Y = 1} },
+                new Robot {Position = new GridPosition {X = 4, Y = 1} }
+            };
+
+            //Act & Assert
+            Assert.Throws<ValidationException>(() => validator.CheckIfEachRobotStartsOnGrid(robots, grid));
         }
     }
 }

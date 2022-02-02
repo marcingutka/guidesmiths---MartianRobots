@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MartianRobots.Api.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using MartianRobots.Api.Services;
 
 namespace MartianRobots.Api.Controllers
 {

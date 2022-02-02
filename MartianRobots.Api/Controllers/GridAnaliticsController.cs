@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MartianRobots.Analitics.AnaliticsModel;
+﻿using MartianRobots.Analitics.AnaliticsModel;
 using MartianRobots.Analitics.Services;
 using MartianRobots.Api.Dto.AnaliticsResult;
 using MartianRobots.Data.Repositories;
 using MartianRobots.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MartianRobots.Api.Controllers
 {
@@ -29,9 +29,9 @@ namespace MartianRobots.Api.Controllers
             var gridSize = gridReadService.GetGridByRunId(runId);
             var lostRobots = gridAnaliticsService.GetAllLostRobotsByRunId(runId).ToList();
             var discoveredArea = gridAnaliticsService.GetAreaCalculations(runId, gridSize);
-            var noOfRobotsInGridPoints = gridAnaliticsService.GetGridPoints(runId).ToList();
+            var gridPoints = gridAnaliticsService.GetGridPoints(runId).ToList();
 
-            return Ok(CreateAnaliticsData(lostRobots, discoveredArea, noOfRobotsInGridPoints, new Position { X = gridSize.X, Y = gridSize.Y }));
+            return Ok(CreateAnaliticsData(lostRobots, discoveredArea, gridPoints, new Position { X = gridSize.X, Y = gridSize.Y }));
         }
 
         private static GridAnaliticsDto CreateAnaliticsData(List<LostRobot> lostRobots, AreaAnalitics area, List<GridPoint> gridPoints, Position gridSize)

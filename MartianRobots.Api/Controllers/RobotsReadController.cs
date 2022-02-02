@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MartianRobots.Api.Dto;
-using MartianRobots.Api.Mappers;
-using MartianRobots.Api.Services;
-using MartianRobots.Data.Entities;
+﻿using MartianRobots.Data.Entities;
 using MartianRobots.Data.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MartianRobots.Api.Controllers
 {
@@ -12,22 +9,12 @@ namespace MartianRobots.Api.Controllers
     public class RobotsReadController : ControllerBase
     {
         private readonly IRobotStepReadRepository robotsReadRepository;
-        private readonly IDataSetReadRepository dataSetReadRepository;
-        private readonly IMapper<RobotStep, RobotStepDto> mapper;
-        private readonly IDownloadService downloadService;
-
 
         public RobotsReadController(
-            IRobotStepReadRepository robotsReadRepository,
-            IDataSetReadRepository dataSetReadRepository,
-            IMapper<RobotStep, RobotStepDto> mapper,
-            IDownloadService downloadService
+            IRobotStepReadRepository robotsReadRepository
             )
         {
             this.robotsReadRepository = robotsReadRepository;
-            this.dataSetReadRepository = dataSetReadRepository;
-            this.mapper = mapper;
-            this.downloadService = downloadService;
         }
 
         [HttpGet()]

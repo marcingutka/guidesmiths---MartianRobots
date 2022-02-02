@@ -9,6 +9,8 @@ namespace MartianRobots.FileHandler.Validator
     {
         public bool Validate(List<string> content)
         {
+            if (content.Count < 3) throw new ValidationException("Input data is incomplete");
+
             var gridRgx = new Regex(@"^([1-9]|[1-4]\d|[5][0])( )([1-9]|[1-4]\d|[5][0])$");
             var robotPositionRgx = new Regex(@"^([0-9]|[1-4]\d|[5][0])( )([0-9]|[1-4]\d|[5][0])( )([N]|[E]|[S]|[W])$");
             var robotCommandRgx = new Regex(@"^(" + GenerateRegexForCommands() +@"){1,100}");

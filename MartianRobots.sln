@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.Analitics", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MartianRobots.FileHandler", "MartianRobots.FileHandler\MartianRobots.FileHandler.csproj", "{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianRobots.FileHandler.Tests", "MartianRobots.FileHandler.Tests\MartianRobots.FileHandler.Tests.csproj", "{DAFD419C-85B8-4AF4-AA32-6DBF172EC290}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0DD21D1-2EA2-43BB-BAAE-C9814AB0E154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAFD419C-85B8-4AF4-AA32-6DBF172EC290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAFD419C-85B8-4AF4-AA32-6DBF172EC290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAFD419C-85B8-4AF4-AA32-6DBF172EC290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAFD419C-85B8-4AF4-AA32-6DBF172EC290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

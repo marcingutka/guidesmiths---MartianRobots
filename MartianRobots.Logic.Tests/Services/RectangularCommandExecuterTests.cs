@@ -19,7 +19,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_East_And_Command_Is_Equal_Forward_Returns_Increased_X_By_1()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -41,7 +41,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_West_And_Command_Is_Equal_Forward_Returns_Decreased_X_By_1()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -63,7 +63,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_North_And_Command_Is_Equal_Forward_Returns_Increased_Y_By_1()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -85,7 +85,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_South_And_Command_Is_Equal_Forward_Returns_Decreased_Y_By_1()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -107,7 +107,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_North_And_Command_Is_Equal_Left_Returns_Orientation_Equals_West()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -129,7 +129,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_West_And_Command_Is_Equal_Left_Returns_Orientation_Equals_South()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -151,7 +151,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_South_And_Command_Is_Equal_Left_Returns_Orientation_Equals_East()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -173,7 +173,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_East_And_Command_Is_Equal_Left_Returns_Orientation_Equals_North()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -195,7 +195,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_North_And_Command_Is_Equal_Right_Returns_Orientation_Equals_East()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -217,7 +217,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_East_And_Command_Is_Equal_Right_Returns_Orientation_Equals_South()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -239,7 +239,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_South_And_Command_Is_Equal_Right_Returns_Orientation_Equals_West()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,
@@ -261,7 +261,7 @@ namespace MartianRobots.Logic.Tests.Services
         public void Execute_When_Orientation_Is_Equal_West_And_Command_Is_Equal_Right_Returns_Orientation_Equals_North()
         {
             //Arrange
-            var initialPosition = new GridPosition()
+            var initialPosition = new GridPosition
             {
                 X = 3,
                 Y = 3,

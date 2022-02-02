@@ -1,6 +1,5 @@
 using MartianRobots.Logic.Validators;
 using MartianRobots.Models;
-using MartianRobots.Models.Constants;
 using NUnit.Framework;
 using System.Collections.Generic;
 

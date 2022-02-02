@@ -294,7 +294,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(Arg.Is<GridPosition>(x => x.Orientation == OrientationState.North), Arg.Any<Grid>()).Returns(true);
             positionValidator.IsRobotOffGrid(Arg.Is<GridPosition>(x => x.Orientation == OrientationState.West), Arg.Any<Grid>()).Returns(false);
             positionValidator.IsRobotLost(Arg.Any<GridPosition>(), Arg.Is<List<Position>>(x => x.Count == 0)).Returns(true);
-            positionValidator.IsRobotLost(Arg.Any<GridPosition>(), Arg.Is<List<Position>>(x => x.Count > 0)).Returns(false);
+            positionValidator.IsRobotLost(Arg.Is<GridPosition>(x => x.X == 6 && x.Y == 6), Arg.Is<List<Position>>(x => x.Any(y => y.X == 6 && y.Y == 6))).Returns(false);
 
             manager.AssignGridAndRobots(grid, robots, robotCommands, runName);
 
@@ -359,7 +359,7 @@ namespace MartianRobots.Logic.Tests
             positionValidator.IsRobotOffGrid(Arg.Is<GridPosition>(x => x.Orientation == OrientationState.North), Arg.Any<Grid>()).Returns(true);
             positionValidator.IsRobotOffGrid(Arg.Is<GridPosition>(x => x.Orientation == OrientationState.West), Arg.Any<Grid>()).Returns(false);
             positionValidator.IsRobotLost(Arg.Any<GridPosition>(), Arg.Is<List<Position>>(x => x.Count == 0)).Returns(true);
-            positionValidator.IsRobotLost(Arg.Any<GridPosition>(), Arg.Is<List<Position>>(x => x.Count > 0)).Returns(false);
+            positionValidator.IsRobotLost(Arg.Is<GridPosition>(x => x.X == 6 && x.Y == 6), Arg.Is<List<Position>>(x => x.Any(y => y.X == 6 && y.Y == 6))).Returns(false);
 
             manager.AssignGridAndRobots(grid, robots, robotCommands, runName);
 

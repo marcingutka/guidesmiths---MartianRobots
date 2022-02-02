@@ -8,7 +8,7 @@ using MartianRobots.Data.DI;
 
 namespace MartianRobots.Logic.DI
 {
-    public class DependencyInjection
+    public class LogicDI
     {
         public static void CreateDependencies(IServiceCollection services, IConfiguration config)
         {

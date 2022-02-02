@@ -5,6 +5,7 @@ using MartianRobots.Api.Services;
 using MartianRobots.Data.DI;
 using MartianRobots.Data.Entities;
 using MartianRobots.FileHandler.DI;
+using MartianRobots.Logic.DI;
 
 namespace MartianRobots.Api.DI
 {
@@ -15,10 +16,10 @@ namespace MartianRobots.Api.DI
             ConfigureApiServices(services);
             ConfigureMappers(services);
 
-            AnaliticsDependencyInjection.ConfigureServices(services);
+            AnaliticsDI.ConfigureServices(services);
             MongoDbDI.ConfigureServices(services, config);
             FileHandlerDI.ConfigureServices(services);
-            Logic.DI.DependencyInjection.CreateDependencies(services, config);
+            LogicDI.CreateDependencies(services, config);
 
             services.AddControllers();
         }

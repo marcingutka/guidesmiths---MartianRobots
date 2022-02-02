@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MartianRobots.Analitics.DI
 {
-    public static class AnaliticsDependencyInjection
+    public static class AnaliticsDI
     {
         public static void ConfigureServices(IServiceCollection services)
         {

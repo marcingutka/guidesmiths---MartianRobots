@@ -1,6 +1,6 @@
-﻿using MartianRobots.Models;
+﻿using MartianRobots.Api.Dto;
 using MartianRobots.Data.Entities;
-using MartianRobots.Api.Dto;
+using MartianRobots.Models;
 
 namespace MartianRobots.Api.Mappers
 {

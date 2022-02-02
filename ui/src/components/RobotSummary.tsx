@@ -6,8 +6,7 @@ import { StatisticRow } from "../common/StatisticRow";
 import { IRobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
 import { GetGridByRunId } from "../services/DataSetApiRequest";
 import { GetRobotByRunIdRobotId } from "../services/RobotsApiRequest";
-import { GridPoint } from "./Model/IGridAnalitics";
-import { Position } from "./Model/IPosition";
+import { Position, getOrientationStateName } from "./Model/IPosition";
 import { DisplayPoint } from "./Model/DisplayPoint";
 
 export const RobotSummary = () =>
@@ -85,7 +84,7 @@ export const RobotSummary = () =>
                         <StatisticRow name={"Number of Steps: "} value={steps.length}/>
                         <StatisticRow name={"X: "} value={currentStep.position.x}/>
                         <StatisticRow name={"Y: "} value={currentStep.position.y}/>
-                        <StatisticRow name={"Orientation: "} value={currentStep.orientation}/>
+                        <StatisticRow name={"Orientation: "} value={getOrientationStateName(currentStep.orientation)}/>
                         {currentStep.command ? <StatisticRow name={"Command: "} value={getRectangularMoveCommandName(currentStep.command)}/> : <StatisticRow name={"Lost: "} value={currentStep.isLost? "Yes" : "No"}/>}                        
                     </Col>
                 </Row>

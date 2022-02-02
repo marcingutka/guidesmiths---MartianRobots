@@ -36,12 +36,12 @@ namespace MartianRobots.Data.Repositories
             return result;
         }
 
-        public List<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId)
+        public IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId)
         {
-            var result = martianRepository.Aggregate().Match(x => x.RunId == runId).Group(x => x.Position, z => new Tuple<Position, IEnumerable<int>>(z.Key, z.Select(x => x.RobotId))).ToList();
-            var result1 = result.Select(x => new Tuple<Position, int>(x.Item1, x.Item2.Distinct().Count())).OrderBy(x => x.Item1.X).ThenBy(x => x.Item1.Y).ToList();
-
-            return result1;
+            var noOfRobotByPosition = martianRepository.Aggregate().Match(x => x.RunId == runId).Group(x => x.Position, z => new Tuple<Position, IEnumerable<int>>(z.Key, z.Select(x => x.RobotId))).ToEnumerable()
+                .Select(x => new Tuple<Position, int>(x.Item1, x.Item2.Distinct().Count())).OrderBy(x => x.Item1.X).ThenBy(x => x.Item1.Y);
+            
+            return noOfRobotByPosition;
         }
 
         public IEnumerable<RobotStep> GetRobotResults(Guid runId)

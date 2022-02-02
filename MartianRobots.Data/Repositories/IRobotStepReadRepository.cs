@@ -9,7 +9,7 @@ namespace MartianRobots.Data.Repositories
         IEnumerable<RobotStep> GetRobotSteps(Guid runId, int robotId);
         IEnumerable<RobotStep> GetLostRobotsByRunId(Guid runId);
         IEnumerable<Position> GetRobotsDistinctPositions(Guid runId);
-        List<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId);
+        IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId);
         IEnumerable<RobotStep> GetRobotResults(Guid runId);
         IEnumerable<RobotStep> GetRobotInput(Guid runId);
     }

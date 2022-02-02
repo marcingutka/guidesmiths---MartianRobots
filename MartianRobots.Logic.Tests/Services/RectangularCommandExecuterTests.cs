@@ -80,5 +80,27 @@ namespace MartianRobots.Logic.Tests.Services
             Assert.AreEqual(4, result.Y);
             Assert.AreEqual(OrientationState.North, result.Orientation);
         }
+
+        [Test]
+        public void Execute_Returns_Decreased_Y_By_1_When_Orientation_Is_Equal_South_And_Command_Is_Equal_Forward()
+        {
+            //Arrange
+            var initialPosition = new GridPosition()
+            {
+                X = 3,
+                Y = 3,
+                Orientation = OrientationState.South
+            };
+
+            var command = RectangularMoveCommand.Forward;
+
+            //Act
+            var result = commandExecuter.Execute(initialPosition, command);
+
+            //Assert
+            Assert.AreEqual(3, result.X);
+            Assert.AreEqual(2, result.Y);
+            Assert.AreEqual(OrientationState.South, result.Orientation);
+        }
     }
 }

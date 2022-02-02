@@ -8,7 +8,7 @@ namespace MartianRobots.FileHandler.DI
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IFileHandler, TxtFileHandler>();
+            services.AddSingleton<IFileHandler, StreamFileHandler>();
             services.AddSingleton<IInputMapper, InputMapper>();
             services.AddSingleton<IOutputFileMapper, OutputFileMapper>();
             services.AddSingleton<IInputValidator, InputValidator>();

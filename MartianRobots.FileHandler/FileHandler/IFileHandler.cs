@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace MartianRobots.FileHandler
 {
     public interface IFileHandler
     {
-        public List<string> ReadFile(string filePath);
+        public List<string> ReadFile(IFormFile fileContent);
 
         public void WriteFile(IEnumerable<string> robots, string filePath);
     }

@@ -2,6 +2,6 @@
 {
     public interface IUploadFileRunner
     {
-        Task RunFile(string path, string runName);
+        Task RunFile(IFormFile file, string runName);
     }
 }

@@ -27,9 +27,9 @@ namespace MartianRobots.Api.Services
             this.repository = repository;
         }
 
-        public async Task RunFile(string path, string runName)
+        public async Task RunFile(IFormFile file, string runName)
         {
-            var fileContent = fileHandler.ReadFile(path);
+            var fileContent = fileHandler.ReadFile(file);
             var (grid, robots, command) = mapper.Map(fileContent);
 
             var initialRobots = SaveInitialRobots(robots.ToList());            

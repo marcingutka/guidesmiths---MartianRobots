@@ -27,22 +27,9 @@ namespace MartianRobots.Api.Controllers
 
             var fileName = file.FileName;
 
-            var extension = Path.GetExtension(fileName);
-            if (extension != ".txt") return BadRequest(".txt file extension is required");
-
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Results");
-            var fullPath = Path.Combine(directoryPath, fileName);
-
-            Directory.CreateDirectory(directoryPath);
-
-            using (var fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
-            {
-                await file.CopyToAsync(fs);
-            }
-
             try
             {
-                await fileRunner.RunFile(fullPath, string.IsNullOrEmpty(name) ? fileName : name);
+                await fileRunner.RunFile(file, string.IsNullOrEmpty(name) ? fileName : name);
             }
             catch (ValidationException ex)
             {

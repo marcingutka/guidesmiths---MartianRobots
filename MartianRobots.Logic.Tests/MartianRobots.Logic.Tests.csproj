@@ -20,8 +20,4 @@
     <ProjectReference Include="..\MartianRobots.Models\MartianRobots.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

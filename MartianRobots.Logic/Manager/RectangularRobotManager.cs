@@ -58,7 +58,6 @@ namespace MartianRobots.Logic.Manager
         {
             GridPosition robotPosition = robot.Position;
             int stepNo = 0;
-
             RectangularMoveCommand? lastCommand = null;
 
             foreach (var command in commands)
@@ -72,9 +71,8 @@ namespace MartianRobots.Logic.Manager
                     if (positionValidator.IsRobotLost(robotPosition, EdgePositions))
                     {
                         robot.IsLost = true;
-                        lastCommand = command;
-
                         EdgePositions.Add(robotPosition);
+                        lastCommand = command;
 
                         break;
                     }

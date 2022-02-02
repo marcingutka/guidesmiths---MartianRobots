@@ -59,6 +59,8 @@ namespace MartianRobots.Logic.Manager
             GridPosition robotPosition = robot.Position;
             int stepNo = 0;
 
+            RectangularMoveCommand? lastCommand = null;
+
             foreach (var command in commands)
             {
                 stepNo++;
@@ -70,21 +72,20 @@ namespace MartianRobots.Logic.Manager
                     if (positionValidator.IsRobotLost(robotPosition, EdgePositions))
                     {
                         robot.IsLost = true;
-                        robot.Position = robotPosition;
+                        lastCommand = command;
 
                         EdgePositions.Add(robotPosition);
 
-                        dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, command, true, true);
-                        return;
+                        break;
                     }
                     continue;
                 }
 
                 robotPosition = nextPosition;
             }
-            robot.Position = robotPosition;
 
-            dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, null, true);            
+            robot.Position = robotPosition;
+            dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, lastCommand, true, robot.IsLost);            
         }
     }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { IDataSet } from "./Model/IDataSet";
-import { GetDataSets, UploadFile, DeleteDataSet } from '../services/DataSetApiRequest';
+import { getDataSets, uploadFile, deleteDataSet } from '../services/DataSetApiRequest';
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';
 
@@ -19,7 +19,7 @@ export const Main = () =>
   const isData = data.length > 0;
 
   const fetchDataAsync = async () => {
-    const response = await GetDataSets();
+    const response = await getDataSets();
     setData(response.data)};
 
   React.useEffect(() => {
@@ -38,21 +38,21 @@ export const Main = () =>
     
     if(selectedFile)
     {
-      await UploadFile(selectedFile, runName)
+      await uploadFile(selectedFile, runName)
       .then(() => fetchDataAsync())
       .catch( error => setErrorMsg(error.response.data))  
     };
   }
 
   const deleteHandler = async (runId: string) => {
-    await DeleteDataSet(runId);
-    var newData = data.filter(x => x.runId != runId);
+    await deleteDataSet(runId);
+    const newData = data.filter(x => x.runId != runId);
     setData(newData);
   }
 
   const isPaginated: boolean = data.length > displayedItem;
 
-  var paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
+  const paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
 
   return (
     <React.Fragment>

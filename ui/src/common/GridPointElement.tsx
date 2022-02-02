@@ -38,7 +38,7 @@ function ApplyRobotImg(isLost: boolean, robotOrientation: OrientationState): str
 {
   const imgBasicUrl: string = "Robot";
   const lostUrl: string = isLost ? "lost" : "position";
-  var orientation: string = getOrientationStateName(robotOrientation);
+  let orientation: string = getOrientationStateName(robotOrientation);
 
   const finalImgUrl = lostUrl + imgBasicUrl + orientation + ".png";
 

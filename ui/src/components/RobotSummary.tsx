@@ -4,8 +4,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import { generateGrid } from "../common/generateGrid";
 import { StatisticRow } from "../common/StatisticRow";
 import { IRobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
-import { GetGridByRunId } from "../services/DataSetApiRequest";
-import { GetRobotByRunIdRobotId } from "../services/RobotsApiRequest";
+import { getGridByRunId } from "../services/DataSetApiRequest";
+import { getRobotByRunIdRobotId } from "../services/RobotsApiRequest";
 import { Position, getOrientationStateName } from "./Model/IPosition";
 import { DisplayPoint } from "./Model/DisplayPoint";
 
@@ -20,11 +20,11 @@ export const RobotSummary = () =>
     const fetchDataAsync = async () => {
         if (runId && robotId)
         {
-          const response = await GetRobotByRunIdRobotId(runId, robotId);
+          const response = await getRobotByRunIdRobotId(runId, robotId);
           setSteps(response.data);
           assignCurrentStep(response.data, stepNo);
 
-          const gridResponse = await GetGridByRunId(runId)
+          const gridResponse = await getGridByRunId(runId)
           setGridSize(gridResponse.data);
         }
       }
@@ -61,8 +61,6 @@ export const RobotSummary = () =>
     const stepsToDisplay: IRobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
     const displayPoints: DisplayPoint[] = mapDataForDisplay(gridSize, stepsToDisplay);
 
-    const positionX: number = -gridSize.x + 800;
-
     return (
         <React.Fragment>
             <Container className="pageMargins">
@@ -98,25 +96,21 @@ export const RobotSummary = () =>
 }
 
 function mapDataForDisplay(gridSize: Position, robotSteps: IRobotStep[]) : DisplayPoint[] {
-    var displayPoints: DisplayPoint[]=[];
+    let displayPoints: DisplayPoint[]=[];
 
-    var currentStep: IRobotStep = robotSteps[robotSteps.length-1];
-
-    console.log("currentStep", currentStep);
+    let currentStep: IRobotStep = robotSteps[robotSteps.length-1];
   
-    for (var i = 0; i <= gridSize.y; i++)
+    for (let i = 0; i <= gridSize.y; i++)
     {
-      for(var j = 0; j <= gridSize.x; j++)
+      for(let j = 0; j <= gridSize.x; j++)
       {
-        var robotStep = robotSteps.filter(rs => rs.position.x === j && rs.position.y === i).sort(x => x.stepNumber)[0];
-        var isLostRobot = robotStep? robotStep.isLost : false;
-        var orientation = !!robotStep && robotStep.position.x === currentStep.position.x && robotStep.position.y === currentStep.position.y ? robotStep.orientation : undefined;
-        var displayPoint = new DisplayPoint({x: j, y: i}, !!robotStep, isLostRobot, undefined, orientation);
+        let robotStep = robotSteps.filter(rs => rs.position.x === j && rs.position.y === i).sort(x => x.stepNumber)[0];
+        let isLostRobot = robotStep? robotStep.isLost : false;
+        let orientation = !!robotStep && robotStep.position.x === currentStep.position.x && robotStep.position.y === currentStep.position.y ? robotStep.orientation : undefined;
+        let displayPoint = new DisplayPoint({x: j, y: i}, !!robotStep, isLostRobot, undefined, orientation);
         displayPoints.push(displayPoint);
       }
     }
-
-    console.log("displayPoints", displayPoints);
   
     return displayPoints;
   }

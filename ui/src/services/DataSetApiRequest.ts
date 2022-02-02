@@ -5,34 +5,33 @@ import { Position } from '../components/Model/IPosition'
 
 const baseApiUrl = basicUrl + "dataSet/";
 
-export async function GetDataSets(): Promise<AxiosPromise<IDataSet[]>> {
+export async function getDataSets(): Promise<AxiosPromise<IDataSet[]>> {
     const res = await axios.get(baseApiUrl); 
     return res;
 }
 
-export async function GetGridByRunId(runId: string): Promise<AxiosPromise<Position>> {
+export async function getGridByRunId(runId: string): Promise<AxiosPromise<Position>> {
     const res = await axios.get(baseApiUrl + "grid/" + runId); 
     return res;
 }
 
-export function UploadFile(file: File, runName: string): AxiosPromise<any> {
-    var name = runName.length === 0? file.name : runName;
-    console.log(runName);
-    var formData = new FormData();
+export function uploadFile(file: File, runName: string): AxiosPromise<any> {
+    let name = runName.length === 0? file.name : runName;
+    let formData = new FormData();
     formData.append('file', file);
     return axios.post(baseApiUrl + "upload/" + name, formData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
 
-export async function DeleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
+export async function deleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
     return await axios.delete(baseApiUrl + runId, {headers: {'Access-Control-Allow-Origin': '*'}});
 }
 
-export async function GetRunResults(runId: string): Promise<AxiosPromise<Blob>> {
+export async function getRunResults(runId: string): Promise<AxiosPromise<Blob>> {
     const res = axios.get(baseApiUrl + "results/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
     return res;
 }
 
-export async function GetRunInput(runId: string): Promise<AxiosPromise<Blob>> {
+export async function getRunInput(runId: string): Promise<AxiosPromise<Blob>> {
     const res = await axios.get(baseApiUrl + "input/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
     return res;
 }

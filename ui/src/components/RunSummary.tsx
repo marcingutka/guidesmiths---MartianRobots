@@ -5,8 +5,8 @@ import { IGridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
 import { Position } from "./Model/IPosition";
 import { DisplayPoint } from "./Model/DisplayPoint";
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
-import { GetGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
-import { GetRobotsByRunId } from "../services/RobotsApiRequest";
+import { getGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
+import { getRobotsByRunId } from "../services/RobotsApiRequest";
 import { StatisticRow } from "../common/StatisticRow";
 import { generateGrid } from "../common/generateGrid";
 
@@ -19,10 +19,10 @@ export const RunSummary = () =>
   const fetchDataAsync = async () => {
     if (id)
     {
-      const analiticsResponse = await GetGridAnaliticsData(id);
+      const analiticsResponse = await getGridAnaliticsData(id);
       setData(analiticsResponse.data);
       
-      const robotsResponse = await GetRobotsByRunId(id);
+      const robotsResponse = await getRobotsByRunId(id);
       setRobots(robotsResponse.data);
     }
   }
@@ -92,11 +92,11 @@ function generateRobotDropDownList(numberOfRobots: number, runId: string): JSX.E
 
 function generateRobotList(numberOfRobots: number, runId:string): JSX.Element[]
 {
-  var robots: JSX.Element[] = [];
+  let robots: JSX.Element[] = [];
 
   const link: string = "/run/" + runId + "/robot/";
 
-  for (var i = 1; i <= numberOfRobots; i++)
+  for (let i = 1; i <= numberOfRobots; i++)
   {
     robots.push(<li><a className="dropdown-item" href={link + i}>Robot No. {i}</a></li>);
   }
@@ -105,21 +105,19 @@ function generateRobotList(numberOfRobots: number, runId:string): JSX.Element[]
 }
 
 function mapDataForDisplay(gridSize: Position, gridPoints: GridPoint[], lostRobots: LostRobot[]) : DisplayPoint[] {
-  var displayPoints: DisplayPoint[]=[];
+  let displayPoints: DisplayPoint[]=[];
 
-  for (var i = 0; i <= gridSize.y; i++)
+  for (let i = 0; i <= gridSize.y; i++)
   {
-    for(var j = 0; j <= gridSize.x; j++)
+    for(let j = 0; j <= gridSize.x; j++)
     {
       console.log("gridPoints", gridPoints);
-      var gridPoint = gridPoints.filter(gp => gp.coordinates.x === j && gp.coordinates.y === i)[0];
-      var isLostRobot = lostRobots.some(lr => lr.position.x === j && lr.position.y === i);
-      var displayPoint = new DisplayPoint({x: j, y: i}, !!gridPoint, isLostRobot, gridPoint?.robotsNumber);
+      let gridPoint = gridPoints.filter(gp => gp.coordinates.x === j && gp.coordinates.y === i)[0];
+      let isLostRobot = lostRobots.some(lr => lr.position.x === j && lr.position.y === i);
+      let displayPoint = new DisplayPoint({x: j, y: i}, !!gridPoint, isLostRobot, gridPoint?.robotsNumber);
       displayPoints.push(displayPoint);
     }
   }
-
-  console.log("dispaly{pro", displayPoints);
 
   return displayPoints;
 }

@@ -2,7 +2,6 @@
 using MartianRobots.Logic.Services;
 using MartianRobots.Models.Constants;
 using MartianRobots.Logic.Validators;
-using MartianRobots.Data.Entities;
 
 namespace MartianRobots.Logic.Manager
 {
@@ -66,7 +65,7 @@ namespace MartianRobots.Logic.Manager
                 dataTracker.CollectMetricData(robot.Id, stepNo, robotPosition, command);
                 var nextPosition = cmdExecuter.Execute(robotPosition, command);
                 
-                if (IsMoveCommand(command) && positionValidator.IsRobotOffGrid(nextPosition, Grid))
+                if (positionValidator.IsRobotOffGrid(nextPosition, Grid))
                 {
                     if (positionValidator.IsRobotLost(robotPosition, EdgePositions))
                     {
@@ -86,11 +85,6 @@ namespace MartianRobots.Logic.Manager
             robot.Position = robotPosition;
 
             dataTracker.CollectMetricData(robot.Id, stepNo + 1, robotPosition, null, true);            
-        }
-
-        private static bool IsMoveCommand(RectangularMoveCommand command)
-        {
-            return command != RectangularMoveCommand.Left && command != RectangularMoveCommand.Right;
         }
     }
 }

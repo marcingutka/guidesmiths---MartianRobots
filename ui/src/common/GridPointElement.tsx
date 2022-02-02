@@ -1,5 +1,5 @@
 import React from "react";
-import { OrientationState } from "../components/Model/IPosition";
+import { OrientationState, getOrientationStateName } from "../components/Model/IPosition";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps) =>
@@ -38,24 +38,7 @@ function ApplyRobotImg(isLost: boolean, robotOrientation: OrientationState): str
 {
   const imgBasicUrl: string = "Robot";
   const lostUrl: string = isLost ? "lost" : "position";
-  var orientation: string;
-
-  switch (robotOrientation) {
-    case OrientationState.North:
-      orientation = "North";
-      break;
-    case OrientationState.East:
-      orientation = "East";
-      break;
-    case OrientationState.South:
-      orientation = "South";
-      break;
-    case OrientationState.West:
-      orientation = "West";
-      break;
-      default:
-        orientation = "";
-  }
+  var orientation: string = getOrientationStateName(robotOrientation);
 
   const finalImgUrl = lostUrl + imgBasicUrl + orientation + ".png";
 

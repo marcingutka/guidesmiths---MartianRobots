@@ -44,7 +44,7 @@ namespace MartianRobots.Api.Controllers
         {
             var grid = gridReadRepository.GetGridByRunId(runId);
 
-            return Ok(new GridDto { X = grid.X, Y = grid.Y});
+            return Ok(new GridDto {X = grid.X, Y = grid.Y});
         }
 
         [HttpGet("results/{runId}/download")]

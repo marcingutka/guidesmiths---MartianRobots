@@ -1,8 +1,8 @@
+using MartianRobots.FileHandler.Validator;
+using MartianRobots.Models;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using MartianRobots.FileHandler.Validator;
-using MartianRobots.Models;
 
 namespace MartianRobots.FileHandler.Tests.Validators
 {

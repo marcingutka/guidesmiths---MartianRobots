@@ -75,7 +75,7 @@ export const RobotSummary = () =>
                 <Row className="justify-content-center">
                     <Col className="col-3" >
                         <button type="button" className={"btn btn-outline-primary step-change-button"} onClick={() => setStepNo(stepNo - 1)} disabled={isPreviousDisabled}>Previous</button>
-                        <input className="robot-input-step"  min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
+                        <input type="number" className="robot-input-step"  min="0" max={steps.length} pattern="/^[0-9\b]+$/" value={stepNo.toString()} onChange={(event) => inputStepHandler(event.target.value)} />
                         <button type="button" className="btn btn-outline-primary step-change-button" onClick={() => setStepNo(stepNo + 1)} disabled={isNextDisabled}>Next</button>
                     </Col>
                 </Row>

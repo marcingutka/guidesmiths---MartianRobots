@@ -51,7 +51,7 @@ namespace MartianRobots.Api.Controllers
         public ActionResult DownloadResults(Guid runId)
         {
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
-            if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
+            if (fileName.Length > 4 && !(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
 
             var content = downloadService.GetResults(runId);
 
@@ -69,7 +69,7 @@ namespace MartianRobots.Api.Controllers
         public ActionResult DownloadInput(Guid runId)
         {
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
-            if (!(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
+            if (fileName.Length > 4 && !(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
 
             var content = downloadService.GetInput(runId);
 

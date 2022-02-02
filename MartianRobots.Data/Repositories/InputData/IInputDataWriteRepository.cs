@@ -5,6 +5,6 @@ namespace MartianRobots.Data.Repositories
     public interface IInputDataWriteRepository
     {
         Task SaveInputAsync(InputData data);
-        Task DeleteInputAsync(Guid guid);
+        Task DeleteInputAsync(Guid runId);
     }
 }

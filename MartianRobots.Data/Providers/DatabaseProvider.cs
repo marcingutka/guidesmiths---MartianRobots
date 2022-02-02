@@ -1,12 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace MartianRobots.Data.Providers
 {
     public class DatabaseProvider<T> : IDatabaseProvider<T>
     {
-        IMongoDatabase database;
+        private readonly IMongoDatabase database;
 
         public DatabaseProvider(IMongoClient client, IOptions<DatabaseConfig> config)
         {

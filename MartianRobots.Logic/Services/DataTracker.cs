@@ -56,7 +56,7 @@ namespace MartianRobots.Logic.Services
 
             var dataSet = new DataSet { RunId = RunId, Name = name, GenerationDate = date };
 
-            await writeDataSetRepository.SaveNameAsync(dataSet);
+            await writeDataSetRepository.SaveDataSetAsync(dataSet);
         }
 
         public void CollectMetricData(int robotId, int stepNo, GridPosition position, RectangularMoveCommand? command = null, bool isLastStep = false, bool isLost = false)

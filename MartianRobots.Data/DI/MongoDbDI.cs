@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
-using MartianRobots.Data.Entities;
+﻿using MartianRobots.Data.Entities;
 using MartianRobots.Data.Providers;
 using MartianRobots.Data.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace MartianRobots.Data.DI
 {
@@ -11,7 +11,6 @@ namespace MartianRobots.Data.DI
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
-            services.AddOptions();
             services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(config.GetConnectionString("MongoConnection")));
 
             ConfigureDBProviders(services, config);
@@ -29,14 +28,14 @@ namespace MartianRobots.Data.DI
 
         private static void ConfigureRepositories(IServiceCollection services)
         {
-            services.AddScoped<IRobotStepReadRepository, RobotStepReadRepository>();
-            services.AddScoped<IRobotStepWriteRepository, RobotStepWriteRepository>();
-            services.AddScoped<ISavedGridReadRepository, SavedGridReadRepository>();
-            services.AddScoped<ISavedGridWriteRepository, SavedGridWriteRepository>();
-            services.AddScoped<IDataSetReadRepository, DataSetReadRepository>();
-            services.AddScoped<IDataSetWriteRepository, DataSetWriteRepository>();
-            services.AddScoped<IInputDataReadRepository, InputDataReadRepository>();
-            services.AddScoped<IInputDataWriteRepository, InputDataWriteRepository>();
+            services.AddSingleton<IRobotStepReadRepository, RobotStepReadRepository>();
+            services.AddSingleton<IRobotStepWriteRepository, RobotStepWriteRepository>();
+            services.AddSingleton<ISavedGridReadRepository, SavedGridReadRepository>();
+            services.AddSingleton<ISavedGridWriteRepository, SavedGridWriteRepository>();
+            services.AddSingleton<IDataSetReadRepository, DataSetReadRepository>();
+            services.AddSingleton<IDataSetWriteRepository, DataSetWriteRepository>();
+            services.AddSingleton<IInputDataReadRepository, InputDataReadRepository>();
+            services.AddSingleton<IInputDataWriteRepository, InputDataWriteRepository>();
         }
     }
 }

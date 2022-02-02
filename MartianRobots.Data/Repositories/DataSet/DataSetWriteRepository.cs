@@ -1,6 +1,6 @@
-﻿using MongoDB.Driver;
-using MartianRobots.Data.Entities;
+﻿using MartianRobots.Data.Entities;
 using MartianRobots.Data.Providers;
+using MongoDB.Driver;
 
 namespace MartianRobots.Data.Repositories
 {
@@ -13,7 +13,7 @@ namespace MartianRobots.Data.Repositories
             martianRepository = provider.GetCollection();
         }
 
-        public async Task SaveNameAsync(DataSet name)
+        public async Task SaveDataSetAsync(DataSet name)
         {
             await martianRepository.InsertOneAsync(name);
         }

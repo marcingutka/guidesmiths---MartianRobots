@@ -1,8 +1,8 @@
-﻿using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MartianRobots.Data.Entities;
+﻿using MartianRobots.Data.Entities;
 using MartianRobots.Data.Providers;
 using MartianRobots.Models;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace MartianRobots.Data.Repositories
 {
@@ -31,12 +31,11 @@ namespace MartianRobots.Data.Repositories
         }
 
         public IEnumerable<Position> GetRobotsDistinctPositions(Guid runId)
-        {
-            var result = martianRepository.AsQueryable().Where(x => x.RunId == runId).Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
-            return result;
+        { 
+            return martianRepository.AsQueryable().Where(x => x.RunId == runId).Select(x => x.Position).Distinct().OrderBy(x => x.X).ThenBy(x => x.Y);
         }
 
-        public IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGrid(Guid runId)
+        public IEnumerable<Tuple<Position, int>> GetNumberOfRobotsForGridPoint(Guid runId)
         {
             var noOfRobotByPosition = martianRepository.Aggregate().Match(x => x.RunId == runId).Group(x => x.Position, z => new Tuple<Position, IEnumerable<int>>(z.Key, z.Select(x => x.RobotId))).ToEnumerable()
                 .Select(x => new Tuple<Position, int>(x.Item1, x.Item2.Distinct().Count())).OrderBy(x => x.Item1.X).ThenBy(x => x.Item1.Y);

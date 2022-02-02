@@ -40,7 +40,7 @@ namespace MartianRobots.Analitics.Services
 
         public IEnumerable<GridPoint> GetGridPoints(Guid runId)
         {
-            return robotStepReadRepository.GetNumberOfRobotsForGrid(runId).Select(gridPointMapper.Map);
+            return robotStepReadRepository.GetNumberOfRobotsForGridPoint(runId).Select(gridPointMapper.Map);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using MartianRobots.Data.Repositories;
 using MartianRobots.FileHandler.Mappers;
 
@@ -21,7 +22,21 @@ namespace MartianRobots.Api.Services
             this.inputReadRepository = inputReadRepository;
         }
 
-        public byte[] GetResults(Guid runId)
+        public FileStreamResult PrepareResultFile(Guid runId, string fileName)
+        {
+            var content = GetResults(runId);
+
+            return BuildStream(content, fileName);
+        }
+
+        public FileStreamResult PrepareInputFile(Guid runId, string fileName)
+        {
+            var content = GetInput(runId);
+
+            return BuildStream(content, fileName);
+        }
+
+        private byte[] GetResults(Guid runId)
         {
             var robots = robotReadRepository.GetRobotResults(runId).ToList();
 
@@ -30,13 +45,25 @@ namespace MartianRobots.Api.Services
             return Encoding.ASCII.GetBytes(BuildOutputString(content));
         }
 
-        public byte[] GetInput(Guid runId)
+        private byte[] GetInput(Guid runId)
         {
             var inputData = inputReadRepository.GetInputByRunId(runId);
 
             var content = outputFileMapper.GenerateInputFile(inputData);
 
             return Encoding.ASCII.GetBytes(BuildOutputString(content));
+        }
+
+        private static FileStreamResult BuildStream(byte[] content, string fileName)
+        {
+            var stream = new MemoryStream(content);
+
+            var fileStream = new FileStreamResult(stream, "application/octet-stream")
+            {
+                FileDownloadName = fileName,
+            };
+
+            return fileStream;
         }
 
         private static string BuildOutputString(List<string> content)

@@ -1,8 +1,10 @@
-﻿namespace MartianRobots.Api.Services
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace MartianRobots.Api.Services
 {
     public interface IDownloadService
     {
-        byte[] GetResults(Guid runId);
-        byte[] GetInput(Guid runId);
+        FileStreamResult PrepareResultFile(Guid runId, string fileName);
+        FileStreamResult PrepareInputFile(Guid runId, string fileName);
     }
 }

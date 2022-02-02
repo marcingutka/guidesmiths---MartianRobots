@@ -53,16 +53,7 @@ namespace MartianRobots.Api.Controllers
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
             if (fileName.Length > 4 && !(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
 
-            var content = downloadService.GetResults(runId);
-
-            var stream = new MemoryStream(content);
-
-            var fileStream = new FileStreamResult(stream, "application/octet-stream")
-            {
-                FileDownloadName = fileName,
-            };
-
-            return fileStream;
+            return downloadService.PrepareResultFile(runId, fileName);
         }
 
         [HttpGet("input/{runId}/download")]
@@ -71,16 +62,7 @@ namespace MartianRobots.Api.Controllers
             var fileName = dataSetReadRepository.GetSetNameByRunId(runId);
             if (fileName.Length > 4 && !(fileName[^4..].ToLower() == txtExtension)) fileName += txtExtension;
 
-            var content = downloadService.GetInput(runId);
-
-            var stream = new MemoryStream(content);
-
-            var fileStream = new FileStreamResult(stream, "application/octet-stream")
-            {
-                FileDownloadName = fileName,
-            };
-
-            return fileStream;
+            return downloadService.PrepareInputFile(runId, fileName);
         }
     }
 }

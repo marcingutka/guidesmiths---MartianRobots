@@ -15,30 +15,35 @@ namespace MartianRobots.FileHandler.Mappers
 
         public (Grid Grid, IEnumerable<Robot> Robots, IEnumerable<RobotCommands> Commands) Map(List<string> data)
         {
+            Grid grid;
+            (IEnumerable<Robot>, IEnumerable<RobotCommands>) robots;
+
             try
             {
-                validator.Validate(data);
+                validator.Validate(data);            
+
+                grid = MapGrid(data[0]);
+
+                robots = MapRobots(data.Skip(1).ToList());
+
+                validator.CheckIfEachRobotStartsOnGrid(robots.Item1.ToList(), grid);
             }
             catch (ValidationException ex)
             {
                 throw ex;
             }
 
-            var grid = MapGrid(data[0]);
-
-            var robots = MapRobots(data.Skip(1).ToList());
-
             return (grid, robots.Item1, robots.Item2);
         }
 
-        private Grid MapGrid(string data)
+        private static Grid MapGrid(string data)
         {
             var lineSplit = data.Split(" ");
 
             return new Grid(int.Parse(lineSplit[0]), int.Parse(lineSplit[1]));
         }
 
-        private (IEnumerable<Robot>, IEnumerable<RobotCommands>) MapRobots(List<string> data)
+        private static (IEnumerable<Robot>, IEnumerable<RobotCommands>) MapRobots(List<string> data)
         {
             var robotList = new List<Robot>();
             var robotsCommands = new List<RobotCommands>();
@@ -62,7 +67,7 @@ namespace MartianRobots.FileHandler.Mappers
             return (robotList, robotsCommands);
         }
 
-        private Robot MapRobot(string robotPosition, int enumerator)
+        private static Robot MapRobot(string robotPosition, int enumerator)
         {
             var lineSplit = robotPosition.Split(" ");
 
@@ -79,7 +84,7 @@ namespace MartianRobots.FileHandler.Mappers
             return robot;
         }
 
-        private List<char> MapCommands(string commands)
+        private static List<char> MapCommands(string commands)
         {
             var commandList = new List<char>();
 

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using MartianRobots.Models;
 using MartianRobots.Models.Constants;
 
 namespace MartianRobots.FileHandler.Validator
@@ -21,6 +22,16 @@ namespace MartianRobots.FileHandler.Validator
             {
                 if (!robotPositionRgx.IsMatch(content[i])) throw new ValidationException($"Input robot position is in incorrect for robot No. {(i + 1) / 2}");
                 if (!robotCommandRgx.IsMatch(content[i + 1])) throw new ValidationException($"Input robot commands is in incorrect for robot No. {(i + 1) / 2}");
+            }
+
+            return true;
+        }
+
+        public bool CheckIfEachRobotStartsOnGrid(List<Robot> robots, Grid grid)
+        {
+            foreach (var robot in robots)
+            {
+                if (robot.Position.X > grid.X || robot.Position.Y > grid.Y) throw new ValidationException($"Initial position of robot No. {robot.Id} is outside the grid.");
             }
 
             return true;

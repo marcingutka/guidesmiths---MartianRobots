@@ -16,12 +16,12 @@ namespace MartianRobots.FileHandler.Validator
             var robotPositionRgx = new Regex(@"^([0-9]|[1-4]\d|[5][0])( )([0-9]|[1-4]\d|[5][0])( )([N]|[E]|[S]|[W])$");
             var robotCommandRgx = new Regex(@"^(" + GenerateRegexForCommands() +@"){1,100}$");
 
-            if (!gridRgx.IsMatch(content[0])) throw new ValidationException("Input grid data is in incorrect format");
+            if (!gridRgx.IsMatch(content[0])) throw new ValidationException("Grid input data is incorrect format");
 
             for (int i = 1; i < content.Count; i += 2)
             {
-                if (!robotPositionRgx.IsMatch(content[i])) throw new ValidationException($"Input robot position is in incorrect for robot No. {(i + 1) / 2}");
-                if (!robotCommandRgx.IsMatch(content[i + 1])) throw new ValidationException($"Input robot commands is in incorrect for robot No. {(i + 1) / 2}");
+                if (!robotPositionRgx.IsMatch(content[i])) throw new ValidationException($"Robot input position is incorrect for robot No. {(i + 1) / 2}");
+                if (!robotCommandRgx.IsMatch(content[i + 1])) throw new ValidationException($"Robot input commands is incorrect for robot No. {(i + 1) / 2}");
             }
 
             return true;

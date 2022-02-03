@@ -1,6 +1,6 @@
 import axios, { AxiosPromise  } from 'axios';
 import { basicUrl } from "./Common";
-import { RobotStep } from '../components/Model/IRobotStep';
+import { RobotStep } from '../components/Model/RobotStep';
 
 const baseApiUrl = basicUrl + "robots/";
 

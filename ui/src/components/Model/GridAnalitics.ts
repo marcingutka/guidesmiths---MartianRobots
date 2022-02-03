@@ -1,4 +1,4 @@
-import { Position, OrientationState } from "./IPosition";
+import { Position, OrientationState } from "./Position";
 
 export interface GridAnalitics {
     lostRobots: LostRobot[],

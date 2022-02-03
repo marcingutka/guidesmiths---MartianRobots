@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { DataSet } from "./Model/IDataSet";
+import { DataSet } from "./Model/DataSet";
 import { getDataSets, uploadFile, deleteDataSet } from '../services/DataSetApiRequest';
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';

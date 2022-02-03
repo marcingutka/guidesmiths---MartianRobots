@@ -1,5 +1,5 @@
 import React from "react";
-import { OrientationState, getOrientationStateName } from "../components/Model/IPosition";
+import { OrientationState, getOrientationStateName } from "../components/Model/Position";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps) =>

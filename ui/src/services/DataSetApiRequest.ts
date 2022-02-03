@@ -1,7 +1,7 @@
 import axios, {  AxiosPromise } from 'axios';
 import { basicUrl } from "./Common";
-import { DataSet } from '../components/Model/IDataSet'
-import { Position } from '../components/Model/IPosition'
+import { DataSet } from '../components/Model/DataSet'
+import { Position } from '../components/Model/Position'
 
 const baseApiUrl = basicUrl + "dataSet/";
 

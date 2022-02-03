@@ -1,6 +1,6 @@
 import axios, {  AxiosPromise } from 'axios';
 import { basicUrl } from "./Common";
-import { GridAnalitics } from '../components/Model/IGridAnalitics'
+import { GridAnalitics } from '../components/Model/GridAnalitics'
 
 const baseApiUrl = basicUrl + "analitics/grid/";
 

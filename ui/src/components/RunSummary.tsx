@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { GridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
-import { Position } from "./Model/IPosition";
+import { GridAnalitics, LostRobot, GridPoint} from "./Model/GridAnalitics";
+import { Position } from "./Model/Position";
 import { DisplayPoint } from "./Model/DisplayPoint";
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { getGridAnaliticsData } from "../services/GridAnaliticsApiRequest";
@@ -40,7 +40,7 @@ export const RunSummary = () =>
               </Col>
             </Row>
          {id && <React.Fragment>
-           <Row className="align-items-center justify-content-md-center" >
+           <Row className="justify-content-md-center" >
             <Col className="col-md-auto">
               <button type="button" className="btn btn-light download-button" onClick={() => inputDownloadHandler(id)}>Get Input File</button>
             </Col>
@@ -51,7 +51,7 @@ export const RunSummary = () =>
               {generateRobotDropDownList(robots, id)}
             </Col>
           </Row>
-          <Row className="align-items-center justify-content-md-center m-2">
+          <Row className="justify-content-md-center m-2">
             <Col className="justify-content-center col-md-3">
               {data && generateStatistics(data, robots)}
             </Col>

@@ -3,10 +3,10 @@ import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { generateGrid } from "../common/generateGrid";
 import { StatisticRow } from "../common/StatisticRow";
-import { RobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
+import { RobotStep, getRectangularMoveCommandName } from "./Model/RobotStep";
 import { getGridByRunId } from "../services/DataSetApiRequest";
 import { getRobotByRunIdRobotId } from "../services/RobotsApiRequest";
-import { Position, getOrientationStateName } from "./Model/IPosition";
+import { Position, getOrientationStateName } from "./Model/Position";
 import { DisplayPoint } from "./Model/DisplayPoint";
 
 export const RobotSummary = () =>

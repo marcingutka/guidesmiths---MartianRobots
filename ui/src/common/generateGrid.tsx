@@ -1,4 +1,4 @@
-import { Position } from "../components/Model/IPosition";
+import { Position } from "../components/Model/Position";
 import { GridPointElement} from "../common/GridPointElement";
 import { DisplayPoint } from "../components/Model/DisplayPoint";
 

@@ -35,7 +35,7 @@ function GenerateGridColumns(gridSize: Position, displayPoints: DisplayPoint[], 
   {
     let displayPoint: DisplayPoint = displayPoints.filter(dp => dp.coordinates.x === i && dp.coordinates.y === rowNo)[0]
 
-    columns.push(<GridPointElement x={i} y={rowNo} isDiscovered={displayPoint.isDiscovered} isLost={displayPoint.isLost} noOfRobots={displayPoint.robotsNumber?? 0} robotOrientation={displayPoint.orientation?? undefined}/>)
+    columns.push(<GridPointElement isDiscovered={displayPoint.isDiscovered} isLost={displayPoint.isLost} noOfRobots={displayPoint.robotsNumber?? 0} robotOrientation={displayPoint.orientation?? undefined}/>)
   }
   return columns;
 }

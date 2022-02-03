@@ -4,7 +4,7 @@ import { Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export const GridPointElement: React.FC<GridPointProps> = (props: GridPointProps) =>
 {
-  const { x, y, isDiscovered, isLost, noOfRobots, robotOrientation } = props;
+  const { isDiscovered, isLost, noOfRobots, robotOrientation } = props;
 
   const baseClassName: string = "grid-point-size-column ";
   const styleClassName: string = ApplyStyle(isDiscovered, isLost);
@@ -46,8 +46,6 @@ function ApplyRobotImg(isLost: boolean, robotOrientation: OrientationState): str
 }
 
 export interface GridPointProps {
-  x: number,
-  y: number,
   isDiscovered: boolean,
   isLost: boolean,
   noOfRobots?: number,

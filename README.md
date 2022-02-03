@@ -73,5 +73,12 @@
    this will create docker images and run them in containers. It can take up to 10 minutes,  
    c) after the container creation is completed, open your browser and go to http://localhost:3000  
    d) upload first .txt file and start analyzing.  
+   
+<b>7. Stack</b>  
+   Following technologies are used in this project:
+   - frontend: React.js,
+   - api & app logic: .Net 6,
+   - database: MongoDB,
+   - docker
   
   

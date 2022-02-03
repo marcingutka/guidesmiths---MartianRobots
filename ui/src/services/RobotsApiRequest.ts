@@ -4,12 +4,10 @@ import { RobotStep } from '../components/Model/IRobotStep';
 
 const baseApiUrl = basicUrl + "robots/";
 
-export async function getRobotsByRunId(runId: string): Promise<AxiosPromise<number>> {
-    const res = await axios.get(baseApiUrl + runId); 
-    return res;
+export function getRobotsByRunId(runId: string): AxiosPromise<number> {
+    return axios.get(baseApiUrl + runId);
 }
 
-export async function getRobotByRunIdRobotId(runId: string, robotId: string): Promise<AxiosPromise<RobotStep[]>> {
-    const res = await axios.get(baseApiUrl + runId + "/robot/" + robotId); 
-    return res;
+export function getRobotByRunIdRobotId(runId: string, robotId: string): AxiosPromise<RobotStep[]> {
+    return axios.get(baseApiUrl + runId + "/robot/" + robotId);
 }

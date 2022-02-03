@@ -4,7 +4,6 @@ import { GridAnalitics } from '../components/Model/IGridAnalitics'
 
 const baseApiUrl = basicUrl + "analitics/grid/";
 
-export async function getGridAnaliticsData(runId: string): Promise<AxiosPromise<GridAnalitics>> {
-    const res = await axios.get(baseApiUrl + runId); 
-    return res;
+export function getGridAnaliticsData(runId: string): AxiosPromise<GridAnalitics> {
+    return axios.get(baseApiUrl + runId);
 }

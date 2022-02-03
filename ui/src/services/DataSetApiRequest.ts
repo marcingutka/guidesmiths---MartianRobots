@@ -5,14 +5,12 @@ import { Position } from '../components/Model/IPosition'
 
 const baseApiUrl = basicUrl + "dataSet/";
 
-export async function getDataSets(): Promise<AxiosPromise<DataSet[]>> {
-    const res = await axios.get(baseApiUrl); 
-    return res;
+export function getDataSets(): AxiosPromise<DataSet[]> {
+    return axios.get(baseApiUrl); 
 }
 
-export async function getGridByRunId(runId: string): Promise<AxiosPromise<Position>> {
-    const res = await axios.get(baseApiUrl + "grid/" + runId); 
-    return res;
+export function getGridByRunId(runId: string): AxiosPromise<Position> {
+    return axios.get(baseApiUrl + "grid/" + runId); 
 }
 
 export function uploadFile(file: File, runName: string): AxiosPromise<any> {
@@ -22,16 +20,14 @@ export function uploadFile(file: File, runName: string): AxiosPromise<any> {
     return axios.post(baseApiUrl + "upload/" + name, formData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
 
-export async function deleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
-    return await axios.delete(baseApiUrl + runId);
+export function deleteDataSet(runId: string): AxiosPromise<any> {    
+    return axios.delete(baseApiUrl + runId);
 }
 
-export async function getRunResults(runId: string): Promise<AxiosPromise<Blob>> {
-    const res = axios.get(baseApiUrl + "results/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
-    return res;
+export function getRunResults(runId: string): AxiosPromise<Blob> {
+    return axios.get(baseApiUrl + "results/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}});
 }
 
-export async function getRunInput(runId: string): Promise<AxiosPromise<Blob>> {
-    const res = await axios.get(baseApiUrl + "input/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}}); 
-    return res;
+export function getRunInput(runId: string): AxiosPromise<Blob> {
+    return axios.get(baseApiUrl + "input/" + runId + "/download", {headers: {"Content-Type": "application/octet-stream"}});
 }

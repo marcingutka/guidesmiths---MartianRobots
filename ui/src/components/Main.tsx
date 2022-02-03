@@ -108,7 +108,7 @@ function GenerateDataSetList(navigate: NavigateFunction, resultsDownloadHandler:
 {
   return <React.Fragment>
   {paginatedData.map((x) => { return (
-    <Row className="m-2 justify-content-center data-set-rows">
+    <Row key={x.runId} className="m-2 justify-content-center data-set-rows">
       <Col className=" justify-content-center ">
         <button type="button" className="btn btn-link" onClick={() => navigate('/run/' + x.runId)}>{x.name.length > 15 ? x.name.substring(0, 12) + "..." : x.name}</button>
       </Col>

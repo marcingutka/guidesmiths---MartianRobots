@@ -111,7 +111,6 @@ function mapDataForDisplay(gridSize: Position, gridPoints: GridPoint[], lostRobo
   {
     for(let j = 0; j <= gridSize.x; j++)
     {
-      console.log("gridPoints", gridPoints);
       let gridPoint = gridPoints.filter(gp => gp.coordinates.x === j && gp.coordinates.y === i)[0];
       let isLostRobot = lostRobots.some(lr => lr.position.x === j && lr.position.y === i);
       let displayPoint = new DisplayPoint({x: j, y: i}, !!gridPoint, isLostRobot, gridPoint?.robotsNumber);

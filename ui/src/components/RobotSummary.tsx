@@ -52,11 +52,8 @@ export const RobotSummary = () =>
         else setStepNo(newStepNo);
     }
 
-    console.log("Steps", steps);
-
     const isPreviousDisabled: boolean = stepNo <= 1;
     const isNextDisabled: boolean = stepNo >= steps.length;
-
 
     const stepsToDisplay: RobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
     const displayPoints: DisplayPoint[] = mapDataForDisplay(gridSize, stepsToDisplay);

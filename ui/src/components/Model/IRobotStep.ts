@@ -1,6 +1,6 @@
 import { Position, OrientationState } from "./IPosition";
 
-export interface IRobotStep {
+export interface RobotStep {
     robotId: number,
     stepNumber: number,
     position: Position,

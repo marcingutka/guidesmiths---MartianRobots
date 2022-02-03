@@ -1,6 +1,6 @@
 import { Position, OrientationState } from "./IPosition";
 
-export interface IGridAnalitics {
+export interface GridAnalitics {
     lostRobots: LostRobot[],
     discoveredArea: AreaAnalitics,
     gridPoints: GridPoint[],

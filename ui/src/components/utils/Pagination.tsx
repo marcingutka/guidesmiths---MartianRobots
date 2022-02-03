@@ -1,6 +1,7 @@
 import React from "react";
+import { PaginationButton } from "./PaginationButton";
 
-export const Pagination = (props: IPaginationProps) =>
+export const Pagination = (props: PaginationProps) =>
 {
   const {page, pages, onClick} = props;
 
@@ -11,6 +12,7 @@ export const Pagination = (props: IPaginationProps) =>
   {
     buttons = 
     <React.Fragment>
+      
       <li className="page-item ">
         <button className="page-link" onClick={() => onClick(1)}>1</button>
       </li>
@@ -70,7 +72,7 @@ export const Pagination = (props: IPaginationProps) =>
   )
 }
 
-export interface IPaginationProps {
+export interface PaginationProps {
   pages: number;
   page: number;
   onClick(page: number): any; 

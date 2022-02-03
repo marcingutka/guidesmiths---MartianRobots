@@ -1,3 +1,3 @@
-export interface IRobotList {
+export interface RobotList {
     numberOfRunRobots: number
 }

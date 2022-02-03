@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { IGridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
+import { GridAnalitics, LostRobot, GridPoint} from "./Model/IGridAnalitics";
 import { Position } from "./Model/IPosition";
 import { DisplayPoint } from "./Model/DisplayPoint";
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
@@ -13,7 +13,7 @@ import { generateGrid } from "../common/generateGrid";
 export const RunSummary = () =>
 {
   const [robots, setRobots] = React.useState(0);
-  const [data, setData] = React.useState<IGridAnalitics>();
+  const [data, setData] = React.useState<GridAnalitics>();
   const { id } = useParams();
 
   const fetchDataAsync = async () => {
@@ -65,7 +65,7 @@ export const RunSummary = () =>
     )
 }
 
-function generateStatistics(gridData: IGridAnalitics, noOfRobots: number): JSX.Element
+function generateStatistics(gridData: GridAnalitics, noOfRobots: number): JSX.Element
 {
   return (
     <React.Fragment>

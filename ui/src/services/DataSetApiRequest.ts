@@ -1,11 +1,11 @@
 import axios, {  AxiosPromise } from 'axios';
 import { basicUrl } from "./Common";
-import { IDataSet } from '../components/Model/IDataSet'
+import { DataSet } from '../components/Model/IDataSet'
 import { Position } from '../components/Model/IPosition'
 
 const baseApiUrl = basicUrl + "dataSet/";
 
-export async function getDataSets(): Promise<AxiosPromise<IDataSet[]>> {
+export async function getDataSets(): Promise<AxiosPromise<DataSet[]>> {
     const res = await axios.get(baseApiUrl); 
     return res;
 }
@@ -23,7 +23,7 @@ export function uploadFile(file: File, runName: string): AxiosPromise<any> {
 }
 
 export async function deleteDataSet(runId: string): Promise<AxiosPromise<any>> {    
-    return await axios.delete(baseApiUrl + runId, {headers: {'Access-Control-Allow-Origin': '*'}});
+    return await axios.delete(baseApiUrl + runId);
 }
 
 export async function getRunResults(runId: string): Promise<AxiosPromise<Blob>> {

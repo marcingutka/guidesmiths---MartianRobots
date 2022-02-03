@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
 import { generateGrid } from "../common/generateGrid";
 import { StatisticRow } from "../common/StatisticRow";
-import { IRobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
+import { RobotStep, getRectangularMoveCommandName } from "./Model/IRobotStep";
 import { getGridByRunId } from "../services/DataSetApiRequest";
 import { getRobotByRunIdRobotId } from "../services/RobotsApiRequest";
 import { Position, getOrientationStateName } from "./Model/IPosition";
@@ -13,8 +13,8 @@ export const RobotSummary = () =>
 {
     const {runId, robotId} = useParams();
     const [gridSize, setGridSize] = useState<Position>({x: 0, y: 0});
-    const [steps, setSteps] = useState<IRobotStep[]>([]);
-    const [currentStep, setCurrentStep] = useState<IRobotStep>();
+    const [steps, setSteps] = useState<RobotStep[]>([]);
+    const [currentStep, setCurrentStep] = useState<RobotStep>();
     const [stepNo, setStepNo] = useState(1);
 
     const fetchDataAsync = async () => {
@@ -29,9 +29,9 @@ export const RobotSummary = () =>
         }
       }
 
-    function assignCurrentStep(steps: IRobotStep[], stepNo: number): void
+    function assignCurrentStep(steps: RobotStep[], stepNo: number): void
     {
-        const newStep: IRobotStep = steps.filter(s => s.stepNumber === stepNo)[0]; 
+        const newStep: RobotStep = steps.filter(s => s.stepNumber === stepNo)[0]; 
         setCurrentStep(newStep);    
     }
     
@@ -58,7 +58,7 @@ export const RobotSummary = () =>
     const isNextDisabled: boolean = stepNo >= steps.length;
 
 
-    const stepsToDisplay: IRobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
+    const stepsToDisplay: RobotStep[] = steps.filter(s => s.stepNumber <= stepNo);
     const displayPoints: DisplayPoint[] = mapDataForDisplay(gridSize, stepsToDisplay);
 
     return (
@@ -95,10 +95,10 @@ export const RobotSummary = () =>
     )
 }
 
-function mapDataForDisplay(gridSize: Position, robotSteps: IRobotStep[]) : DisplayPoint[] {
+function mapDataForDisplay(gridSize: Position, robotSteps: RobotStep[]) : DisplayPoint[] {
     let displayPoints: DisplayPoint[]=[];
 
-    let currentStep: IRobotStep = robotSteps[robotSteps.length-1];
+    let currentStep: RobotStep = robotSteps[robotSteps.length-1];
   
     for (let i = 0; i <= gridSize.y; i++)
     {

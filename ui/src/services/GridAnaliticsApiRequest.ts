@@ -1,10 +1,10 @@
 import axios, {  AxiosPromise } from 'axios';
 import { basicUrl } from "./Common";
-import { IGridAnalitics } from '../components/Model/IGridAnalitics'
+import { GridAnalitics } from '../components/Model/IGridAnalitics'
 
 const baseApiUrl = basicUrl + "analitics/grid/";
 
-export async function getGridAnaliticsData(runId: string): Promise<AxiosPromise<IGridAnalitics>> {
+export async function getGridAnaliticsData(runId: string): Promise<AxiosPromise<GridAnalitics>> {
     const res = await axios.get(baseApiUrl + runId); 
     return res;
 }

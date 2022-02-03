@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, NavigateFunction } from "react-router";
 import { Col, Container, Row } from "react-bootstrap";
-import { IDataSet } from "./Model/IDataSet";
+import { DataSet } from "./Model/IDataSet";
 import { getDataSets, uploadFile, deleteDataSet } from '../services/DataSetApiRequest';
 import { resultsDownloadHandler, inputDownloadHandler } from "../common/downloadHandler";
 import { Pagination } from './utils/Pagination';
@@ -12,7 +12,7 @@ export const Main = () =>
   const displayedItem: number = 10;
   const [page, setPage] = React.useState(1);
   const [pages, setPages] = React.useState(1);
-  const [data, setData] = React.useState<IDataSet[]>([]);
+  const [data, setData] = React.useState<DataSet[]>([]);
   const [selectedFile, setSelectedFile] = React.useState<File>();
   const [selectedName, setSelectedName] = React.useState<string>("");
   const [errorMsg, setErrorMsg] = React.useState<string | undefined>();
@@ -52,7 +52,7 @@ export const Main = () =>
 
   const isPaginated: boolean = data.length > displayedItem;
 
-  const paginatedData: IDataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
+  const paginatedData: DataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
 
   return (
     <React.Fragment>
@@ -98,13 +98,13 @@ export const Main = () =>
   )
 }
 
-function Paginate(data: IDataSet[], page: number, elementNumber: number): IDataSet[] {
+function Paginate(data: DataSet[], page: number, elementNumber: number): DataSet[] {
   const startIndex = (page - 1) * elementNumber;
   const endIndex = data.length > startIndex + elementNumber ? startIndex + elementNumber : data.length;
   return data.slice(startIndex, endIndex);
 }
 
-function GenerateDataSetList(navigate: NavigateFunction, resultsDownloadHandler: (runId: string) => void, inputDownloadHandler: (runId: string) => void, deleteHandler: (runId: string) => void, paginatedData: IDataSet[]): JSX.Element
+function GenerateDataSetList(navigate: NavigateFunction, resultsDownloadHandler: (runId: string) => void, inputDownloadHandler: (runId: string) => void, deleteHandler: (runId: string) => void, paginatedData: DataSet[]): JSX.Element
 {
   return <React.Fragment>
   {paginatedData.map((x) => { return (

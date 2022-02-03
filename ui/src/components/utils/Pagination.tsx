@@ -12,46 +12,27 @@ export const Pagination = (props: PaginationProps) =>
   {
     buttons = 
     <React.Fragment>
-      
-      <li className="page-item ">
-        <button className="page-link" onClick={() => onClick(1)}>1</button>
-      </li>
-      <li className="page-item">
-        <button className="page-link" onClick={() => onClick(2)}>2</button>
-      </li>
-      {pages >= 3 && <li className="page-item">
-        <button className="page-link" onClick={() => onClick(3)}>3</button>
-      </li>}
+      <PaginationButton page={1} onClick={onClick} />
+      <PaginationButton page={2} onClick={onClick} />
+      {pages >= 3 && <PaginationButton page={3} onClick={onClick} />}
     </React.Fragment>
   }
   else if (page === pages)
   {
     buttons = 
     <React.Fragment>
-      <li className="page-item ">
-        <button className="page-link" onClick={() => onClick(page - 2)}>{ page - 2 }</button>
-      </li>
-      <li className="page-item">
-        <button className="page-link" onClick={() => onClick(page - 1)}>{ page - 1 }</button>
-      </li>
-      {<li className="page-item">
-        <button className="page-link" onClick={() => onClick(page)}>{ page }</button>
-      </li>}
+      <PaginationButton page={page - 2} onClick={onClick} />
+      <PaginationButton page={page - 1} onClick={onClick} />
+      <PaginationButton page={page} onClick={onClick} />
     </React.Fragment>
   }
   else
   {
     buttons = 
     <React.Fragment>
-      <li className="page-item ">
-        <button className="page-link" onClick={() => onClick(page - 1)}>{ page - 1 }</button>
-      </li>
-      <li className="page-item">
-        <button className="page-link" onClick={() => onClick(page)}>{ page }</button>
-      </li>
-      {<li className="page-item">
-        <button className="page-link" onClick={() => onClick(page + 1)}>{ page + 1 }</button>
-      </li>}
+      <PaginationButton page={page - 1} onClick={onClick} />
+      <PaginationButton page={page} onClick={onClick} />
+      <PaginationButton page={page + 1} onClick={onClick} />
     </React.Fragment>
   }
 
@@ -59,13 +40,9 @@ export const Pagination = (props: PaginationProps) =>
     <React.Fragment>
       <nav aria-label="...">
         <ul className="pagination justify-content-center">
-          <li className="page-item">
-            <button className="page-link" onClick={() => onClick(1)}>First</button> 
-          </li>
+          <PaginationButton page={1} onClick={onClick}>First</PaginationButton>
           {buttons}
-          <li className="page-item">
-            <button className="page-link" onClick={() => onClick(pages)}>Last</button>  
-          </li>
+          <PaginationButton page={pages} onClick={onClick}>Last</PaginationButton>
         </ul>
       </nav>
     </React.Fragment>

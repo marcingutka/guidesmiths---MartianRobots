@@ -66,7 +66,11 @@
 
    Steps:   
    a) clone or download this repository (guidesmiths---MartianRobots) into your local machine,  
-   b) go to the local repository main directory and open command line and type "docker compose up", this will create docker images and run them in containers. It can take up to 10 minutes,  
+   b) go to the local repository main directory and open command line and type 
+   ```sh
+   docker compose up
+   ```
+   this will create docker images and run them in containers. It can take up to 10 minutes,  
    c) after the container creation is completed, open your browser and go to http://localhost:3000  
    d) upload first .txt file and start analyzing.  
   

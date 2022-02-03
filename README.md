@@ -70,7 +70,7 @@
    ```sh
    docker compose up
    ```
-   this will create docker images and run them in containers. It can take up to 10 minutes,  
+   this will create docker images and run them in containers. It can take up to 10 minutes. To start application again use the same command. <b>Please keep in mind      that the data is stored only for one container run.</b>  
    c) after the container creation is completed, open your browser and go to http://localhost:3000  
    d) upload first .txt file and start analyzing.  
    

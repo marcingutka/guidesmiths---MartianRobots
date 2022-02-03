@@ -18,6 +18,6 @@ ARG REACT_APP_HOST_IP_ADDRESS
 ENV REACT_APP_HOST_IP_ADDRESS http://localhost:5000
 # add app
 COPY . ./
-
+EXPOSE 3000
 # start app
 CMD ["npm", "start"]

@@ -46,7 +46,7 @@ export const Main = () =>
 
   const deleteHandler = async (runId: string) => {
     await deleteDataSet(runId);
-    const newData = data.filter(x => x.runId != runId);
+    const newData = data.filter(x => x.runId !== runId);
     setData(newData);
   }
 
@@ -55,7 +55,7 @@ export const Main = () =>
   const paginatedData: DataSet[] = isPaginated? Paginate(data, page, displayedItem) : data;
 
   return (
-    <React.Fragment>
+    <React.Fragment>ya
       <Container className="pageMargins ">
         {errorMsg && <p className="error">{errorMsg}</p>}
         <Row className="justify-content-md-center">          
